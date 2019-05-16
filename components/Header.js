@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import * as basicScroll from 'basicscroll';
+import BusinessCard from './BusinessCard';
 
 class Header extends Component
 {
@@ -12,23 +13,12 @@ class Header extends Component
     {
         return (
             <div className="header-container">
-                <div className="business-card"></div>
-                <div className="business-card-text"></div>
+                <BusinessCard />
                 <style jsx>{`
                     .header-container {
                         position: relative;
                         width: 100%;
                         height: 100vh;
-                    }
-                    .business-card {
-                        position: absolute;
-                        width: 100%;
-                        height: 100%;
-                        max-width: 90vw;
-                        max-height: 30vh;
-                        background-image: url("/static/business-card.svg");
-                        background-repeat: no-repeat;
-                        background-position: center;
                     }
                 `}</style>
             </div>
