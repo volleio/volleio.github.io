@@ -7,9 +7,8 @@ export default function Layout(props) {
         {props.children}
         <style jsx>
         {`
-          .layout
-          {
-            @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400');
+          @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400');
+          .layout {
             font-family: 'Source Sans Pro', sans-serif;
             color: #323232;
           }
@@ -21,6 +20,10 @@ export default function Layout(props) {
           *:before,
           *:after {
             box-sizing: border-box;
+          }
+
+          body {
+            font-size: 100%;
           }
         `}
         </style>
