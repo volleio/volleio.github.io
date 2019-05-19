@@ -26,7 +26,7 @@ export default function Layout(props) {
 
           html {
             font-size: 100%;
-            --header-height: 100vh;
+            --header-height-out: 100vh;
           }
 
           body {

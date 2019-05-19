@@ -55,14 +55,17 @@ export default function BusinessCard(props) {
             align-items: center;
             width: 500px;
             height: 250px;
-            transform: scale(calc(0.6 + (0.4 * var(--header-height))));
+            transform: scale(calc(0.6 + (0.4 * var(--header-height-out)))) 
+                       translateY(calc(-140px * var(--header-height-in)));
             margin: auto;
             padding-top: 4px;
 
-            background-color: #FFF;
+            background-color: rgba(255, 255, 255, var(--header-fade-out));
 
-            box-shadow: 0 0 4px 2px #32323232;
+            box-shadow: 0 0 4px 2px rgba(50, 50, 50, calc(var(--header-fade-out) / 2 - 0.3));
             border-radius: 2px;
+
+            transition: transform 0.1s ease-in-out;
           }
 
           .business-card__text {
@@ -75,6 +78,10 @@ export default function BusinessCard(props) {
 
           .business-card___text__at {
             color: #C4C4C4;
+          }
+
+          .business-card__label {
+            opacity: var(--header-fade-out);
           }
 
           .business-card__label--top {

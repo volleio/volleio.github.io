@@ -21,17 +21,18 @@ class Header extends Component
                     .header-container {
                         position: fixed;
                         width: 100%;
-                        height: calc(var(--header-height) * 100vh);
-                        min-height: 120px;
+                        height: calc(var(--header-height-out) * 100vh);
+                        min-height: 80px;
                         display: flex;
 
                         background-color: #FFF;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, calc((var(--header-height-in) - 0.9) * 2))
                     }
 
                     .header-scroll {
                         width: 100%;
-                        height: calc(var(--header-height) * 100vh);
-                        min-height: 160px;
+                        height: calc(var(--header-height-out) * 100vh + 100px);
+                        min-height: 240px;
                     }
                 `}</style>
             </div>
@@ -40,19 +41,38 @@ class Header extends Component
     
     SetupBasicScroll()
     {
-        const instance = basicScroll.create({
-            //elem: ReactDOM.findDOMNode(this),
+        const headerHeight = basicScroll.create({
             from: '0vh',
             to: '100vh',
             props: {
-                '--header-height': {
+                '--header-height-out': {
                     from: "1",
                     to: "0"
+                },
+                '--header-height-in': {
+                    from: "0",
+                    to: "1"
                 }
             }
         });
         
-        instance.start();
+        const headerFade = basicScroll.create({
+            from: '50vh',
+            to: '75vh',
+            props: {
+                '--header-fade-out': {
+                    from: "1",
+                    to: "0"
+                },
+                '--header-fade-in': {
+                    from: "0",
+                    to: "1"
+                }
+            }
+        });
+
+        headerHeight.start();
+        headerFade.start();
     }
     
     componentDidMount()
