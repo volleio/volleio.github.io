@@ -21,7 +21,7 @@ export default function BusinessCard(props) {
             </div>
             <div className="bracket bracket--horiz"></div>
             <div className="bracket bracket--vert1"></div>
-            <div className="icon icon--smiley"></div>
+            <div className="icon icon--me"></div>
           </div>
           <div>
             <div className="bracket-group">
@@ -30,14 +30,18 @@ export default function BusinessCard(props) {
             </div>
             <div className="bracket bracket--horiz"></div>
             <div className="bracket-group bracket-group--even">
-              <div className="bracket bracket--vert1"></div>
-              <div className="bracket bracket--vert1"></div>
-              <div className="bracket bracket--vert1"></div>
-            </div>
-            <div className="bracket-group bracket-group--even">
-              <div className="icon icon--insta"></div>
-              <div className="icon icon--twitter"></div>
-              <div className="icon icon--github"></div>
+              <div>
+                <div className="bracket bracket--vert1"></div>
+                <div className="icon icon--insta"></div>
+              </div>
+              <div>
+                <div className="bracket bracket--vert1"></div>
+                <div className="icon icon--twitter"></div>
+              </div>
+              <div>
+                <div className="bracket bracket--vert1"></div>
+                <div className="icon icon--github"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -51,15 +55,14 @@ export default function BusinessCard(props) {
             align-items: center;
             width: 500px;
             height: 250px;
+            transform: scale(calc(0.6 + (0.4 * var(--header-height))));
             margin: auto;
             padding-top: 4px;
 
             background-color: #FFF;
-            background-image: url("/static/business-card.svg");
-            background-positoin: center;
 
-            border: 1px solid black;
-            border-radius: 1px;
+            box-shadow: 0 0 4px 2px #32323232;
+            border-radius: 2px;
           }
 
           .business-card__text {
@@ -109,7 +112,14 @@ export default function BusinessCard(props) {
           }
 
           .bracket-group.bracket-group--even {
-            justify-content: space-evenly;
+            justify-content: center;
+          }
+
+          .bracket-group.bracket-group--even > div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 4px;
           }
 
           .bracket {
@@ -136,25 +146,27 @@ export default function BusinessCard(props) {
             height: 24px;
             background-repeat: no-repeat;
             background-position: center;
+            background-size: contain;
+            margin: 4px;
           }
 
-          .icon-email {
+          .icon--email {
             background-image: url("/static/icon-email.svg");
           }
 
-          .icon-smiley {
-            background-image: url("/static/icon-smiley.svg");
+          .icon--me {
+            background-image: url("/static/icon-me.svg");
           }
 
-          .icon-insta {
+          .icon--insta {
             background-image: url("/static/icon-insta.svg");
           }
 
-          .icon-twitter {
+          .icon--twitter {
             background-image: url("/static/icon-twitter.svg");
           }
 
-          .icon-github {
+          .icon--github {
             background-image: url("/static/icon-github.svg");
           }
         `}

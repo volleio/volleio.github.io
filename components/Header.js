@@ -12,13 +12,26 @@ class Header extends Component
     render() 
     {
         return (
-            <div className="header-container">
-                <BusinessCard />
+            <div className="header">
+                <div className="header-container">
+                    <BusinessCard />
+                </div>
+                <div className="header-scroll"></div>
                 <style jsx>{`
                     .header-container {
-                        position: relative;
+                        position: fixed;
                         width: 100%;
-                        height: 100vh;
+                        height: calc(var(--header-height) * 100vh);
+                        min-height: 120px;
+                        display: flex;
+
+                        background-color: #FFF;
+                    }
+
+                    .header-scroll {
+                        width: 100%;
+                        height: calc(var(--header-height) * 100vh);
+                        min-height: 160px;
                     }
                 `}</style>
             </div>
@@ -28,13 +41,13 @@ class Header extends Component
     SetupBasicScroll()
     {
         const instance = basicScroll.create({
-            elem: ReactDOM.findDOMNode(this),
-            from: 'top-top',
-            to: 'bottom-middle',
+            //elem: ReactDOM.findDOMNode(this),
+            from: '0vh',
+            to: '100vh',
             props: {
-                '--header-position': {
-                    from: 1,
-                    to: 0
+                '--header-height': {
+                    from: "1",
+                    to: "0"
                 }
             }
         });

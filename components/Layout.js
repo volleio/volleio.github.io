@@ -11,6 +11,8 @@ export default function Layout(props) {
           .layout {
             font-family: 'Source Sans Pro', sans-serif;
             color: #323232;
+            min-height: 100vh;
+            margin-bottom: 50vh;
           }
         `}
         </style>
@@ -22,8 +24,13 @@ export default function Layout(props) {
             box-sizing: border-box;
           }
 
-          body {
+          html {
             font-size: 100%;
+            --header-height: 100vh;
+          }
+
+          body {
+            margin: 0;
           }
         `}
         </style>
