@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "basicscroll": "^3.0.2",
-    "move-cli": "^1.2.1",
+    "ncp": "^2.0.0",
     "next": "^8.1.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -17,8 +17,8 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "deploy": "next build && next export && npm run export-move && npm run export-delete",
-    "export-move": "move-cli out/index.html ./index.html && move-cli out/404.html ./404.html && move-cli out/_next/ ./_next/",
+    "deploy": "next build && next export && npm run export-copy && npm run export-delete",
+    "export-copy": "ncp out/index.html ./index.html && ncp out/404.html ./404.html && ncp out/_next/ ./_next/",
     "export-delete": "rimraf out/"
   },
   "keywords": [],
