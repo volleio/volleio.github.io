@@ -24,6 +24,7 @@ class Header extends Component
                         height: calc(var(--header-height-out) * 100vh);
                         min-height: 80px;
                         display: flex;
+                        justify-content: center;
 
                         background-color: #FFF;
                         box-shadow: 0 0 10px rgba(0, 0, 0, calc((var(--header-height-in) - 0.9) * 2))
@@ -32,7 +33,7 @@ class Header extends Component
                     .header-scroll {
                         width: 100%;
                         height: calc(var(--header-height-out) * 100vh + 100px);
-                        min-height: 240px;
+                        min-height: 300px;
                     }
                 `}</style>
             </div>
