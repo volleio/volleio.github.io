@@ -145,7 +145,7 @@ class BusinessCard extends Component {
             box-shadow: 0 1px 4px 2px rgba(50, 50, 50, calc(var(--header-fade-out) / 2 - 0.3));
             border-radius: 2px;
 
-            transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+            transition: box-shadow 0.1s ease-in-out;
           }
 
           @media (min-width: 900px) {

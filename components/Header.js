@@ -32,8 +32,8 @@ class Header extends Component
 
                     .header-scroll {
                         width: 100%;
-                        height: calc(var(--header-height-out) * 100vh + 100px);
-                        min-height: 300px;
+                        height: calc(var(--header-height-out) * 100vh + 300px);
+                        min-height: 400px;
                     }
                 `}</style>
             </div>
@@ -44,7 +44,7 @@ class Header extends Component
     {
         const headerHeight = basicScroll.create({
             from: '0vh',
-            to: '100vh',
+            to: '200vh',
             props: {
                 '--header-height-out': {
                     from: "1",
@@ -58,8 +58,8 @@ class Header extends Component
         });
         
         const headerFade = basicScroll.create({
-            from: '50vh',
-            to: '75vh',
+            from: '100vh',
+            to: '150vh',
             props: {
                 '--header-fade-out': {
                     from: "1",
