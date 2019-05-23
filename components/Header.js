@@ -25,16 +25,25 @@ class Header extends Component
                         min-height: 80px;
                         display: flex;
                         justify-content: center;
+                        overflow: hidden;
 
                         background-color: #FFF;
-                        box-shadow: 0 0 10px rgba(0, 0, 0, calc((var(--header-height-in) - 0.9) * 2))
+                        box-shadow: 0 0 10px rgba(0, 0, 0, calc((var(--header-height-in) - 0.9) * 2));
                     }
 
                     .header-scroll {
                         width: 100%;
-                        height: calc(var(--header-height-out) * 100vh + 300px);
-                        min-height: 400px;
+                        height: calc(var(--header-height-out) * 100vh + 100px);
+                        min-height: 280px;
                     }
+                `}</style>
+                <style jsx global>{`
+                  html {
+                    --header-height-out: 1;
+                    --header-height-in: 0;
+                    --header-fade-out: 1;
+                    --header-fade-in: 0;
+                  }  
                 `}</style>
             </div>
         )

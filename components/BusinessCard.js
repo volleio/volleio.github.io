@@ -168,10 +168,6 @@ class BusinessCard extends Component {
                         translateY(calc(-140px * var(--header-height-in)));
             }
           }
-
-          {/* .business-card-container:hover {
-            box-shadow: 0 2px 10px 2px rgba(50, 50, 50, calc(var(--header-fade-out) / 2 - 0.3));
-          } */}
           
           .business-card__text {
             position: absolute;
@@ -278,8 +274,9 @@ class BusinessCard extends Component {
             box-sizing: content-box;
             border: 8px solid transparent;
 
-            transition: all 0.1s ease-in-out;
+            pointer-events: var(--header-fade-disabled);
             cursor: pointer;
+            transition: all 0.1s ease-in-out;
           }
 
           .icon-bracket-group.hover .icon {
