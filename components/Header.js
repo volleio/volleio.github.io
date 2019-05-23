@@ -5,16 +5,70 @@ import BusinessCard from './BusinessCard';
 
 class Header extends Component
 {
-    constructor(props){
+    constructor(props)
+    {
         super(props);
+    }
+
+    onMouseEnterContainer(evt)
+    {
+        if (parseFloat(document.documentElement.style.getPropertyValue("--header-height-out")) != 0)
+            return;
+
+        const headerContainer = evt.currentTarget;
+        const businessCardContainer = headerContainer.querySelector(".business-card-container");
+        const businessCardSizer = businessCardContainer.querySelector(".business-card-sizer");
+        
+        headerContainer.style.setProperty("--header-height-out", "0.2");
+        headerContainer.style.setProperty("--header-height-in", "0.8");
+        headerContainer.style.setProperty("--header-fade-out", "1");
+        headerContainer.style.setProperty("--header-fade-in", "0");
+        
+        businessCardContainer.style.marginTop = "0px";
+        businessCardContainer.style.transition = "transform 0.1s ease-in-out, margin-top 0.1s ease-in-out";
+        businessCardContainer.offsetHeight;
+        businessCardContainer.style.marginTop = "40px";
+
+        headerContainer.style.height = "0";
+        headerContainer.style.overflow = "visible";
+
+        businessCardContainer.style.width = headerContainer.offsetWidth * 2 + "px";
+        businessCardSizer.style.width = headerContainer.offsetWidth * 2 + "px";
+    }
+
+    onMouseLeaveContainer(evt)
+    {
+        const headerContainer = evt.currentTarget;        
+        const businessCardContainer = headerContainer.querySelector(".business-card-container");
+        const businessCardSizer = businessCardContainer.querySelector(".business-card-sizer");
+
+        headerContainer.style.setProperty("--header-height-out", "");
+        headerContainer.style.setProperty("--header-height-in", "");
+        headerContainer.style.setProperty("--header-fade-out", "");
+        headerContainer.style.setProperty("--header-fade-in", "");
+        
+        businessCardContainer.style.transition = "transform 0.1s ease-in-out, margin-top 0.1s ease-in-out";
+        businessCardContainer.style.marginTop = "0px";
+        headerContainer.style.height = "";
+        headerContainer.style.overflow = "";
+        
+        businessCardContainer.style.width = "";
+        businessCardSizer.style.width = "";
+    }
+
+    onTransitionEnd(evt)
+    {
+        evt.currentTarget.style.transition = "";
+        if (evt.currentTarget.style.marginTop == "0px")
+            evt.currentTarget.style.marginTop = "";
     }
 
     render() 
     {
         return (
             <div className="header">
-                <div className="header-container">
-                    <BusinessCard />
+                <div className="header-container" onMouseEnter={this.onMouseEnterContainer} onMouseLeave={this.onMouseLeaveContainer}>
+                    <BusinessCard onTransitionEnd={this.onTransitionEnd} />
                 </div>
                 <div className="header-scroll"></div>
                 <style jsx>{`
@@ -33,7 +87,7 @@ class Header extends Component
 
                     .header-scroll {
                         width: 100%;
-                        height: calc(var(--header-height-out) * 100vh + 100px);
+                        height: calc(var(--header-height-out) * 100vh + 300px);
                         min-height: 280px;
                     }
                 `}</style>

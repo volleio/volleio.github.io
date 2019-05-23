@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 
-class BusinessCard extends Component {
-  constructor(props) {
+class BusinessCard extends Component 
+{
+  constructor(props) 
+  {
       super(props);
   }
 
-  onIconMouseOver(evt) {
+  onIconMouseOver(evt) 
+  {
     const icon = evt.target;
     const iconBracketGroup = icon.closest(".icon-bracket-group");
     const iconLabel = icon.closest(".business-card__label");
@@ -32,7 +35,8 @@ class BusinessCard extends Component {
     }
   }
 
-  onIconMouseOut(evt) {
+  onIconMouseOut(evt) 
+  {
     const icon = evt.target;
     const iconBracketGroup = icon.closest(".icon-bracket-group");
     const iconLabel = icon.closest(".business-card__label");
@@ -58,9 +62,10 @@ class BusinessCard extends Component {
     }
   }
 
-  render() {
+  render() 
+  {
     return (
-      <div className="business-card-container">
+      <div className="business-card-container" onTransitionEnd={this.props.onTransitionEnd}>
         <div className="business-card__label business-card__label--top">
           <div className="icon-bracket-group">
             <a href="mailto:Lucas@Volle.io">
@@ -125,6 +130,7 @@ class BusinessCard extends Component {
             </div>
           </div>
         </div>
+        <div className="business-card-sizer"></div>
         <style jsx>
         {`
           .business-card-container {
@@ -144,8 +150,6 @@ class BusinessCard extends Component {
 
             box-shadow: 0 1px 4px 2px rgba(50, 50, 50, calc(var(--header-fade-out) / 2 - 0.3));
             border-radius: 2px;
-
-            transition: box-shadow 0.1s ease-in-out;
           }
 
           @media (min-width: 900px) {

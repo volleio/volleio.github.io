@@ -13,8 +13,6 @@ export default function Card(props) {
           .card-container {
             padding: 16px;
           	margin: 16px;
-            max-width: 400px;
-            max-height: 400px;
             display: flex;
             flex-direction: column;
 
