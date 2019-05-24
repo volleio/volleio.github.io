@@ -12,7 +12,6 @@ export default function Card(props) {
         {`
           .card-container {
             padding: 16px;
-          	margin: 16px;
             display: flex;
             flex-direction: column;
 
