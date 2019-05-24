@@ -17,9 +17,10 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "deploy": "next build && next export && npm run export-copy && npm run export-delete",
+    "deploy": "npm run cleanup && next build && next export && npm run export-copy && npm run export-delete",
     "export-copy": "ncp out/index.html ./index.html && ncp out/404.html ./404.html && ncp out/_next/ ./_next/",
-    "export-delete": "rimraf out/"
+    "export-delete": "rimraf out/",
+    "cleanup": "rimraf .next/"
   },
   "keywords": [],
   "author": "",
