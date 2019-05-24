@@ -51,6 +51,8 @@ class BusinessCard extends Component
     }
     else if (icon.classList.contains("icon--me"))
     {
+      icon.classList.remove("flip");
+
       const textVolleio = businessCardContainer.querySelector(".business-card___text__volleio");
       textVolleio.classList.add("selected");
     }
@@ -61,6 +63,14 @@ class BusinessCard extends Component
       textLucas.classList.add("selected");
     }
   }
+
+  onMeClick(evt)
+	{
+    const icon = evt.target;
+    const avatar = icon.querySelector(".me-icon-avatar");
+
+    icon.classList.add("flip");
+	}
 
   render() 
   {
@@ -93,7 +103,9 @@ class BusinessCard extends Component
             <div className="bracket bracket--horiz"></div>
             <div className="icon-bracket-group">
               <div className="bracket bracket--vert1"></div>
-              <div className="icon icon--me" onMouseOver={this.onIconMouseOver} onMouseOut={this.onIconMouseOut}></div>
+              <div className="icon icon--me" onClick={this.onMeClick} onMouseOver={this.onIconMouseOver} onMouseOut={this.onIconMouseOut}>
+                <div className="me-icon-avatar"></div>
+              </div>
             </div>
           </div>
           <div className="business-card__label business-card__label--bottom">
@@ -296,9 +308,30 @@ class BusinessCard extends Component
 
           .icon--me {
             background-image: url("/static/icon-me.svg");
+            transform: rotateY(0deg) scale(1);
+            transform-origin: top;
+            backface-visibility: hidden;
+            transition: transform 0.3s ease-in-out;
           }
           .icon-bracket-group.hover .icon--me {
             background-image: url("/static/icon-me-selected.svg");
+          }
+
+          .icon--me.flip {
+            transform: rotateY(180deg) scale(1.5);
+          }
+          .me-icon-avatar {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #323232;
+            border-radius: 50%;
+            background-image: url("/static/me-icon-avatar.png");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+
+            backface-visibility: hidden; 
+            transform: rotateY(180deg);
           }
 
           .icon--insta {

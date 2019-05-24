@@ -48,7 +48,8 @@ class Header extends Component
         headerContainer.style.setProperty("--header-fade-in", "");
         
         businessCardContainer.style.transition = "transform 0.1s ease-in-out, margin-top 0.1s ease-in-out";
-        businessCardContainer.style.marginTop = "0px";
+        if (businessCardContainer.style.marginTop != "")
+            businessCardContainer.style.marginTop = "0px";
         headerContainer.style.height = "";
         headerContainer.style.overflow = "";
         
