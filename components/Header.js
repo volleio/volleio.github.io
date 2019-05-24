@@ -69,7 +69,7 @@ class Header extends Component
         return (
             <div className="header">
                 <div className="header-container" onMouseEnter={this.onMouseEnterContainer} onMouseLeave={this.onMouseLeaveContainer}>
-                    <BusinessCard onTransitionEnd={this.onTransitionEnd} />
+                    <BusinessCard onTransitionEnd={this.onTransitionEnd} onMouseLeaveContainer={this.onMouseLeaveContainer} />
                 </div>
                 <div className="header-scroll"></div>
                 <style jsx>{`
@@ -82,13 +82,13 @@ class Header extends Component
                         justify-content: center;
                         overflow: hidden;
 
-                        background-color: #FFF;
+                        background-color: rgba(255, 255, 255, 0.98);
                         box-shadow: 0 0 10px rgba(0, 0, 0, calc((var(--header-height-in) - 0.9) * 2));
                     }
 
                     .header-scroll {
                         width: 100%;
-                        height: calc(var(--header-height-out) * 100vh + 300px);
+                        height: calc(var(--header-height-out) * 100vh + 400px);
                         min-height: 280px;
                     }
                 `}</style>

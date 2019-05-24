@@ -25,7 +25,7 @@ export default function HomePage() {
         <style jsx>{`
           .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             grid-gap: 0;
             align-items: stretch;
             margin: 16px;

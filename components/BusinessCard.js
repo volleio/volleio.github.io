@@ -5,7 +5,46 @@ class BusinessCard extends Component
 {
   constructor(props) 
   {
-      super(props);
+    super(props);
+    this.lastScrollPos = 0;
+    this.stopAutoScroll = false;
+
+    this.setupAutoScroll = this.setupAutoScroll.bind(this);
+    this.scrollToTop = this.scrollToTop.bind(this);
+    this.onBusinessCardTextClick = this.onBusinessCardTextClick.bind(this);
+  }
+
+  componentDidMount()
+  {
+    this.setupAutoScroll();
+  }
+
+  setupAutoScroll()
+  {
+    window.addEventListener("scroll", () => 
+    {
+      let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop > this.lastScrollPos)
+        this.stopAutoScroll = true;
+
+      this.lastScrollPos = scrollTop;
+    });
+  }
+
+  scrollToTop()
+  {
+    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    if (!this.stopAutoScroll && scrollTop > 0) {
+      window.scrollTo(0, scrollTop - scrollTop / 8);
+      window.requestAnimationFrame(this.scrollToTop);
+    }
+  };
+
+  onBusinessCardTextClick(evt)
+  {
+    this.stopAutoScroll = false;
+    this.props.onMouseLeaveContainer({ currentTarget: evt.target.closest(".header-container") });
+    this.scrollToTop();
   }
 
   onIconMouseOver(evt) 
@@ -89,7 +128,7 @@ class BusinessCard extends Component
             <div className="bracket bracket--vert2"></div>
           </div>
         </div>
-        <div className="business-card__text">
+        <div className="business-card__text" onClick={this.onBusinessCardTextClick}>
         <span className="business-card___text__lucas selected">Lucas</span>
         <span className="business-card___text__at">@</span>
         <span className="business-card___text__volleio selected">Volle.io</span>
@@ -191,6 +230,7 @@ class BusinessCard extends Component
             font-size: 67px;
             letter-spacing: 0.1px;
             margin-top: -3px;
+            cursor: default;
 
             color: #C4C4C4;
           }
