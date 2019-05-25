@@ -31,6 +31,20 @@ export default function HomePage() {
             margin: 16px;
             justify-items: center;
           }
+
+          @media (min-width: 700px) {
+            .card-grid {
+              grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            }
+          }
+
+          @media (min-width: 1200px) {
+            .card-grid {
+              margin: 0 200px;
+              grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+              grid-gap: 32px;
+            }
+          }
         `}</style>
       </Layout>
     )

@@ -211,16 +211,23 @@ class BusinessCard extends Component
             }
           }
 
-          @media (max-width: 550px) {
+          @media (max-width: 510px) {
             .business-card-container {
               transform: scale(calc(0.6 + (0.2 * var(--header-height-out)))) 
                         translateY(calc(-140px * var(--header-height-in)));
             }
           }
 
-          @media (max-width: 450px) {
+          @media (max-width: 370px) {
             .business-card-container {
-              transform: scale(calc(0.6 + (0.02 * var(--header-height-out)))) 
+              transform: scale(calc(0.6 + (0.1 * var(--header-height-out)))) 
+                        translateY(calc(-140px * var(--header-height-in)));
+            }
+          }
+
+          @media (max-width: 360px) {
+            .business-card-container {
+              transform: scale(calc(0.6 + (0 * var(--header-height-out)))) 
                         translateY(calc(-140px * var(--header-height-in)));
             }
           }
