@@ -8,7 +8,14 @@ class Header extends Component
 {
     constructor(props)
     {
-        super(props);
+		super(props);
+		this.state = { 
+			showAR: false,
+			showMenu: false 
+		};
+		
+		this.onClickAR.bind(this);
+		this.toggleShowMenu.bind(this);
     }
 
     onMouseEnterContainer(evt)
@@ -63,21 +70,48 @@ class Header extends Component
         evt.currentTarget.style.transition = "";
         if (evt.currentTarget.style.marginTop == "0px")
             evt.currentTarget.style.marginTop = "";
-    }
+	}
+	
+	onClickAR(evt)
+	{
+		this.setState({ 
+			showAR: !this.state.showAR,
+			showMenu: false
+		});
+	}
+
+	toggleShowMenu()
+	{
+		this.setState({ showMenu: !this.state.showMenu });
+	}
 
     render() 
     {
+		let AR = null;
+		if (this.state.showAR)
+		{
+			AR = (
+				<div className="ar-overlay"></div>
+			);
+		}
+
         return (
             <div className="header">
                 <div className="header-container" onMouseEnter={this.onMouseEnterContainer} onMouseLeave={this.onMouseLeaveContainer}>
                     <BusinessCard onTransitionEnd={this.onTransitionEnd} onMouseLeaveContainer={this.onMouseLeaveContainer} />
                     <div className="header-dropdown-menu">
-                        <DropdownMenu>
-
-                        </DropdownMenu>
+                        <DropdownMenu showMenu={this.state.showMenu} toggleShowMenu={this.toggleShowMenu.bind(this)} items={
+							[
+								{
+									title: "Augmented Reality",
+									onClick: this.onClickAR.bind(this)
+								}
+							]
+						}></DropdownMenu>
                     </div>
                 </div>
                 <div className="header-scroll"></div>
+				{AR}
                 <style jsx>{`
                     .header-container {
                         position: fixed;
