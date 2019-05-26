@@ -63,14 +63,24 @@ class BusinessCard extends Component
     }
     else if (icon.classList.contains("icon--me"))
     {
-      const textVolleio = businessCardContainer.querySelector(".business-card___text__volleio");
-      textVolleio.classList.remove("selected");
+      const textVolle = businessCardContainer.querySelector(".business-card___text__volle");
+      const textDot = businessCardContainer.querySelector(".business-card___text__dot");
+      const textIo = businessCardContainer.querySelector(".business-card___text__io");
+      textVolle.classList.remove("selected");
+      textDot.classList.remove("selected");
+      textIo.classList.remove("selected");
     }
     else if (icon.classList.contains("icon--insta") || icon.classList.contains("icon--twitter") ||
       icon.classList.contains("icon--github") || icon.classList.contains("icon--linkedin"))
     {
       const textLucas = businessCardContainer.querySelector(".business-card___text__lucas");
       textLucas.classList.remove("selected");
+
+      if (!icon.classList.contains("icon--insta"))
+      {
+        const textDot = businessCardContainer.querySelector(".business-card___text__dot");
+        textDot.classList.remove("selected");
+      }
     }
   }
 
@@ -94,14 +104,24 @@ class BusinessCard extends Component
       icon.classList.remove("flip");
       avatar.classList.remove("flip");
 
-      const textVolleio = businessCardContainer.querySelector(".business-card___text__volleio");
-      textVolleio.classList.add("selected");
+      const textVolle = businessCardContainer.querySelector(".business-card___text__volle");
+      const textDot = businessCardContainer.querySelector(".business-card___text__dot");
+      const textIo = businessCardContainer.querySelector(".business-card___text__io");
+      textVolle.classList.add("selected");
+      textDot.classList.add("selected");
+      textIo.classList.add("selected");
     }
     else if (icon.classList.contains("icon--insta") || icon.classList.contains("icon--twitter") ||
       icon.classList.contains("icon--github") || icon.classList.contains("icon--linkedin"))
     {
       const textLucas = businessCardContainer.querySelector(".business-card___text__lucas");
       textLucas.classList.add("selected");
+
+      if (!icon.classList.contains("icon--insta"))
+      {
+        const textDot = businessCardContainer.querySelector(".business-card___text__dot");
+        textDot.classList.add("selected");
+      }
     }
   }
 
@@ -133,7 +153,9 @@ class BusinessCard extends Component
         <div className="business-card__text" onClick={this.onBusinessCardTextClick}>
         <span className="business-card___text__lucas selected">Lucas</span>
         <span className="business-card___text__at">@</span>
-        <span className="business-card___text__volleio selected">Volle.io</span>
+        <span className="business-card___text__volle selected">Volle</span>
+        <span className="business-card___text__dot selected">.</span>
+        <span className="business-card___text__io selected">io</span>
         </div>
         <div className="business-card__label-group">
           <div className="business-card__label business-card__label--bottom">
@@ -335,12 +357,14 @@ class BusinessCard extends Component
             height: 24px;
             background-repeat: no-repeat;
             background-position: center;
-            background-size: contain;
+            background-size: 24px 24px;
             box-sizing: content-box;
             border: 8px solid transparent;
 
             pointer-events: var(--header-fade-disabled);
             cursor: pointer;
+
+            transform: scale(1);
             transition: all 0.1s ease-in-out;
           }
 
@@ -353,6 +377,8 @@ class BusinessCard extends Component
           }
           .icon-bracket-group.hover .icon--email {
             background-image: url("/static/icon-email-selected.svg");
+            transform: scale(1);
+            background-size: 28px 28px;
           }
 
           .icon--me {
