@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import * as basicScroll from 'basicscroll';
 import BusinessCard from './BusinessCard';
+import DropdownMenu from './DropdownMenu';
 
 class Header extends Component
 {
@@ -70,6 +71,11 @@ class Header extends Component
             <div className="header">
                 <div className="header-container" onMouseEnter={this.onMouseEnterContainer} onMouseLeave={this.onMouseLeaveContainer}>
                     <BusinessCard onTransitionEnd={this.onTransitionEnd} onMouseLeaveContainer={this.onMouseLeaveContainer} />
+                    <div className="header-dropdown-menu">
+                        <DropdownMenu>
+
+                        </DropdownMenu>
+                    </div>
                 </div>
                 <div className="header-scroll"></div>
                 <style jsx>{`
@@ -90,6 +96,13 @@ class Header extends Component
                         width: 100%;
                         height: calc(var(--header-height-out) * 100vh + 400px);
                         min-height: 280px;
+                    }
+
+                    .header-dropdown-menu {
+                        position: fixed;
+                        top: 0;
+                        right: 0;
+                        margin: 16px;
                     }
                 `}</style>
                 <style jsx global>{`
