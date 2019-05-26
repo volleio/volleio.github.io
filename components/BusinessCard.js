@@ -417,6 +417,21 @@ class BusinessCard extends Component
           .icon-bracket-group.hover .icon--linkedin {
             background-image: url("/static/icon-linkedin-selected.svg");
           }
+
+          // preload hover state background images to prevent flashing
+          .business-card-container::after {
+            position: absolute; 
+            width: 0; 
+            height: 0; 
+            overflow: hidden; 
+            z-index:-1;
+            content: url("/static/icon-email-selected.svg") 
+                     url("/static/icon-me-selected.svg") 
+                     url("/static/icon-insta-selected.svg") 
+                     url("/static/icon-twitter-selected.svg") 
+                     url("/static/icon-github-selected.svg") 
+                     url("/static/icon-linkedin-selected.svg");
+          }
         `}
         </style>
       </div>
