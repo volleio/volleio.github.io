@@ -36,8 +36,8 @@ class DropdownMenu extends Component
 			{`
 			.dropdown-menu-button {
 				position: relative;
-				width: 48px;
-				height: 48px;
+				width: 40px;
+				height: 40px;
 				border-radius: 3px;
 				background-color: rgba(255, 255, 255, 1);
 				transition: all 0.1s ease-in-out;
@@ -50,8 +50,8 @@ class DropdownMenu extends Component
 			.dropdown-menu-button__line {
 				position: absolute;
 				height: 2px;
-				width: 36px;
-				left: calc(50% - 18px);
+				width: 30px;
+				left: calc(50% - 15px);
 				background-color: #323232;
 				border-radius: 2px;
 				transition: all 0.1s ease-in-out;
@@ -63,8 +63,8 @@ class DropdownMenu extends Component
 				top: calc(30% - 1px);
 			}
 			.dropdown-menu-button.open .dropdown-menu-button__line--1 {
-				width: 37px;
-				transform: rotate(45deg) translate(1px, -6px);
+				width: 33px;
+				transform: rotate(45deg) translate(0, -5px);
 			}
 			
 			.dropdown-menu-button__line--2 {
@@ -79,8 +79,8 @@ class DropdownMenu extends Component
 				top: calc(70% - 1px);
 			}
 			.dropdown-menu-button.open .dropdown-menu-button__line--3 {
-				width: 37px;
-				transform: rotate(-45deg) translate(1px, 6px);
+				width: 33px;
+				transform: rotate(-45deg) translate(0, 5px);
 			}
 			`}
 			</style>

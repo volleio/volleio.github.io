@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import * as basicScroll from 'basicscroll';
 import BusinessCard from './BusinessCard';
 import DropdownMenu from './DropdownMenu';
+import "../global.scss"
 
 class Header extends Component
 {
@@ -11,7 +12,7 @@ class Header extends Component
 		super(props);
 		this.state = { 
 			showAR: false,
-			showMenu: false 
+			showMenu: false
 		};
 		
 		this.onClickAR.bind(this);
@@ -91,7 +92,70 @@ class Header extends Component
 		if (this.state.showAR)
 		{
 			AR = (
-				<div className="ar-overlay"></div>
+				<div className="ar-overlay">
+					<div className="spinner spinner--viewport">
+						<div className="spinner__line"></div>
+						<div className="spinner__line"></div>
+					</div>
+					<iframe id="ar-iframe" src="/static/ar.html"></iframe>
+					<div className="close-button" onClick={() => this.setState({ showAR: false })}>
+						<div className="close-button__line close-button__line1"></div>
+						<div className="close-button__line close-button__line2"></div>
+					</div>
+					<style jsx>
+					{`
+						.spinner {
+							z-index: -1;
+						}
+
+						.ar-overlay {
+							position: fixed;
+							width: 100%;
+							height: 100%;
+							top: 0;
+							left: 0;
+							background-color: #FFF;
+							z-index: 100;
+						}
+
+						#ar-iframe {
+							width: 100%;
+							height: 100%;
+						}
+
+						.close-button {					
+							position: absolute;
+							width: 40px;
+							height: 40px;
+							right: 0;
+							top: 0;
+							margin: 8px;
+							border-radius: 3px;
+							background-color: rgba(255, 255, 255, 1);
+							transition: all 0.1s ease-in-out;
+							cursor: pointer;
+						}
+
+						.close-button__line {
+							position: absolute;
+							height: 2px;
+							width: 30px;
+							left: calc(50% - 15px);
+							top: calc(50% - 1px);
+							background-color: #323232;
+							border-radius: 2px;
+						}
+
+						.close-button__line1 {
+							transform: rotateZ(45deg);
+						}
+
+						.close-button__line2 {
+							transform: rotateZ(-45deg);
+						}
+					`}
+					</style>
+				</div>
 			);
 		}
 
@@ -136,7 +200,7 @@ class Header extends Component
                         position: fixed;
                         top: 0;
                         right: 0;
-                        margin: 16px;
+                        margin: 20px;
                     }
                 `}</style>
                 <style jsx global>{`
@@ -145,7 +209,7 @@ class Header extends Component
                     --header-height-in: 0;
                     --header-fade-out: 1;
                     --header-fade-in: 0;
-                  }  
+                  }
                 `}</style>
             </div>
         )
