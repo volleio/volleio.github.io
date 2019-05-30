@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import ColourPicker from "./colourpicker";
 import "../static/colourpicker.css";
+import ColorPicker from "./ColorPicker";
 
 class Footer extends Component 
 {
@@ -10,24 +11,20 @@ class Footer extends Component
 		super(props);
 	}
 
-	componentDidMount()
-	{
-		const colorPickerContainer = ReactDOM.findDOMNode(this).querySelector(".color-picker-container");
-		const colourPicker = new ColourPicker(colorPickerContainer, (rgba) => 
-			{
-				document.body.style.backgroundColor = `rgb(${rgba.R}, ${rgba.G}, ${rgba.B})`;
-			});
-  	}
-
 	render()
 	{
 		return (
 			<div className="footer">
-				<div className="footer-item"><a href="https://github.com/volleio/volleio.github.io" title="Licensed under the MIT License">Open Source</a></div>
-				<div className="color-picker-container"></div>
+				<div className="footer-item">
+					<a href="https://github.com/volleio/volleio.github.io" title="Licensed under the MIT License">Open Source</a>
+				</div>
+				<div className="footer-item">
+					<ColorPicker />
+				</div>
 				<style jsx>
 				{`
 					.footer {
+						position: relative;
 						margin-top: 50vh;
 						margin-bottom: 8px;
 						display: flex;
