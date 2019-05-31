@@ -10,6 +10,7 @@ class Header extends Component
     constructor(props)
     {
 		super(props);
+
 		this.state = { 
 			showAR: false,
 			showMenu: false
@@ -84,6 +85,15 @@ class Header extends Component
 	toggleShowMenu()
 	{
 		this.setState({ showMenu: !this.state.showMenu });
+	}
+
+	componentDidMount()
+	{
+        this.SetupBasicScroll();
+
+		const currentUrl = new URL(window.location.href);
+		if (currentUrl.searchParams.get("ar") != null)
+			this.setState({ showAR: true });
 	}
 
     render() 
@@ -249,11 +259,6 @@ class Header extends Component
 
         headerHeight.start();
         headerFade.start();
-    }
-    
-    componentDidMount()
-    {
-        this.SetupBasicScroll();
     }
 }
 
