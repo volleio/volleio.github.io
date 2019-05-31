@@ -97,7 +97,7 @@ class Header extends Component
 						<div className="spinner__line"></div>
 						<div className="spinner__line"></div>
 					</div>
-					<iframe id="ar-iframe" src="/static/ar.html"></iframe>
+					<iframe id="ar-iframe" src="/static/AR/ar.html"></iframe>
 					<div className="close-button" onClick={() => this.setState({ showAR: false })}>
 						<div className="close-button__line close-button__line1"></div>
 						<div className="close-button__line close-button__line2"></div>

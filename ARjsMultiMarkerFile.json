@@ -1,0 +1,57 @@
+"{
+	"meta": {
+		"createdBy": "Area Learning - AR.js 1.7.1",
+		"createdAt": "2019-05-31T03:10:47.733Z"
+	},
+	"trackingBackend": "artoolkit",
+	"subMarkersControls": [
+		{
+			"parameters": {
+				"type": "pattern",
+				"patternUrl": "https://3aee0201.ngrok.io/three.js/examples/marker-training/examples/pattern-files/pattern-LVAR.patt"
+			},
+			"poseMatrix": [
+				1,
+				0,
+				0,
+				0,
+				0,
+				1,
+				0,
+				0,
+				0,
+				0,
+				1,
+				0,
+				0,
+				0,
+				0,
+				1
+			]
+		},
+		{
+			"parameters": {
+				"type": "pattern",
+				"patternUrl": "https://3aee0201.ngrok.io/three.js/examples/marker-training/examples/pattern-files/pattern-qrcode.patt"
+			},
+			"poseMatrix": [
+				0.9276158842010286,
+				0.3651876709773663,
+				0.07852947863749442,
+				0,
+				-0.3603610367952188,
+				0.8195564427930875,
+				0.44549645920172176,
+				0,
+				0.09833048689105342,
+				-0.44154845814981886,
+				0.8918330106666548,
+				0,
+				1.216084121513211,
+				-0.05436247297336392,
+				0.07264989021688656,
+				1
+			]
+		}
+	]
+}"
