@@ -59,6 +59,7 @@
 			artoolkitProfile.sourceWebcam()
 				.trackingBackend('artoolkit')
 
+			artoolkitProfile.sourceParameters.patternRatio = 0.69;
 			var arToolkitSource = new ARjs.Source(artoolkitProfile.sourceParameters)
 
 			arToolkitSource.init(function onReady(){
@@ -86,9 +87,7 @@
 			// initialize it
 			arToolkitContext.init(function onCompleted(){
 				// if artoolkit, copy projection matrix to camera
-				if( arToolkitContext.parameters.trackingBackend === 'artoolkit' ){
-					camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );			
-				}
+				camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );			
 			})
 
 			// update artoolkit on every frame
@@ -114,7 +113,7 @@
 					{
 						"parameters": {
 							"type": "pattern",
-							"patternUrl": "pattern-qrcode.patt"
+							"patternUrl": "pattern-qrcode-corner.patt"
 						},
 						"poseMatrix": [
 							0.9276158842010286,0.3651876709773663,0.07852947863749442,0,
