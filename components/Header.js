@@ -165,6 +165,14 @@ class Header extends Component
 						}
 					`}
 					</style>
+                    <style jsx global>
+                    {`
+                        body {
+                            overflow: hidden;
+                            position: fixed;
+                        }
+                    `}
+                    </style>
 				</div>
 			);
 		}
