@@ -33,6 +33,17 @@ export default function Layout(props) {
 				margin: 0;
 			}
 
+			h1 {
+				margin-block-start: 0.33em;
+    			margin-block-end: 0.33em;
+			}
+
+			p {
+				text-indent: 2em;
+				margin-block-start: 0.33em;
+    			margin-block-end: 0.33em;
+			}
+
 			a:link {
 				text-decoration: none;
 			}
