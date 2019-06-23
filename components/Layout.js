@@ -27,6 +27,9 @@ export default function Layout(props) {
 
 			html {
 				font-size: 100%;
+				--dark-mode: 0;
+				filter: invert(var(--dark-mode));
+				transition: filter 0.2s ease-in-out;
 			}
 
 			body {
@@ -55,6 +58,11 @@ export default function Layout(props) {
 			}
 			a:active {
 				text-decoration: underline;
+			}
+
+			.no-invert {
+				filter: invert(var(--dark-mode));
+				transition: filter 0.2s ease-in-out;
 			}
         `}
         </style>

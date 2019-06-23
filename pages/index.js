@@ -18,24 +18,24 @@ export default function HomePage() {
 		</Card>
 		<Card title="Freelancing">
 			<p>I'm actively working on a few production websites, mostly built with <a href="https://squarespace.com/">Squarespace</a> and with custom JS/CSS for additional features &amp; styling.</p>
-			<p>
+			<div>
 				<h2>Glo Spa Woodstock</h2>
 				<Frame image="">
 					
 				</Frame>
-			</p>
-			<p>
+			</div>
+			<div>
 				<h2>Food Diplomat</h2>
 				<Frame image="">
 					
 				</Frame>
-			</p>
-			<p>
+			</div>
+			<div>
 				<h2>Fire Island Pines</h2>
 				<Frame image="">
 					
 				</Frame>
-			</p>
+			</div>
 		</Card>
 		<Card title="Something Else">
 			<p>

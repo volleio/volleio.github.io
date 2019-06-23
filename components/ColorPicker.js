@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import ColourPicker from "./colourpicker";
+import { ColourPicker, Colour } from "./colourpicker";
 import "../static/colourpicker.css";
 
 class ColorPicker extends Component 
@@ -16,6 +16,19 @@ class ColorPicker extends Component
 		const colourPicker = new ColourPicker(colorPickerElement, (rgba) => 
 			{
 				document.body.style.backgroundColor = `rgb(${rgba.R}, ${rgba.G}, ${rgba.B})`;
+
+				const whiteTintHsl = colourPicker.GetColour().GetHSL();
+				if (whiteTintHsl.L < 0.3)
+					document.documentElement.style.setProperty("--dark-mode", "1");
+				else
+					document.documentElement.style.setProperty("--dark-mode", "0");
+
+				whiteTintHsl.S = Math.min(whiteTintHsl.S, whiteTintHsl.L);
+				whiteTintHsl.L = 0.9 + whiteTintHsl.L / 10;
+				const whiteTintRgb = new Colour(whiteTintHsl);
+				whiteTintRgb.A = 98;
+				
+				document.querySelector(".header-container").style.backgroundColor = whiteTintRgb.ToCssString(true);
 			});
   	}
 
@@ -26,7 +39,7 @@ class ColorPicker extends Component
 				<div className="color-picker-border">
 					<div className="color-picker-indicator"></div>
 				</div>
-				<div className="color-picker"></div>
+				<div className="color-picker no-invert"></div>
 				<style jsx>
 				{`
 					.color-picker-border {

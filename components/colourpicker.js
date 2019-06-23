@@ -1,5 +1,7 @@
-class ColourPicker {
-    constructor(container, onChange, options = new ColourPickerOptions()) {
+var ColourPicker = (function () {
+    function ColourPicker(container, onChange, options) {
+        if (options === void 0) { options = new ColourPickerOptions(); }
+        var _this = this;
         this.container = container;
         this.onChange = onChange;
         this.options = options;
@@ -7,248 +9,265 @@ class ColourPicker {
             throw new Error('Colour Picker Error: specified container is null.');
         if (this.onChange == null)
             throw new Error('Colour Picker Error: specified onChange callback is null.');
-        const docFragment = document.createDocumentFragment();
+        var docFragment = document.createDocumentFragment();
         this.CreateColourField();
         this.colourFieldMarker = this.colourField.querySelector('.colour-field__marker');
         docFragment.appendChild(this.colourField);
         this.CreateHueSlider();
         this.hueSliderHandle = this.hueSlider.querySelector('.hue-slider__handle');
         docFragment.appendChild(this.hueSlider);
-        const valueInputContainer = this.CreateValueInputs();
+        var valueInputContainer = this.CreateValueInputs();
         docFragment.appendChild(valueInputContainer);
         this.colourPreview = document.createElement('div');
         docFragment.appendChild(this.colourPreview);
         this.container.classList.add('colour-picker');
         this.container.appendChild(docFragment);
-        this.container.addEventListener('mousedown', (evt) => { this.ColourFieldMouseDown(evt); });
-        const initialColour = this.options.initialColour;
+        this.container.addEventListener('mousedown', function (evt) { _this.ColourFieldMouseDown(evt); });
+        this.container.addEventListener('touchstart', function (evt) { _this.ColourFieldMouseDown(evt); });
+        var initialColour = this.options.initialColour;
         this.UpdateHexInput(initialColour.GetHex());
         this.UpdateRGBAInput(initialColour.GetRGBA());
-        window.setTimeout(() => {
-            this.UpdateColourField(initialColour.GetHSV(), initialColour.ToCssString());
+        window.setTimeout(function () {
+            _this.UpdateColourField(initialColour.GetHSV(), initialColour.ToCssString());
         }, 0);
     }
-    GetColour() {
+    ColourPicker.prototype.GetColour = function () {
         return new Colour(this.GetRGBAFromInputs());
-    }
-    SetColour(colour) {
+    };
+    ColourPicker.prototype.SetColour = function (colour) {
+        var _this = this;
         this.UpdateHexInput(colour.GetHex());
         this.UpdateRGBAInput(colour.GetRGBA());
-        window.setTimeout(() => {
-            this.UpdateColourField(colour.GetHSV(), colour.ToCssString());
+        window.setTimeout(function () {
+            _this.UpdateColourField(colour.GetHSV(), colour.ToCssString());
         }, 0);
-    }
-    CreateColourField() {
+    };
+    ColourPicker.prototype.CreateColourField = function () {
         this.colourField = document.createElement('div');
         this.colourField.classList.add('colour-field');
-        const lightnessGradient = document.createElement('div');
+        var lightnessGradient = document.createElement('div');
         lightnessGradient.classList.add('colour-field__lightness');
         this.colourField.appendChild(lightnessGradient);
         this.fieldMarker = document.createElement('div');
         this.fieldMarker.classList.add('colour-field__marker');
         this.colourField.appendChild(this.fieldMarker);
-    }
-    ColourFieldMouseDown(evt) {
+    };
+    ColourPicker.prototype.ColourFieldMouseDown = function (evt) {
+        var _this = this;
         if (evt.target !== this.colourField && evt.target !== this.fieldMarker)
             return;
         this.colourField.style.cursor = 'none';
-        const hsv = this.SetColourFieldHSV(evt);
+        var hsv = this.SetColourFieldHSV(evt);
         this.OnChange(hsv);
-        const mouseMoveCallback = (event) => {
-            const newHSV = this.SetColourFieldHSV(event);
-            this.OnChange(newHSV);
+        var mouseMoveCallback = function (event) {
+            var newHSV = _this.SetColourFieldHSV(event);
+            _this.OnChange(newHSV);
             event.preventDefault();
         };
-        const mouseUpCallback = () => {
-            this.colourField.style.cursor = 'default';
+        var mouseUpCallback = function () {
+            _this.colourField.style.cursor = 'default';
             window.removeEventListener('mousemove', mouseMoveCallback);
+            window.removeEventListener('touchmove', mouseMoveCallback);
             window.removeEventListener('mouseup', mouseUpCallback);
+            window.removeEventListener('touchend', mouseUpCallback);
         };
         window.addEventListener('mousemove', mouseMoveCallback);
+        window.addEventListener('touchmove', mouseMoveCallback);
         window.addEventListener('mouseup', mouseUpCallback);
+        window.addEventListener('touchend', mouseUpCallback);
         evt.preventDefault();
-    }
-    GetColourFieldHSV(x, y) {
-        const colourFieldBoundingBox = this.colourField.getBoundingClientRect();
+    };
+    ColourPicker.prototype.GetColourFieldHSV = function (x, y) {
+        var colourFieldBoundingBox = this.colourField.getBoundingClientRect();
         return {
             H: this.hueSliderHandle.offsetLeft / this.hueSlider.clientWidth,
             S: x / colourFieldBoundingBox.width,
             V: 1 - y / colourFieldBoundingBox.height,
         };
-    }
-    SetColourFieldHSV(evt) {
-        const colourFieldBoundingBox = this.colourField.getBoundingClientRect();
-        let mouseX = Math.max(evt.clientX, colourFieldBoundingBox.left);
+    };
+    ColourPicker.prototype.SetColourFieldHSV = function (evt) {
+        var colourFieldBoundingBox = this.colourField.getBoundingClientRect();
+        var mouseX = Math.max(evt instanceof MouseEvent ? evt.clientX : evt.targetTouches.item(0).clientX, colourFieldBoundingBox.left);
         mouseX = Math.min(mouseX, colourFieldBoundingBox.right);
-        let mouseY = Math.max(evt.clientY, colourFieldBoundingBox.top);
+        var mouseY = Math.max(evt instanceof MouseEvent ? evt.clientY : evt.targetTouches.item(0).clientY, colourFieldBoundingBox.top);
         mouseY = Math.min(mouseY, colourFieldBoundingBox.bottom);
-        const colourFieldX = mouseX - colourFieldBoundingBox.left;
-        const colourFieldY = mouseY - colourFieldBoundingBox.top;
+        var colourFieldX = mouseX - colourFieldBoundingBox.left;
+        var colourFieldY = mouseY - colourFieldBoundingBox.top;
         return this.GetColourFieldHSV(colourFieldX, colourFieldY);
-    }
-    CreateHueSlider() {
+    };
+    ColourPicker.prototype.CreateHueSlider = function () {
+        var _this = this;
         this.hueSlider = document.createElement('div');
         this.hueSlider.classList.add('hue-slider');
-        const hueSliderGradient = document.createElement('div');
+        var hueSliderGradient = document.createElement('div');
         hueSliderGradient.classList.add('hue-slider__gradient');
         this.hueSlider.appendChild(hueSliderGradient);
-        hueSliderGradient.addEventListener('mousedown', (evt) => { this.HueSliderMouseDown(evt); });
-        const hueSliderHandle = document.createElement('div');
+        hueSliderGradient.addEventListener('mousedown', function (evt) { _this.HueSliderMouseDown(evt); });
+        hueSliderGradient.addEventListener('touchstart', function (evt) { _this.HueSliderMouseDown(evt); });
+        var hueSliderHandle = document.createElement('div');
         hueSliderHandle.classList.add('hue-slider__handle');
         this.hueSlider.appendChild(hueSliderHandle);
-    }
-    HueSliderMouseDown(evt) {
+    };
+    ColourPicker.prototype.HueSliderMouseDown = function (evt) {
+        var _this = this;
         this.UpdateHueSliderHandle(evt);
-        const markerX = this.colourFieldMarker.offsetLeft + this.colourFieldMarker.offsetWidth / 2;
-        const markerY = this.colourFieldMarker.offsetTop + this.colourFieldMarker.offsetHeight / 2;
-        const hsv = this.GetColourFieldHSV(markerX, markerY);
+        var markerX = this.colourFieldMarker.offsetLeft + this.colourFieldMarker.offsetWidth / 2;
+        var markerY = this.colourFieldMarker.offsetTop + this.colourFieldMarker.offsetHeight / 2;
+        var hsv = this.GetColourFieldHSV(markerX, markerY);
         this.OnChange(hsv);
         window.getSelection().removeAllRanges();
-        const mouseMoveCallback = (event) => {
-            this.UpdateHueSliderHandle(event);
-            const newMarkerX = this.colourFieldMarker.offsetLeft + this.colourFieldMarker.offsetWidth / 2;
-            const newMarkerY = this.colourFieldMarker.offsetTop + this.colourFieldMarker.offsetHeight / 2;
-            const newHSV = this.GetColourFieldHSV(newMarkerX, newMarkerY);
-            this.OnChange(newHSV);
+        var mouseMoveCallback = function (event) {
+            _this.UpdateHueSliderHandle(event);
+            var newMarkerX = _this.colourFieldMarker.offsetLeft + _this.colourFieldMarker.offsetWidth / 2;
+            var newMarkerY = _this.colourFieldMarker.offsetTop + _this.colourFieldMarker.offsetHeight / 2;
+            var newHSV = _this.GetColourFieldHSV(newMarkerX, newMarkerY);
+            _this.OnChange(newHSV);
             event.preventDefault();
         };
-        const mouseUpCallback = () => {
+        var mouseUpCallback = function () {
             window.removeEventListener('mousemove', mouseMoveCallback);
+            window.removeEventListener('touchmove', mouseMoveCallback);
             window.removeEventListener('mouseup', mouseUpCallback);
+            window.removeEventListener('touchend', mouseUpCallback);
         };
         window.addEventListener('mousemove', mouseMoveCallback);
+        window.addEventListener('touchmove', mouseMoveCallback);
         window.addEventListener('mouseup', mouseUpCallback);
+        window.addEventListener('touchend', mouseUpCallback);
         evt.preventDefault();
-    }
-    UpdateHueSliderHandle(evt) {
-        const hueSliderBoundingBox = this.hueSlider.getBoundingClientRect();
-        let mouseX = Math.max(evt.clientX, hueSliderBoundingBox.left);
+    };
+    ColourPicker.prototype.UpdateHueSliderHandle = function (evt) {
+        var hueSliderBoundingBox = this.hueSlider.getBoundingClientRect();
+        var mouseX = Math.max(evt instanceof MouseEvent ? evt.clientX : evt.targetTouches.item(0).clientX, hueSliderBoundingBox.left);
         mouseX = Math.min(mouseX, hueSliderBoundingBox.right);
         this.hueSliderHandle.style.left = mouseX - hueSliderBoundingBox.left + 'px';
-    }
-    CreateValueInputs() {
-        const valueInputContainer = document.createElement('div');
+    };
+    ColourPicker.prototype.CreateValueInputs = function () {
+        var _this = this;
+        var valueInputContainer = document.createElement('div');
         valueInputContainer.classList.add('colour-inputs');
-        const hexInputItem = this.CreateHexInput();
+        var hexInputItem = this.CreateHexInput();
         valueInputContainer.appendChild(hexInputItem);
-        this.hexInput.addEventListener('keypress', () => {
-            requestAnimationFrame(() => {
-                let strippedValue = this.hexInput.value.replace(/[^0-9ABCDEF]/gi, '');
+        this.hexInput.addEventListener('keypress', function () {
+            requestAnimationFrame(function () {
+                var strippedValue = _this.hexInput.value.replace(/[^0-9ABCDEF]/gi, '');
                 strippedValue = '#' + strippedValue.substr(0, 8);
-                this.hexInput.value = strippedValue;
-                this.OnChange(strippedValue);
+                _this.hexInput.value = strippedValue;
+                _this.OnChange(strippedValue);
             });
         });
-        const rInputItem = this.CreateIntegerInput(cpEnumRGBA.Red, this.options.redInputLabel);
+        var rInputItem = this.CreateIntegerInput(cpEnumRGBA.Red, this.options.redInputLabel);
         this.redInput = rInputItem.querySelector('input');
         valueInputContainer.appendChild(rInputItem);
-        this.redInput.addEventListener('keypress', () => {
-            requestAnimationFrame(() => {
-                this.redInput.value = this.redInput.value.replace(/[^0-9]/g, '');
-                this.OnChange(this.GetRGBAFromInputs());
+        this.redInput.addEventListener('keypress', function () {
+            requestAnimationFrame(function () {
+                _this.redInput.value = _this.redInput.value.replace(/[^0-9]/g, '');
+                _this.OnChange(_this.GetRGBAFromInputs());
             });
         });
-        const gInputItem = this.CreateIntegerInput(cpEnumRGBA.Green, this.options.greenInputLabel);
+        var gInputItem = this.CreateIntegerInput(cpEnumRGBA.Green, this.options.greenInputLabel);
         this.greenInput = gInputItem.querySelector('input');
         valueInputContainer.appendChild(gInputItem);
-        this.greenInput.addEventListener('keypress', () => {
-            requestAnimationFrame(() => {
-                this.greenInput.value = this.greenInput.value.replace(/[^0-9]/g, '');
-                this.OnChange(this.GetRGBAFromInputs());
+        this.greenInput.addEventListener('keypress', function () {
+            requestAnimationFrame(function () {
+                _this.greenInput.value = _this.greenInput.value.replace(/[^0-9]/g, '');
+                _this.OnChange(_this.GetRGBAFromInputs());
             });
         });
-        const bInputItem = this.CreateIntegerInput(cpEnumRGBA.Blue, this.options.blueInputLabel);
+        var bInputItem = this.CreateIntegerInput(cpEnumRGBA.Blue, this.options.blueInputLabel);
         this.blueInput = bInputItem.querySelector('input');
         valueInputContainer.appendChild(bInputItem);
-        this.blueInput.addEventListener('keypress', () => {
-            requestAnimationFrame(() => {
-                this.blueInput.value = this.blueInput.value.replace(/[^0-9]/g, '');
-                this.OnChange(this.GetRGBAFromInputs());
+        this.blueInput.addEventListener('keypress', function () {
+            requestAnimationFrame(function () {
+                _this.blueInput.value = _this.blueInput.value.replace(/[^0-9]/g, '');
+                _this.OnChange(_this.GetRGBAFromInputs());
             });
         });
         if (this.options.showAlphaControl) {
-            const aInputItem = this.CreateIntegerInput(cpEnumRGBA.Alpha, this.options.alphaInputLabel);
+            var aInputItem = this.CreateIntegerInput(cpEnumRGBA.Alpha, this.options.alphaInputLabel);
             this.alphaInput = aInputItem.querySelector('input');
             valueInputContainer.appendChild(aInputItem);
-            this.alphaInput.addEventListener('keypress', () => {
-                requestAnimationFrame(() => {
-                    this.alphaInput.value = this.alphaInput.value.replace(/[^0-9]/g, '');
-                    this.OnChange(this.GetRGBAFromInputs());
+            this.alphaInput.addEventListener('keypress', function () {
+                requestAnimationFrame(function () {
+                    _this.alphaInput.value = _this.alphaInput.value.replace(/[^0-9]/g, '');
+                    _this.OnChange(_this.GetRGBAFromInputs());
                 });
             });
         }
         return valueInputContainer;
-    }
-    GetRGBAFromInputs() {
-        let r = Math.round(parseInt(this.redInput.value, 10));
+    };
+    ColourPicker.prototype.GetRGBAFromInputs = function () {
+        var r = Math.round(parseInt(this.redInput.value, 10));
         r = Math.max(Math.min(r, 255), 0);
-        let g = Math.round(parseInt(this.greenInput.value, 10));
+        var g = Math.round(parseInt(this.greenInput.value, 10));
         g = Math.max(Math.min(g, 255), 0);
-        let b = Math.round(parseInt(this.blueInput.value, 10));
+        var b = Math.round(parseInt(this.blueInput.value, 10));
         b = Math.max(Math.min(b, 255), 0);
-        let a = Math.round(this.alphaInput != null ? parseInt(this.alphaInput.value, 10) : 100);
+        var a = Math.round(this.alphaInput != null ? parseInt(this.alphaInput.value, 10) : 100);
         a = Math.max(Math.min(a, 100), 0);
         if (isNaN(r) || isNaN(g) || isNaN(b) || isNaN(a))
             return null;
         return { R: r, G: g, B: b, A: a };
-    }
-    CreateHexInput() {
-        const hexInputContainer = document.createElement('div');
+    };
+    ColourPicker.prototype.CreateHexInput = function () {
+        var hexInputContainer = document.createElement('div');
         hexInputContainer.classList.add('colour-input');
         this.hexInput = document.createElement('input');
         this.hexInput.classList.add('colour-input__hex');
         this.hexInput.setAttribute("spellcheck", "false");
         hexInputContainer.appendChild(this.hexInput);
-        const hexInputLbl = document.createElement('span');
+        var hexInputLbl = document.createElement('span');
         hexInputLbl.classList.add('colour-input__lbl');
         hexInputLbl.innerText = this.options.hexInputLabel;
         hexInputContainer.appendChild(hexInputLbl);
         return hexInputContainer;
-    }
-    CreateIntegerInput(inputType, label) {
-        const intInputContainer = document.createElement('div');
+    };
+    ColourPicker.prototype.CreateIntegerInput = function (inputType, label) {
+        var _this = this;
+        var intInputContainer = document.createElement('div');
         intInputContainer.classList.add('colour-input');
-        const intInput = document.createElement('input');
+        var intInput = document.createElement('input');
         intInput.classList.add('colour-input__int--' + inputType);
         intInputContainer.appendChild(intInput);
-        const intInputLbl = document.createElement('span');
+        var intInputLbl = document.createElement('span');
         intInputLbl.classList.add('colour-input__lbl');
         intInputLbl.innerText = label;
         intInputLbl.style.cursor = 'ew-resize';
-        intInputLbl.addEventListener('mousedown', (evt) => {
-            const maxValue = inputType === cpEnumRGBA.Alpha ? 100 : 255;
-            this.IntegerInputMouseDown(evt, intInput, maxValue);
+        intInputLbl.addEventListener('mousedown', function (evt) {
+            var maxValue = inputType === cpEnumRGBA.Alpha ? 100 : 255;
+            _this.IntegerInputMouseDown(evt, intInput, maxValue);
         });
         intInputContainer.appendChild(intInputLbl);
         return intInputContainer;
-    }
-    IntegerInputMouseDown(evt, intInput, maxValue) {
-        const baseInt = parseInt(intInput.value, 10);
-        const baseX = evt.clientX;
-        const mouseMoveCallback = (event) => {
-            const intChange = Math.floor((event.clientX - baseX) / 2);
-            const newValue = Math.max(Math.min(baseInt + intChange, maxValue), 0);
+    };
+    ColourPicker.prototype.IntegerInputMouseDown = function (evt, intInput, maxValue) {
+        var _this = this;
+        var baseInt = parseInt(intInput.value, 10);
+        var baseX = evt.clientX;
+        var mouseMoveCallback = function (event) {
+            var intChange = Math.floor((event.clientX - baseX) / 2);
+            var newValue = Math.max(Math.min(baseInt + intChange, maxValue), 0);
             intInput.value = newValue.toString();
-            this.OnChange({
-                R: parseInt(this.redInput.value, 10),
-                G: parseInt(this.greenInput.value, 10),
-                B: parseInt(this.blueInput.value, 10),
-                A: this.alphaInput != null ? parseInt(this.alphaInput.value, 10) : 100,
+            _this.OnChange({
+                R: parseInt(_this.redInput.value, 10),
+                G: parseInt(_this.greenInput.value, 10),
+                B: parseInt(_this.blueInput.value, 10),
+                A: _this.alphaInput != null ? parseInt(_this.alphaInput.value, 10) : 100,
             });
             event.preventDefault();
         };
-        const mouseUpCallback = () => {
+        var mouseUpCallback = function () {
             window.removeEventListener('mousemove', mouseMoveCallback);
             window.removeEventListener('mouseup', mouseUpCallback);
         };
         window.addEventListener('mousemove', mouseMoveCallback);
         window.addEventListener('mouseup', mouseUpCallback);
         evt.preventDefault();
-    }
-    OnChange(colour) {
+    };
+    ColourPicker.prototype.OnChange = function (colour) {
         if (colour == null)
             return false;
-        const newColour = new Colour();
+        var newColour = new Colour();
         if (typeof colour === 'string') {
             if (!newColour.SetHex(colour))
                 return false;
@@ -274,29 +293,31 @@ class ColourPicker {
         }
         this.onChange(newColour);
         return true;
-    }
-    UpdateHexInput(hex) {
+    };
+    ColourPicker.prototype.UpdateHexInput = function (hex) {
         this.hexInput.value = hex;
-    }
-    UpdateRGBAInput(rgba) {
+    };
+    ColourPicker.prototype.UpdateRGBAInput = function (rgba) {
         this.redInput.value = rgba.R.toString();
         this.greenInput.value = rgba.G.toString();
         this.blueInput.value = rgba.B.toString();
         if (this.alphaInput != null)
             this.alphaInput.value = rgba.A.toString();
-    }
-    UpdateColourField(hsv, cssString) {
-        const markerBoundingBox = this.colourFieldMarker.getBoundingClientRect();
-        this.colourFieldMarker.style.left = `calc(${(hsv.S * 100)}% - ${markerBoundingBox.width / 2}px)`;
-        this.colourFieldMarker.style.bottom = `calc(${(hsv.V * 100)}% - ${markerBoundingBox.height / 2}px)`;
+    };
+    ColourPicker.prototype.UpdateColourField = function (hsv, cssString) {
+        var markerBoundingBox = this.colourFieldMarker.getBoundingClientRect();
+        this.colourFieldMarker.style.left = "calc(" + (hsv.S * 100) + "% - " + markerBoundingBox.width / 2 + "px)";
+        this.colourFieldMarker.style.bottom = "calc(" + (hsv.V * 100) + "% - " + markerBoundingBox.height / 2 + "px)";
         this.colourFieldMarker.style.backgroundColor = cssString;
         this.hueSliderHandle.style.left = (hsv.H * 100) + '%';
-        const hueHex = new Colour({ H: hsv.H, S: 1, V: 1 }).GetHex();
-        this.colourField.style.background = `linear-gradient(to right, #FFF, ${hueHex})`;
-    }
-}
-class ColourPickerOptions {
-    constructor() {
+        var hueHex = new Colour({ H: hsv.H, S: 1, V: 1 }).GetHex();
+        this.colourField.style.background = "linear-gradient(to right, #FFF, " + hueHex + ")";
+    };
+    return ColourPicker;
+}());
+export { ColourPicker };
+var ColourPickerOptions = (function () {
+    function ColourPickerOptions() {
         this.initialColour = new Colour({ R: 255, G: 0, B: 0, A: 100 });
         this.showAlphaControl = false;
         this.hexInputLabel = 'Hex';
@@ -305,9 +326,10 @@ class ColourPickerOptions {
         this.blueInputLabel = 'B';
         this.alphaInputLabel = 'A';
     }
-}
-class Colour {
-    constructor(colour) {
+    return ColourPickerOptions;
+}());
+var Colour = (function () {
+    function Colour(colour) {
         this.R = 255;
         this.G = 255;
         this.B = 255;
@@ -317,20 +339,22 @@ class Colour {
                 this.SetHex(colour);
             else if (colour.hasOwnProperty('R'))
                 this.SetRGBA(colour);
-            else if (colour.hasOwnProperty('H'))
+            else if (colour.hasOwnProperty('V'))
                 this.SetHSV(colour);
+            else if (colour.hasOwnProperty('L'))
+                this.SetHSL(colour);
         }
     }
-    SetRGBA(rgba) {
+    Colour.prototype.SetRGBA = function (rgba) {
         this.R = rgba.R;
         this.G = rgba.G;
         this.B = rgba.B;
         this.A = rgba.A;
-    }
-    SetAlpha(alpha) {
+    };
+    Colour.prototype.SetAlpha = function (alpha) {
         this.A = alpha;
-    }
-    SetHex(hex) {
+    };
+    Colour.prototype.SetHex = function (hex) {
         if (hex.length === 0)
             return false;
         if (hex[0] === '#')
@@ -342,7 +366,7 @@ class Colour {
             this.G = parseInt(hex.substr(2, 2), 16);
             this.B = parseInt(hex.substr(4, 2), 16);
             if (hex.length === 8) {
-                const parsedInt = parseInt(hex.substr(6, 2), 16);
+                var parsedInt = parseInt(hex.substr(6, 2), 16);
                 this.A = Math.round(parsedInt / 2.55);
             }
             else {
@@ -353,19 +377,19 @@ class Colour {
             return false;
         }
         return true;
-    }
-    SetHSV(hsv) {
-        const hueSector = Math.floor(hsv.H * 6);
-        const hueSectorOffset = hsv.H * 6 - hueSector;
-        let p = hsv.V * (1 - hsv.S);
+    };
+    Colour.prototype.SetHSV = function (hsv) {
+        var hueSector = Math.floor(hsv.H * 6);
+        var hueSectorOffset = hsv.H * 6 - hueSector;
+        var p = hsv.V * (1 - hsv.S);
         p = Math.round(p * 255);
-        let q = hsv.V;
+        var q = hsv.V;
         if (hueSector % 2 === 0)
             q *= (1 - (1 - hueSectorOffset) * hsv.S);
         else
             q *= 1 - hueSectorOffset * hsv.S;
         q = Math.round(q * 255);
-        const v = Math.round(hsv.V * 255);
+        var v = Math.round(hsv.V * 255);
         switch (hueSector % 6) {
             case 0:
                 this.R = v, this.G = q, this.B = p;
@@ -390,49 +414,110 @@ class Colour {
                 this.G = 0;
                 this.B = 0;
         }
-    }
-    ToCssString(includeAlpha = false) {
-        let str = includeAlpha ? 'rgba(' : 'rgb(';
+    };
+    Colour.prototype.SetHSL = function (hsl) {
+        var huePrime = hsl.H * 6;
+        var c = (1 - Math.abs(2 * hsl.L - 1)) * hsl.S;
+        var x = c * (1 - Math.abs(huePrime % 2 - 1));
+        var hueSector = Math.floor(huePrime);
+        var r, g, b;
+        switch (hueSector % 6) {
+            case 0:
+                r = c, g = x, b = 0;
+                break;
+            case 1:
+                r = x, g = c, b = 0;
+                break;
+            case 2:
+                r = 0, g = c, b = x;
+                break;
+            case 3:
+                r = 0, g = x, b = c;
+                break;
+            case 4:
+                r = x, g = 0, b = c;
+                break;
+            case 5:
+                r = c, g = 0, b = x;
+                break;
+            default:
+                r = 0;
+                g = 0;
+                b = 0;
+        }
+        var m = hsl.L - c / 2;
+        this.R = (r + m) * 255;
+        this.G = (g + m) * 255;
+        this.B = (b + m) * 255;
+    };
+    Colour.prototype.ToCssString = function (includeAlpha) {
+        if (includeAlpha === void 0) { includeAlpha = false; }
+        var str = includeAlpha ? 'rgba(' : 'rgb(';
         str += this.R + ', ' + this.G + ', ' + this.B;
         str += includeAlpha ? ', ' + this.A + '%)' : ')';
         return str;
-    }
-    GetRGBA() {
+    };
+    Colour.prototype.GetRGBA = function () {
         return { R: this.R, G: this.G, B: this.B, A: this.A };
-    }
-    GetHex(includeAlpha = false) {
-        let hex = '#' + this.DecimalToHex(this.R) + this.DecimalToHex(this.G) + this.DecimalToHex(this.B);
+    };
+    Colour.prototype.GetHex = function (includeAlpha) {
+        if (includeAlpha === void 0) { includeAlpha = false; }
+        var hex = '#' + this.DecimalToHex(this.R) + this.DecimalToHex(this.G) + this.DecimalToHex(this.B);
         hex += includeAlpha ? this.DecimalToHex(this.A * 2.55) : '';
         return hex;
-    }
-    GetHSV() {
-        const r = this.R / 255;
-        const g = this.G / 255;
-        const b = this.B / 255;
-        const hsv = { H: 0, S: 0, V: 0 };
-        const max = Math.max(r, g, b);
-        const min = Math.min(r, g, b);
-        const delta = max - min;
+    };
+    Colour.prototype.GetHSV = function () {
+        var r = this.R / 255;
+        var g = this.G / 255;
+        var b = this.B / 255;
+        var hsv = { H: 0, S: 0, V: 0 };
+        var max = Math.max(r, g, b);
+        var min = Math.min(r, g, b);
+        var delta = max - min;
         hsv.V = max;
         hsv.S = max === 0 ? 0 : delta / max;
+        hsv.H = this.HueFromRGB(r, g, b, max, delta);
+        return hsv;
+    };
+    Colour.prototype.GetHSL = function () {
+        var r = this.R / 255;
+        var g = this.G / 255;
+        var b = this.B / 255;
+        var hsl = { H: 0, S: 0, L: 0 };
+        var max = Math.max(r, g, b);
+        var min = Math.min(r, g, b);
+        var delta = max - min;
+        hsl.L = (max + min) / 2;
+        if (delta === 0)
+            return hsl;
+        if (hsl.L > 0.5)
+            hsl.S = delta / (2 - max - min);
+        else
+            hsl.S = delta / (max + min);
+        hsl.H = this.HueFromRGB(r, g, b, max, delta);
+        return hsl;
+    };
+    Colour.prototype.HueFromRGB = function (r, g, b, max, delta) {
+        var h;
         if (r === max) {
-            const deltaOffset = g < b ? 6 : 0;
-            hsv.H = (delta + deltaOffset === 0) ? 0 : (g - b) / delta + deltaOffset;
+            var deltaOffset = g < b ? 6 : 0;
+            h = (delta + deltaOffset === 0) ? 0 : (g - b) / delta + deltaOffset;
         }
         else if (g === max) {
-            hsv.H = (b - r) / delta + 2;
+            h = (b - r) / delta + 2;
         }
         else if (b === max) {
-            hsv.H = (r - g) / delta + 4;
+            h = (r - g) / delta + 4;
         }
-        hsv.H = hsv.H / 6;
-        return hsv;
-    }
-    DecimalToHex(decimal) {
-        const hex = decimal.toString(16).toUpperCase();
+        return h / 6;
+    };
+    Colour.prototype.DecimalToHex = function (decimal) {
+        var hex = decimal.toString(16).toUpperCase();
         return hex.length === 1 ? '0' + hex : hex;
-    }
-}
+    };
+    return Colour;
+}());
+export { Colour };
 var cpEnumRGBA;
 (function (cpEnumRGBA) {
     cpEnumRGBA["Red"] = "r";
@@ -440,5 +525,4 @@ var cpEnumRGBA;
     cpEnumRGBA["Blue"] = "b";
     cpEnumRGBA["Alpha"] = "a";
 })(cpEnumRGBA || (cpEnumRGBA = {}));
-export default ColourPicker;
 //# sourceMappingURL=colourpicker.js.map

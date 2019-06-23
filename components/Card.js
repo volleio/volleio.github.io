@@ -15,9 +15,10 @@ export default function Card(props) {
             display: flex;
             flex-direction: column;
 
-            box-shadow: 0 1px 4px 2px rgba(50, 50, 50, 0.1);
+			background-color: rgba(255, 255, 255, 0.9);
             border: 1px solid rgba(50, 50, 50, 0.1);
             border-radius: 2px;
+            box-shadow: 0 1px 4px 2px rgba(50, 50, 50, 0.1);
           }
 
           .card-header {

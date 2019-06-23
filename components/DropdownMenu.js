@@ -39,7 +39,7 @@ class DropdownMenu extends Component
 				width: 40px;
 				height: 40px;
 				border-radius: 3px;
-				background-color: rgba(255, 255, 255, 1);
+				background-color: rgba(255, 255, 255, 0.2);
 				transition: all 0.1s ease-in-out;
 				cursor: pointer;
 			}
