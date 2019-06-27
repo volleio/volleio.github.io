@@ -181,29 +181,50 @@
 				// var screenAsPortal = new THREEx.ScreenAsPortal(multiMarkerFile)
 				// arWorldRoot.add(screenAsPortal.object3d)
 
-				var mesh = new THREE.AxisHelper()
-				arWorldRoot.add(mesh)
+				const axisHelperMesh = new THREE.AxisHelper();
+				arWorldRoot.add(axisHelperMesh);
 				
 				// add a torus knot	
-				var geometry	= new THREE.CubeGeometry(1,1,1);
-				var material	= new THREE.MeshNormalMaterial({
-					transparent : true,
-					opacity: 0.5,
-					side: THREE.DoubleSide
-				}); 
-				var mesh	= new THREE.Mesh( geometry, material );
-				mesh.position.y	= geometry.parameters.height/2
-				arWorldRoot.add(mesh)
+				// var geometry	= new THREE.CubeGeometry(1,1,1);
+				// var material	= new THREE.MeshNormalMaterial({
+				// 	transparent : true,
+				// 	opacity: 0.5,
+				// 	side: THREE.DoubleSide
+				// }); 
+				// var mesh	= new THREE.Mesh( geometry, material );
+				// mesh.position.y	= geometry.parameters.height/2
+				// arWorldRoot.add(mesh)
 				
-				var geometry	= new THREE.TorusKnotGeometry(0.3,0.1,64,16);
-				var material	= new THREE.MeshNormalMaterial(); 
-				var mesh	= new THREE.Mesh( geometry, material );
-				mesh.position.y	= 0.5
-				arWorldRoot.add( mesh );
+				// var geometry	= new THREE.TorusKnotGeometry(0.3,0.1,64,16);
+				// var material	= new THREE.MeshNormalMaterial(); 
+				// var mesh	= new THREE.Mesh( geometry, material );
+				// mesh.position.y	= 0.5
+				// arWorldRoot.add( mesh );
 				
-				onRenderFcts.push(function(delta){
-					mesh.rotation.x += delta * Math.PI
-				})		
+				// onRenderFcts.push(function(delta){
+				// 	mesh.rotation.x += delta * Math.PI
+				// })		
+
+				// Add business card image to scene
+				const loader = new THREE.TextureLoader();
+				loader.load('/static/ar/business-card.png', (texture) =>
+				{
+					const material = new THREE.MeshLambertMaterial({
+						map: texture
+					});
+	
+					const geometry = new THREE.PlaneGeometry(3.5 / 2, 3.5); // height & width
+					const businessCardMesh = new THREE.Mesh(geometry, material);
+					businessCardMesh.position.set(0,0,0);
+					businessCardMesh.rotation.x = -(Math.PI / 2);
+					businessCardMesh.rotation.z = Math.PI / 2;
+					arWorldRoot.add(businessCardMesh);
+				});
+
+				// Add light to illuminate image
+				const light = new THREE.PointLight( 0xffffff, 1, 0 );
+				light.position.set(1, 1, 100 );
+				arWorldRoot.add(light)
 			})()
 
 			//////////////////////////////////////////////////////////////////////////////////
