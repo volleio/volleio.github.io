@@ -367,6 +367,9 @@ class BusinessCard extends Component
             transform: scale(1);
             transition: all 0.1s ease-in-out;
           }
+		  .dark-mode .icon {
+			  filter: invert(1);
+		  }
 
           .icon-bracket-group.hover .icon {
             transform: scale(1.1);

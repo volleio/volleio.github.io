@@ -27,9 +27,9 @@ export default function Layout(props) {
 
 			html {
 				font-size: 100%;
-				--dark-mode: 0;
-				filter: invert(var(--dark-mode));
-				transition: filter 0.2s ease-in-out;
+			}
+			html.dark-mode {
+				filter: invert(1);
 			}
 
 			body {
@@ -59,10 +59,12 @@ export default function Layout(props) {
 			a:active {
 				text-decoration: underline;
 			}
+			html.dark-mode a {
+				filter: invert(1);
+			}
 
-			.no-invert {
-				filter: invert(var(--dark-mode));
-				transition: filter 0.2s ease-in-out;
+			html.dark-mode .no-invert {
+				filter: invert(1);
 			}
         `}
         </style>

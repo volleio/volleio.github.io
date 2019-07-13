@@ -19,9 +19,9 @@ class ColorPicker extends Component
 
 				const whiteTintHsl = colourPicker.GetColour().GetHSL();
 				if (whiteTintHsl.L < 0.3)
-					document.documentElement.style.setProperty("--dark-mode", "1");
+					document.documentElement.classList.add("dark-mode");
 				else
-					document.documentElement.style.setProperty("--dark-mode", "0");
+					document.documentElement.classList.remove("dark-mode");
 
 				whiteTintHsl.S = Math.min(whiteTintHsl.S, whiteTintHsl.L);
 				whiteTintHsl.L = 0.9 + whiteTintHsl.L / 10;

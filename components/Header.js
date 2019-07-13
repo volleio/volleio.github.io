@@ -91,9 +91,10 @@ class Header extends Component
 	{
         this.SetupBasicScroll();
 
-		const currentUrl = new URL(window.location.href);
-		if (currentUrl.searchParams.get("ar") != null)
-			this.setState({ showAR: true });
+		// Disable AR auto-forward until it's better set up
+		// const currentUrl = new URL(window.location.href);
+		// if (currentUrl.searchParams.get("ar") != null)
+		// 	this.setState({ showAR: true });
 	}
 
     render() 
