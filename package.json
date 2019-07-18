@@ -17,6 +17,8 @@
   "devDependencies": {
     "@types/node": "^12.6.2",
     "@types/react": "^16.8.23",
+    "tslint": "^5.18.0",
+    "tslint-eslint-rules": "^5.4.0",
     "typescript": "^3.5.3"
   },
   "scripts": {

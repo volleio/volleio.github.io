@@ -10,6 +10,12 @@
 		},
 		"editor.insertSpaces": false,
 		"prettier.useTabs": true,
-		"editor.detectIndentation": false
+		"editor.detectIndentation": false,
+		"javascript.format.placeOpenBraceOnNewLineForControlBlocks": true,
+		"javascript.format.placeOpenBraceOnNewLineForFunctions": true,
+		"prettier.tabWidth": 4,
+		"prettier.trailingComma": "es5",
+		"prettier.tslintIntegration": true,
+		"prettier.eslintIntegration": true
 	}
 }

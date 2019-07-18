@@ -1,0 +1,17 @@
+{
+	"extends": "tslint:recommended",
+	"rulesDirectory": [
+		"node_modules/tslint-eslint-rules/dist/rules"
+	],
+	"rules": {
+		"indent": false,
+		"one-line": false,
+		"brace-style": [
+			true,
+			"allman",
+			{
+				"allowSingleLine": true
+			}
+		]
+	}
+}

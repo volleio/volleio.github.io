@@ -18,8 +18,9 @@ class ColorPicker extends Component
 		const pickerElement = container.querySelector(".color-picker");
 		const indicator = container.querySelector(".color-picker-indicator");
 
-		const colourPicker = new ColourPicker(pickerElement, (rgba) => 
+		const colourPicker = new ColourPicker(pickerElement, (color) => 
 		{
+			const rgba = color.GetRGBA();
 			document.body.style.backgroundColor = `rgb(${rgba.R}, ${rgba.G}, ${rgba.B})`;
 			indicator.style.backgroundColor = `rgb(${rgba.R}, ${rgba.G}, ${rgba.B})`;			
 
@@ -31,10 +32,10 @@ class ColorPicker extends Component
 
 			whiteTintHsl.S = Math.min(whiteTintHsl.S, whiteTintHsl.L);
 			whiteTintHsl.L = 0.9 + whiteTintHsl.L / 10;
-			const whiteTintRgb = new Colour(whiteTintHsl);
-			whiteTintRgb.A = 98;
+			const whiteTintColor = new Colour(whiteTintHsl);
+			whiteTintColor.SetAlpha(98);
 			
-			document.querySelector(".header-container").style.backgroundColor = whiteTintRgb.ToCssString(true);
+			(document.querySelector(".header-container") as HTMLElement).style.backgroundColor =  whiteTintColor.ToCssString(true);
 		});
 	}
 	  
