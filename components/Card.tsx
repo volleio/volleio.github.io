@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 
-class Card extends Component<CardProps>
+class Card extends Component<ICardProps>
 {
-	constructor(props: CardProps) {
+	constructor(props: ICardProps) {
 		super(props);
 	}
 
-	render()
+	public render()
 	{
 		return (
 			<div className="card-container">
@@ -19,33 +19,35 @@ class Card extends Component<CardProps>
 	
 				<style jsx>
 					{`
-			  .card-container {
-				padding: 16px;
-				display: flex;
-				flex-direction: column;
-	
-				background-color: rgba(255, 255, 255, 0.9);
-				border: 1px solid rgba(50, 50, 50, 0.1);
-				border-radius: 2px;
-				box-shadow: 0 1px 4px 2px rgba(50, 50, 50, 0.1);
-			  }
-	
-			  .card-header {
-	
-			  }
-	
-			  .card-content {
-				font-size: 1em;
-				overflow: auto;
-			  }
-			`}
+					.card-container {
+						padding: 16px;
+						display: flex;
+						flex-direction: column;
+			
+						background-color: rgba(255, 255, 255, 0.9);
+						border: 1px solid rgba(50, 50, 50, 0.1);
+						border-radius: 2px;
+						box-shadow: 0 1px 4px 2px rgba(50, 50, 50, 0.1);
+					}
+			
+					.card-header {
+			
+					}
+			
+					.card-content {
+						font-size: 1em;
+						overflow: auto;
+					}
+					`}
 				</style>
 			</div>
 		);
 	}
 }
 
-interface CardProps {
+interface ICardProps {
 	title: string;
 	children: string;
 }
+
+export default Card;

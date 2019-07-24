@@ -1,7 +1,7 @@
-import React, { Component, JSXElementConstructor } from "react";
+import React, { Component, JSXElementConstructor, MouseEvent } from "react";
 import ReactDOM from "react-dom";
 
-class Popup extends Component<PopupProps> {
+class Popup extends Component<IPopupProps> {
 	constructor(props) {
 		super(props);
 	}
@@ -56,8 +56,13 @@ class Popup extends Component<PopupProps> {
 	}
 }
 
-interface PopupProps {
-	items: Element[];
+interface IPopupProps {
+	items: IPopupItemOption[];
+}
+
+export interface IPopupItemOption {
+	title: string;
+	onClick: (evt: MouseEvent) => void;
 }
 
 export default Popup;

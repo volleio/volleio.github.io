@@ -5,7 +5,7 @@ import BusinessCard from './BusinessCard';
 import DropdownMenu from './DropdownMenu';
 import "../global.scss"
 
-class Header extends Component
+class Header extends Component<IHeaderProps, IHeaderState>
 {
     constructor(props)
     {
@@ -74,7 +74,7 @@ class Header extends Component
             evt.currentTarget.style.marginTop = "";
 	}
 	
-	onClickAR(evt)
+	onClickAR(evt: MouseEvent): void
 	{
 		this.setState({ 
 			showAR: !this.state.showAR,
@@ -187,7 +187,7 @@ class Header extends Component
 							[
 								{
 									title: "Augmented Reality",
-									onClick: this.onClickAR.bind(this)
+									onClick: this.onClickAR.bind(this),
 								}
 							]
 						}></DropdownMenu>
@@ -231,7 +231,7 @@ class Header extends Component
                   }
                 `}</style>
             </div>
-        )
+        );
     }
     
     SetupBasicScroll()
@@ -269,6 +269,15 @@ class Header extends Component
         headerHeight.start();
         headerFade.start();
     }
+}
+
+interface IHeaderProps {
+	
+}
+
+interface IHeaderState {
+	showAR: boolean;
+	showMenu: boolean;
 }
 
 export default Header;

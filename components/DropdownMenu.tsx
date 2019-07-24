@@ -1,19 +1,14 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import Popup from './Popup';
+import Popup, { IPopupItemOption } from "./Popup";
 
-class DropdownMenu extends Component<DropdownMenuProps>
+class DropdownMenu extends Component<IDropdownMenuProps>
 {
 	constructor(props) {
 		super(props);
 		this.onButtonClick = this.onButtonClick.bind(this);
 	}
 
-	onButtonClick(evt) {
-		this.props.toggleShowMenu();
-	}
-
-	render() {
+	public render() {
 		let popup = null;
 		if (this.props.showMenu) {
 			popup = (<Popup items={this.props.items}></Popup>);
@@ -82,12 +77,16 @@ class DropdownMenu extends Component<DropdownMenuProps>
 			</div>
 		);
 	}
+
+	private onButtonClick(evt) {
+		this.props.toggleShowMenu();
+	}
 }
 
-interface DropdownMenuProps {
+interface IDropdownMenuProps {
 	toggleShowMenu: () => void;
-	showMenu: () => void;
-	items: Popup;
+	showMenu: boolean;
+	items: IPopupItemOption[];
 }
 
 export default DropdownMenu;

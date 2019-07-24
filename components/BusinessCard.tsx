@@ -5,8 +5,7 @@ class BusinessCard extends Component<IBusinessCardProps> {
 	private lastScrollPos: number;
 	private stopAutoScroll: boolean;
 
-	constructor(props: IBusinessCardProps) 
-	{
+	constructor(props: IBusinessCardProps) {
 		super(props);
 		this.lastScrollPos = 0;
 		this.stopAutoScroll = false;
