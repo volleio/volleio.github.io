@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, MouseEvent } from "react";
 
 class Card extends Component<ICardProps>
 {
@@ -47,7 +47,6 @@ class Card extends Component<ICardProps>
 
 interface ICardProps {
 	title: string;
-	children: string;
 }
 
 export default Card;

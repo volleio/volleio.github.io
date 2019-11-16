@@ -1,4 +1,4 @@
-import React, { Component, ReactEventHandler } from "react";
+import React, { Component, MouseEvent, TransitionEvent, SyntheticEvent } from "react";
 import ReactDOM from "react-dom";
 
 class BusinessCard extends Component<IBusinessCardProps> {
@@ -40,39 +40,35 @@ class BusinessCard extends Component<IBusinessCardProps> {
 		}
 	}
 
-	public onBusinessCardTextClick(evt) {
+	public onBusinessCardTextClick(evt: MouseEvent) {
 		this.stopAutoScroll = false;
-		this.props.onMouseLeaveContainer(
-			new MouseEvent("mouseleave", {
-				relatedTarget: evt.target.closest(".header-container"),
-			}),
-		);
+		this.props.onMouseLeaveContainer({ currentTarget: (evt.target as HTMLElement).closest(".header-container") as HTMLElement });
 		this.scrollToTop();
 	}
 
-	public onIconMouseOver(evt) {
-		const icon = evt.target;
-		const iconBracketGroup = icon.closest(".icon-bracket-group");
-		const iconLabel = icon.closest(".business-card__label");
+	public onIconMouseOver(evt: MouseEvent) {
+		const icon = evt.target as HTMLElement;
+		const iconBracketGroup = icon.closest(".icon-bracket-group") as HTMLElement;
+		const iconLabel = icon.closest(".business-card__label") as HTMLElement;
 		iconBracketGroup.classList.add("hover");
 		iconLabel.classList.add("hover");
 
-		const businessCardContainer = icon.closest(".business-card-container");
+		const businessCardContainer = icon.closest(".business-card-container") as HTMLElement;
 		if (icon.classList.contains("icon--email")) {
 			const textAt = businessCardContainer.querySelector(
 				".business-card___text__at",
-			);
+			) as HTMLElement;
 			textAt.classList.add("selected");
 		} else if (icon.classList.contains("icon--me")) {
 			const textVolle = businessCardContainer.querySelector(
 				".business-card___text__volle",
-			);
+			) as HTMLElement;
 			const textDot = businessCardContainer.querySelector(
 				".business-card___text__dot",
-			);
+			) as HTMLElement;
 			const textIo = businessCardContainer.querySelector(
 				".business-card___text__io",
-			);
+			) as HTMLElement;
 			textVolle.classList.remove("selected");
 			textDot.classList.remove("selected");
 			textIo.classList.remove("selected");
@@ -84,45 +80,45 @@ class BusinessCard extends Component<IBusinessCardProps> {
 		) {
 			const textLucas = businessCardContainer.querySelector(
 				".business-card___text__lucas",
-			);
+			) as HTMLElement;
 			textLucas.classList.remove("selected");
 
 			if (!icon.classList.contains("icon--insta")) {
 				const textDot = businessCardContainer.querySelector(
 					".business-card___text__dot",
-				);
+				) as HTMLElement;
 				textDot.classList.remove("selected");
 			}
 		}
 	}
 
-	public onIconMouseOut(evt) {
-		const icon = evt.target;
-		const iconBracketGroup = icon.closest(".icon-bracket-group");
-		const iconLabel = icon.closest(".business-card__label");
+	public onIconMouseOut(evt: MouseEvent) {
+		const icon = evt.target as HTMLElement;
+		const iconBracketGroup = icon.closest(".icon-bracket-group") as HTMLElement;
+		const iconLabel = icon.closest(".business-card__label") as HTMLElement;
 		iconBracketGroup.classList.remove("hover");
 		iconLabel.classList.remove("hover");
 
-		const businessCardContainer = icon.closest(".business-card-container");
+		const businessCardContainer = icon.closest(".business-card-container") as HTMLElement;
 		if (icon.classList.contains("icon--email")) {
 			const textAt = businessCardContainer.querySelector(
 				".business-card___text__at",
-			);
+			) as HTMLElement;
 			textAt.classList.remove("selected");
 		} else if (icon.classList.contains("icon--me")) {
-			const avatar = icon.parentElement.querySelector(".me-icon-avatar");
+			const avatar = (icon.parentElement as HTMLElement).querySelector(".me-icon-avatar") as HTMLElement;
 			icon.classList.remove("flip");
 			avatar.classList.remove("flip");
 
 			const textVolle = businessCardContainer.querySelector(
 				".business-card___text__volle",
-			);
+			) as HTMLElement;
 			const textDot = businessCardContainer.querySelector(
 				".business-card___text__dot",
-			);
+			) as HTMLElement;
 			const textIo = businessCardContainer.querySelector(
 				".business-card___text__io",
-			);
+			) as HTMLElement;
 			textVolle.classList.add("selected");
 			textDot.classList.add("selected");
 			textIo.classList.add("selected");
@@ -134,21 +130,21 @@ class BusinessCard extends Component<IBusinessCardProps> {
 		) {
 			const textLucas = businessCardContainer.querySelector(
 				".business-card___text__lucas",
-			);
+			) as HTMLElement;
 			textLucas.classList.add("selected");
 
 			if (!icon.classList.contains("icon--insta")) {
 				const textDot = businessCardContainer.querySelector(
 					".business-card___text__dot",
-				);
+				) as HTMLElement;
 				textDot.classList.add("selected");
 			}
 		}
 	}
 
-	public onMeClick(evt) {
-		const icon = evt.target;
-		const avatar = icon.parentElement.querySelector(".me-icon-avatar");
+	public onMeClick(evt: MouseEvent) {
+		const icon = evt.target as HTMLElement;
+		const avatar = (icon.parentElement as HTMLElement).querySelector(".me-icon-avatar") as HTMLElement;
 		icon.classList.add("flip");
 		avatar.classList.add("flip");
 	}
@@ -571,8 +567,8 @@ class BusinessCard extends Component<IBusinessCardProps> {
 }
 
 interface IBusinessCardProps {
-	onMouseLeaveContainer: (evt: MouseEvent) => void;
-	onTransitionEnd: (evt: React.TransitionEvent<HTMLDivElement>) => void;
+	onMouseLeaveContainer: (evt: MouseEvent | { currentTarget: HTMLElement }) => void;
+	onTransitionEnd: (evt: TransitionEvent) => void;
 }
 
 export default BusinessCard;

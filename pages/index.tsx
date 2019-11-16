@@ -1,6 +1,6 @@
-import Layout from '../components/Layout.js'
-import Card from '../components/Card.js'
-import Frame from '../components/Frame.js'
+import Layout from '../components/Layout'
+import Card from '../components/Card'
+import Frame from '../components/Frame'
 
 export default function HomePage() {
     return (

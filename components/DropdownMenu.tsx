@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, ReactHTML, MouseEvent } from "react";
 import Popup, { IPopupItemOption } from "./Popup";
 
 class DropdownMenu extends Component<IDropdownMenuProps>
 {
-	constructor(props) {
+	constructor(props: IDropdownMenuProps) {
 		super(props);
 		this.onButtonClick = this.onButtonClick.bind(this);
 	}
@@ -78,7 +78,7 @@ class DropdownMenu extends Component<IDropdownMenuProps>
 		);
 	}
 
-	private onButtonClick(evt) {
+	private onButtonClick(evt: MouseEvent) {
 		this.props.toggleShowMenu();
 	}
 }

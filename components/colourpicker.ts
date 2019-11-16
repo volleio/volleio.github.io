@@ -1,24 +1,26 @@
 /**
  * ColourPicker
  * A pure TypeScript colour picker
- * https://github.com/lrvolle/ColourPicker
+ * https://github.com/volleio/ColourPicker
  */
 
 export class ColourPicker {
 	private options: ColourPickerOptions;
 
 	private container: HTMLElement;
-	private fieldMarker: HTMLElement;
+	private fieldMarker!: HTMLElement;
 	private colourField: HTMLElement;
 	private colourFieldMarker: HTMLElement;
 	private hueSlider: HTMLElement;
 	private hueSliderHandle: HTMLElement;
-	private colourPreview?: HTMLElement;
-	private hexInput: HTMLInputElement;
-	private redInput: HTMLInputElement;
-	private greenInput: HTMLInputElement;
-	private blueInput: HTMLInputElement;
-	private alphaInput: HTMLInputElement;
+	private hexInput!: HTMLInputElement;
+	private redInput!: HTMLInputElement;
+	private greenInput!: HTMLInputElement;
+	private blueInput!: HTMLInputElement;
+	private alphaInput: HTMLInputElement | undefined;
+	private resetColourButton: HTMLElement | undefined;
+	private colourPalette: HTMLElement;
+	private customColours: HTMLElement | undefined;
 
 	private onChange: (colour: Colour) => void;
 
@@ -38,19 +40,35 @@ export class ColourPicker {
 		
 		const docFragment = document.createDocumentFragment();
 		
-		this.CreateColourField();
+		this.colourField = this.CreateColourField();
 		this.colourFieldMarker = <HTMLElement>this.colourField.querySelector('.colour-field__marker');
 		docFragment.appendChild(this.colourField);
 
-		this.CreateHueSlider();
+		this.hueSlider = this.CreateHueSlider();
 		this.hueSliderHandle = <HTMLElement>this.hueSlider.querySelector('.hue-slider__handle');
 		docFragment.appendChild(this.hueSlider);
 
 		const valueInputContainer = this.CreateValueInputs();
 		docFragment.appendChild(valueInputContainer);
 
-		this.colourPreview = document.createElement('div');
-		docFragment.appendChild(this.colourPreview);
+		if (this.options.resetColour != null) {
+			this.resetColourButton = this.CreateResetColourButton();
+			docFragment.appendChild(this.resetColourButton);
+		}
+
+		this.colourPalette = this.CreateColourPalette();
+		docFragment.appendChild(this.colourPalette);
+
+		if (this.colourPalette.childElementCount > 0 && this.options.showCustomColours) {
+			const colourPaletteSpacer = document.createElement('div');
+			colourPaletteSpacer.classList.add('colour-palette-spacer');
+			docFragment.appendChild(colourPaletteSpacer);
+		}
+
+		if (this.options.showCustomColours) {
+			this.customColours = this.CreateCustomColours();
+			docFragment.appendChild(this.customColours);
+		}
 
 		this.container.classList.add('colour-picker');
 		this.container.appendChild(docFragment);
@@ -82,25 +100,50 @@ export class ColourPicker {
 		}, 0);
 	}
 
+	public SetColourPalette(colourPalette: Colour[]): void {
+		this.options.colourPalette = colourPalette;
+		if (this.colourPalette)
+			this.colourPalette.remove();
+
+		this.colourPalette = this.CreateColourPalette();
+		this.hueSlider.insertAdjacentElement("afterend", this.colourPalette);
+	}
+
+	public SetCustomColours(customColours: Colour[]): void {
+		this.options.customColours = customColours;
+		if (this.customColours)
+			this.customColours.remove();
+		else if (this.colourPalette) {
+			const colourPaletteSpacer = document.createElement('div');
+			colourPaletteSpacer.classList.add('colour-palette-spacer');
+			this.container.appendChild(colourPaletteSpacer);
+		}
+
+		this.customColours = this.CreateCustomColours();
+		this.container.appendChild(this.customColours);
+	}
+
 	/** 
 	 * Creates and returns a rectangular Colour Field, with a movable marker
 	 * and gradients representing lightness & saturation.
 	 */
-	private CreateColourField(): void {
-		this.colourField = document.createElement('div');
-		this.colourField.classList.add('colour-field');
+	private CreateColourField(): HTMLElement {
+		const colourField = document.createElement('div');
+		colourField.classList.add('colour-field');
 		
 		const lightnessGradient = document.createElement('div');
 		lightnessGradient.classList.add('colour-field__lightness');
-		this.colourField.appendChild(lightnessGradient);
+		colourField.appendChild(lightnessGradient);
 
 		this.fieldMarker = document.createElement('div');
 		this.fieldMarker.classList.add('colour-field__marker');
-		this.colourField.appendChild(this.fieldMarker);
+		colourField.appendChild(this.fieldMarker);
+
+		return colourField;
 	}
 	
 	private ColourFieldMouseDown(evt: MouseEvent | TouchEvent): void {
-		// Allow dragging to begin only from the color field or
+		// Allow dragging to begin only from the colour field or
 		// the field marker.
 		if (evt.target !== this.colourField && evt.target !== this.fieldMarker)
 			return;
@@ -142,9 +185,9 @@ export class ColourPicker {
 
 	private SetColourFieldHSV(evt: MouseEvent | TouchEvent): cpHSV {
 		const colourFieldBoundingBox = this.colourField.getBoundingClientRect();
-		let mouseX = Math.max(evt instanceof MouseEvent ? evt.clientX : evt.targetTouches.item(0).clientX, colourFieldBoundingBox.left); 
+		let mouseX = Math.max(evt instanceof MouseEvent ? evt.clientX : (<Touch>evt.targetTouches.item(0)).clientX, colourFieldBoundingBox.left); 
 		mouseX = Math.min(mouseX, colourFieldBoundingBox.right);
-		let mouseY = Math.max(evt instanceof MouseEvent ? evt.clientY : evt.targetTouches.item(0).clientY, colourFieldBoundingBox.top); 
+		let mouseY = Math.max(evt instanceof MouseEvent ? evt.clientY : (<Touch>evt.targetTouches.item(0)).clientY, colourFieldBoundingBox.top); 
 		mouseY = Math.min(mouseY, colourFieldBoundingBox.bottom);
 
 		const colourFieldX = mouseX - colourFieldBoundingBox.left;
@@ -152,19 +195,21 @@ export class ColourPicker {
 		return this.GetColourFieldHSV(colourFieldX, colourFieldY);
 	}
 
-	private CreateHueSlider(): void {
-		this.hueSlider = document.createElement('div');
-		this.hueSlider.classList.add('hue-slider');
+	private CreateHueSlider(): HTMLElement {
+		const hueSlider = document.createElement('div');
+		hueSlider.classList.add('hue-slider');
 
 		const hueSliderGradient = document.createElement('div');
 		hueSliderGradient.classList.add('hue-slider__gradient');
-		this.hueSlider.appendChild(hueSliderGradient);
+		hueSlider.appendChild(hueSliderGradient);
 		hueSliderGradient.addEventListener('mousedown', (evt) => { this.HueSliderMouseDown(evt); });
 		hueSliderGradient.addEventListener('touchstart', (evt) => { this.HueSliderMouseDown(evt); });
 
 		const hueSliderHandle = document.createElement('div');
 		hueSliderHandle.classList.add('hue-slider__handle');
-		this.hueSlider.appendChild(hueSliderHandle);
+		hueSlider.appendChild(hueSliderHandle);
+
+		return hueSlider;
 	}
 
 	private HueSliderMouseDown (evt: MouseEvent | TouchEvent): void {
@@ -175,7 +220,9 @@ export class ColourPicker {
 		const hsv = this.GetColourFieldHSV(markerX, markerY);
 		this.OnChange(hsv);
 
-		window.getSelection().removeAllRanges();
+		const selection = window.getSelection();
+		if (selection)
+			selection.removeAllRanges();
 
 		const mouseMoveCallback = (event: MouseEvent | TouchEvent) => { 
 			this.UpdateHueSliderHandle(event);
@@ -185,7 +232,7 @@ export class ColourPicker {
 			const newHSV = this.GetColourFieldHSV(newMarkerX, newMarkerY);
 			this.OnChange(newHSV);
 
-			event.preventDefault();			
+			event.preventDefault();
 		};
 		const mouseUpCallback = () => { 
 			window.removeEventListener('mousemove', mouseMoveCallback);
@@ -203,7 +250,7 @@ export class ColourPicker {
 
 	private UpdateHueSliderHandle(evt: MouseEvent | TouchEvent) {
 		const hueSliderBoundingBox = this.hueSlider.getBoundingClientRect();
-		let mouseX = Math.max(evt instanceof MouseEvent ? evt.clientX : evt.targetTouches.item(0).clientX, hueSliderBoundingBox.left); 
+		let mouseX = Math.max(evt instanceof MouseEvent ? evt.clientX : (<Touch>evt.targetTouches.item(0)).clientX, hueSliderBoundingBox.left); 
 		mouseX = Math.min(mouseX, hueSliderBoundingBox.right);
 
 		this.hueSliderHandle.style.left = mouseX - hueSliderBoundingBox.left + 'px';
@@ -225,7 +272,7 @@ export class ColourPicker {
 		});
 
 		const rInputItem = this.CreateIntegerInput(cpEnumRGBA.Red, this.options.redInputLabel);
-		this.redInput = rInputItem.querySelector('input');
+		this.redInput = rInputItem.querySelector('input') as HTMLInputElement;
 		valueInputContainer.appendChild(rInputItem);
 		this.redInput.addEventListener('keypress', () => {
 			requestAnimationFrame(() => {
@@ -235,7 +282,7 @@ export class ColourPicker {
 		});
 
 		const gInputItem = this.CreateIntegerInput(cpEnumRGBA.Green, this.options.greenInputLabel);
-		this.greenInput = gInputItem.querySelector('input');
+		this.greenInput = gInputItem.querySelector('input') as HTMLInputElement;
 		valueInputContainer.appendChild(gInputItem);
 		this.greenInput.addEventListener('keypress', () => {
 			requestAnimationFrame(() => {
@@ -245,7 +292,7 @@ export class ColourPicker {
 		});
 
 		const bInputItem = this.CreateIntegerInput(cpEnumRGBA.Blue, this.options.blueInputLabel);
-		this.blueInput = bInputItem.querySelector('input');
+		this.blueInput = bInputItem.querySelector('input') as HTMLInputElement;
 		valueInputContainer.appendChild(bInputItem);
 		this.blueInput.addEventListener('keypress', () => {
 			requestAnimationFrame(() => {
@@ -256,11 +303,11 @@ export class ColourPicker {
 
 		if (this.options.showAlphaControl) {
 			const aInputItem = this.CreateIntegerInput(cpEnumRGBA.Alpha, this.options.alphaInputLabel);
-			this.alphaInput = aInputItem.querySelector('input');
+			this.alphaInput = aInputItem.querySelector('input') as HTMLInputElement;
 			valueInputContainer.appendChild(aInputItem);
 			this.alphaInput.addEventListener('keypress', () => {
 				requestAnimationFrame(() => {
-					this.alphaInput.value = this.alphaInput.value.replace(/[^0-9]/g, '');
+					(<HTMLInputElement>this.alphaInput).value = (this.alphaInput as HTMLInputElement).value.replace(/[^0-9]/g, '') as string;
 					this.OnChange(this.GetRGBAFromInputs());
 				});
 			});
@@ -281,9 +328,6 @@ export class ColourPicker {
 
 		let a = Math.round(this.alphaInput != null ? parseInt(this.alphaInput.value, 10) : 100);
 		a = Math.max(Math.min(a, 100), 0);
-		
-		if (isNaN(r) || isNaN(g) || isNaN(b) || isNaN(a))
-			return null;
 
 		return { R: r, G: g, B: b, A: a };
 	}
@@ -294,7 +338,7 @@ export class ColourPicker {
 
 		this.hexInput = document.createElement('input'); 
 		this.hexInput.classList.add('colour-input__hex');
-		this.hexInput.setAttribute("spellcheck", "false");
+		this.hexInput.setAttribute('spellcheck', 'false');
 		hexInputContainer.appendChild(this.hexInput);
 
 		const hexInputLbl = document.createElement('span'); 
@@ -324,6 +368,95 @@ export class ColourPicker {
 		intInputContainer.appendChild(intInputLbl);
 
 		return intInputContainer;
+	}
+
+	private CreateResetColourButton(): HTMLElement {
+		const resetColourButton = document.createElement('div');
+		resetColourButton.classList.add('reset-colour-button');
+
+		const resetColourButtonIcon = document.createElement('div');
+		resetColourButtonIcon.classList.add('reset-colour-button__icon');
+		resetColourButton.appendChild(resetColourButtonIcon);
+
+		const resetColourButtonLabel = document.createElement('span');
+		resetColourButtonLabel.classList.add('reset-colour-button__span');
+		resetColourButtonLabel.innerHTML = this.options.resetColourLabel;
+		resetColourButton.appendChild(resetColourButtonLabel);
+		
+		resetColourButton.addEventListener('click', () => {
+			this.SetColour(this.options.resetColour as Colour);
+			this.onChange(this.options.resetColour as Colour);
+		});
+
+		return resetColourButton;
+	}
+
+	private CreateColourPalette(): HTMLElement {
+		const colourPalette = document.createElement('div');
+		colourPalette.classList.add('default-colours');
+		colourPalette.classList.add('colour-option-grid');
+		this.options.colourPalette.forEach((colour) => {
+			const colourOption = this.CreateColourOption(colour, false);
+			colourPalette.appendChild(colourOption);
+		});
+		
+		return colourPalette;
+	}
+
+	private CreateCustomColours(): HTMLElement {
+		const customColours = document.createElement('div');
+		customColours.classList.add('custom-colours');
+		customColours.classList.add('colour-option-grid');
+
+		this.options.customColours.forEach((colour) => {
+			const colourOption = this.CreateColourOption(colour, true);
+			customColours.appendChild(colourOption);
+		});
+
+		const customColourAddButton = document.createElement('div');
+		customColourAddButton.classList.add('colour-option-add');
+		customColourAddButton.classList.add('colour-option');
+		customColourAddButton.addEventListener('click', () => {
+			const currentColour = this.GetColour();
+			const newCustomColourOption = this.CreateColourOption(currentColour, true);
+			customColourAddButton.insertAdjacentElement('beforebegin', newCustomColourOption);
+			if (this.options.onCustomColourAdd)
+				this.options.onCustomColourAdd(currentColour);
+		});
+		customColours.appendChild(customColourAddButton);
+
+		return customColours;
+	}
+
+	private CreateColourOption(colour: Colour, allowDeletion: boolean): HTMLElement {
+		const colourOption = document.createElement('div');
+		colourOption.classList.add('colour-option');
+		colourOption.style.backgroundColor = colour.ToCssString(true);
+		if (colour.GetHSL().L > 0.9)
+			colourOption.style.border = '1px solid rgba(200, 200, 200, 0.5)';
+
+		colourOption.addEventListener('click', () => {
+			this.SetColour(colour);
+			this.onChange(colour);
+		});
+
+		if (allowDeletion) {
+			const colourOptionDeleteButton = document.createElement('div');
+			colourOptionDeleteButton.classList.add('colour-option-delete');
+			colourOptionDeleteButton.addEventListener('click', (evt) => {
+				this.OnDeleteButtonClick(evt, colour, colourOption);
+			});
+			colourOption.appendChild(colourOptionDeleteButton);
+		}
+
+		return colourOption;
+	}
+
+	private OnDeleteButtonClick(evt: MouseEvent, colour: Colour, colourOption: HTMLElement): void {
+		colourOption.remove();
+		evt.stopPropagation(); // Prevent updating of colour
+		if (this.options.onCustomColourDelete)
+			this.options.onCustomColourDelete(colour);
 	}
 
 	private IntegerInputMouseDown(evt: MouseEvent, intInput: HTMLInputElement, maxValue: number): void {
@@ -363,8 +496,8 @@ export class ColourPicker {
 			if (!newColour.SetHex(colour))
 				return false;
 
-			if (this.options.showAlphaControl && newColour.GetRGBA().A === null)
-				newColour.SetAlpha(parseInt(this.alphaInput.value, 10));
+			if (this.options.showAlphaControl && this.alphaInput && newColour.GetRGBA().A === null)
+				newColour.SetAlpha(parseInt(this.alphaInput.value as string, 10));
 
 			this.UpdateHexInput(colour);
 			this.UpdateRGBAInput(newColour.GetRGBA());
@@ -376,8 +509,8 @@ export class ColourPicker {
 			this.UpdateColourField(newColour.GetHSV(), newColour.ToCssString());
 		} else if (colour.hasOwnProperty('H')) {
 			newColour.SetHSV(colour as cpHSV);
-			if (this.options.showAlphaControl)
-				newColour.SetAlpha(parseInt(this.alphaInput.value, 10));
+			if (this.options.showAlphaControl && this.alphaInput)
+				newColour.SetAlpha(parseInt(this.alphaInput.value as string, 10));
 
 			this.UpdateHexInput(newColour.GetHex());
 			this.UpdateRGBAInput(newColour.GetRGBA());
@@ -413,16 +546,23 @@ export class ColourPicker {
 	}
 }
 
-class ColourPickerOptions{
-	public initialColour: Colour = new Colour({ R: 255, G: 0, B: 0, A: 100 });
+export class ColourPickerOptions{
+	public initialColour: Colour = new Colour({ R: 255, G: 255, B: 255, A: 100 });
 	public showAlphaControl: boolean = false;
+	public colourPalette: Colour[] = [];
+	public showCustomColours: boolean = false;
+	public customColours: Colour[] = [];
+	public onCustomColourAdd: ((addedColour: Colour) => void) | undefined;
+	public onCustomColourDelete: ((deletedColour: Colour) => void) | undefined;
+	public resetColour: Colour | undefined;
 
 	/** Labels that appear underneath input boxes */
 	public hexInputLabel: string = 'Hex';
 	public redInputLabel: string = 'R';
-	public greenInputLabel?: string = 'G';
-	public blueInputLabel?: string = 'B';
-	public alphaInputLabel?: string = 'A';
+	public greenInputLabel: string = 'G';
+	public blueInputLabel: string = 'B';
+	public alphaInputLabel: string = 'A';
+	public resetColourLabel: string = 'Reset';
 }
 
 export class Colour {
@@ -475,7 +615,7 @@ export class Colour {
 				const parsedInt = parseInt(hex.substr(6, 2), 16);
 				this.A = Math.round(parsedInt / 2.55);	
 			} else {
-				this.A = null;
+				this.A = 100;
 			}
 		} else {
 			return false;
@@ -603,7 +743,7 @@ export class Colour {
 			h = (delta + deltaOffset === 0) ? 0 : (g - b) / delta + deltaOffset;
 		} else if (g === max) {
 			h = (b - r) / delta + 2;
-		} else if (b === max) {
+		} else { // if (b === max)
 			h = (r - g) / delta + 4;
 		}
 

@@ -1,8 +1,8 @@
-import React, { Component, JSXElementConstructor, MouseEvent } from "react";
+import React, { Component, MouseEvent } from "react";
 import ReactDOM from "react-dom";
 
 class Popup extends Component<IPopupProps> {
-	constructor(props) {
+	constructor(props: IPopupProps) {
 		super(props);
 	}
 

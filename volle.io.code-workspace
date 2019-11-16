@@ -16,6 +16,12 @@
 		"prettier.tabWidth": 4,
 		"prettier.trailingComma": "es5",
 		"prettier.tslintIntegration": true,
-		"prettier.eslintIntegration": true
+		"prettier.eslintIntegration": true,
+		"typescript.tsdk": "node_modules\\typescript\\lib"
+	},
+	"extensions": {
+		"recommendations": [
+			"Microsoft.TSLint"
+		]
 	}
 }

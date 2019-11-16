@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, MouseEvent } from "react";
 import ReactDOM from "react-dom";
 import { ColourPicker, Colour } from "./colourpicker";
 import "../static/colourpicker.css";
 
 class ColorPicker extends Component 
 {
-	constructor(props) 
+	constructor(props: IColorPickerProps) 
 	{
 		super(props);
 
@@ -14,9 +14,9 @@ class ColorPicker extends Component
 
 	componentDidMount()
 	{
-		const container = ReactDOM.findDOMNode(this);
-		const pickerElement = container.querySelector(".color-picker");
-		const indicator = container.querySelector(".color-picker-indicator");
+		const container = ReactDOM.findDOMNode(this) as HTMLElement;
+		const pickerElement = container.querySelector(".color-picker") as HTMLElement;
+		const indicator = container.querySelector(".color-picker-indicator") as HTMLElement;
 
 		const colourPicker = new ColourPicker(pickerElement, (color) => 
 		{
@@ -41,12 +41,12 @@ class ColorPicker extends Component
 	  
 	onClick()
 	{
-		const container = ReactDOM.findDOMNode(this);
+		const container = ReactDOM.findDOMNode(this) as HTMLElement;
 
 		// Hide color picker on click outside
-		const onBodyClick = (evt) =>
+		const onBodyClick = (evt: globalThis.MouseEvent) =>
 		{
-			if (evt.target.closest(".color-picker"))
+			if ((evt.target as HTMLElement).closest(".color-picker"))
 				return;
 
 			document.body.removeEventListener("click", onBodyClick);
@@ -102,6 +102,10 @@ class ColorPicker extends Component
 			</div>
 		);
   	}
+}
+
+interface IColorPickerProps {
+
 }
 
 export default ColorPicker;

@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, MouseEvent, TransitionEvent } from "react";
 import ReactDOM from "react-dom";
+//@ts-ignore
 import * as basicScroll from 'basicscroll';
 import BusinessCard from './BusinessCard';
 import DropdownMenu from './DropdownMenu';
@@ -7,7 +8,7 @@ import "../global.scss"
 
 class Header extends Component<IHeaderProps, IHeaderState>
 {
-    constructor(props)
+    constructor(props: IHeaderProps)
     {
 		super(props);
 
@@ -20,14 +21,14 @@ class Header extends Component<IHeaderProps, IHeaderState>
 		this.toggleShowMenu.bind(this);
     }
 
-    onMouseEnterContainer(evt)
+    onMouseEnterContainer(evt: MouseEvent)
     {
         if (parseFloat(document.documentElement.style.getPropertyValue("--header-height-out")) != 0)
             return;
 
-        const headerContainer = evt.currentTarget;
-        const businessCardContainer = headerContainer.querySelector(".business-card-container");
-        const businessCardSizer = businessCardContainer.querySelector(".business-card-sizer");
+        const headerContainer = evt.currentTarget as HTMLElement;
+        const businessCardContainer = headerContainer.querySelector(".business-card-container") as HTMLElement;
+        const businessCardSizer = businessCardContainer.querySelector(".business-card-sizer") as HTMLElement;
         
         headerContainer.style.setProperty("--header-height-out", "0.2");
         headerContainer.style.setProperty("--header-height-in", "0.8");
@@ -46,11 +47,11 @@ class Header extends Component<IHeaderProps, IHeaderState>
         businessCardSizer.style.width = headerContainer.offsetWidth * 2 + "px";
     }
 
-    onMouseLeaveContainer(evt)
+    onMouseLeaveContainer(evt: MouseEvent | { currentTarget: HTMLElement })
     {
-        const headerContainer = evt.currentTarget;        
-        const businessCardContainer = headerContainer.querySelector(".business-card-container");
-        const businessCardSizer = businessCardContainer.querySelector(".business-card-sizer");
+        const headerContainer = evt.currentTarget as HTMLElement;        
+        const businessCardContainer = headerContainer.querySelector(".business-card-container") as HTMLElement;
+        const businessCardSizer = businessCardContainer.querySelector(".business-card-sizer") as HTMLElement;
 
         headerContainer.style.setProperty("--header-height-out", "");
         headerContainer.style.setProperty("--header-height-in", "");
@@ -67,11 +68,12 @@ class Header extends Component<IHeaderProps, IHeaderState>
         businessCardSizer.style.width = "";
     }
 
-    onTransitionEnd(evt)
+    onTransitionEnd(evt: TransitionEvent)
     {
-        evt.currentTarget.style.transition = "";
-        if (evt.currentTarget.style.marginTop == "0px")
-            evt.currentTarget.style.marginTop = "";
+		const currentTarget = evt.currentTarget as HTMLElement;
+        currentTarget.style.transition = "";
+        if (currentTarget.style.marginTop == "0px")
+            currentTarget.style.marginTop = "";
 	}
 	
 	onClickAR(evt: MouseEvent): void
