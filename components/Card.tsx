@@ -1,4 +1,4 @@
-import React, { Component, MouseEvent } from "react";
+import React, { Component, MouseEvent } from 'react';
 
 class Card extends Component<ICardProps>
 {
@@ -6,8 +6,7 @@ class Card extends Component<ICardProps>
 		super(props);
 	}
 
-	public render()
-	{
+	public render() {
 		return (
 			<div className="card-container">
 				<div className="card-header">
@@ -16,7 +15,7 @@ class Card extends Component<ICardProps>
 				<div className="card-content">
 					{this.props.children}
 				</div>
-	
+
 				<style jsx>
 					{`
 					.card-container {

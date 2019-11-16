@@ -3,6 +3,7 @@
  * A pure TypeScript colour picker
  * https://github.com/volleio/ColourPicker
  */
+/* tslint:disable */
 
 export class ColourPicker {
 	private options: ColourPickerOptions;
@@ -41,11 +42,11 @@ export class ColourPicker {
 		const docFragment = document.createDocumentFragment();
 		
 		this.colourField = this.CreateColourField();
-		this.colourFieldMarker = <HTMLElement>this.colourField.querySelector('.colour-field__marker');
+		this.colourFieldMarker = this.colourField.querySelector('.colour-field__marker') as HTMLElement;
 		docFragment.appendChild(this.colourField);
 
 		this.hueSlider = this.CreateHueSlider();
-		this.hueSliderHandle = <HTMLElement>this.hueSlider.querySelector('.hue-slider__handle');
+		this.hueSliderHandle = this.hueSlider.querySelector('.hue-slider__handle') as HTMLElement;
 		docFragment.appendChild(this.hueSlider);
 
 		const valueInputContainer = this.CreateValueInputs();
@@ -106,7 +107,7 @@ export class ColourPicker {
 			this.colourPalette.remove();
 
 		this.colourPalette = this.CreateColourPalette();
-		this.hueSlider.insertAdjacentElement("afterend", this.colourPalette);
+		this.hueSlider.insertAdjacentElement('afterend', this.colourPalette);
 	}
 
 	public SetCustomColours(customColours: Colour[]): void {
@@ -185,9 +186,9 @@ export class ColourPicker {
 
 	private SetColourFieldHSV(evt: MouseEvent | TouchEvent): cpHSV {
 		const colourFieldBoundingBox = this.colourField.getBoundingClientRect();
-		let mouseX = Math.max(evt instanceof MouseEvent ? evt.clientX : (<Touch>evt.targetTouches.item(0)).clientX, colourFieldBoundingBox.left); 
+		let mouseX = Math.max(evt instanceof MouseEvent ? evt.clientX : (evt.targetTouches.item(0) as Touch).clientX, colourFieldBoundingBox.left); 
 		mouseX = Math.min(mouseX, colourFieldBoundingBox.right);
-		let mouseY = Math.max(evt instanceof MouseEvent ? evt.clientY : (<Touch>evt.targetTouches.item(0)).clientY, colourFieldBoundingBox.top); 
+		let mouseY = Math.max(evt instanceof MouseEvent ? evt.clientY : (evt.targetTouches.item(0) as Touch).clientY, colourFieldBoundingBox.top); 
 		mouseY = Math.min(mouseY, colourFieldBoundingBox.bottom);
 
 		const colourFieldX = mouseX - colourFieldBoundingBox.left;
@@ -250,10 +251,10 @@ export class ColourPicker {
 
 	private UpdateHueSliderHandle(evt: MouseEvent | TouchEvent) {
 		const hueSliderBoundingBox = this.hueSlider.getBoundingClientRect();
-		let mouseX = Math.max(evt instanceof MouseEvent ? evt.clientX : (<Touch>evt.targetTouches.item(0)).clientX, hueSliderBoundingBox.left); 
+		let mouseX = Math.max(evt instanceof MouseEvent ? evt.clientX : (evt.targetTouches.item(0) as Touch).clientX, hueSliderBoundingBox.left); 
 		mouseX = Math.min(mouseX, hueSliderBoundingBox.right);
 
-		this.hueSliderHandle.style.left = mouseX - hueSliderBoundingBox.left + 'px';
+		this.hueSliderHandle.style.left = `${mouseX - hueSliderBoundingBox.left}px`;
 	}
 
 	private CreateValueInputs(): HTMLElement {
@@ -265,7 +266,7 @@ export class ColourPicker {
 		this.hexInput.addEventListener('keypress', () => {
 			requestAnimationFrame(() => {
 				let strippedValue = this.hexInput.value.replace(/[^0-9ABCDEF]/gi, '');
-				strippedValue = '#' + strippedValue.substr(0, 8); // Max length of 8 characters without #
+				strippedValue = `#${strippedValue.substr(0, 8)}`; // Max length of 8 characters without #
 				this.hexInput.value = strippedValue;
 				this.OnChange(strippedValue);
 			});
@@ -307,7 +308,7 @@ export class ColourPicker {
 			valueInputContainer.appendChild(aInputItem);
 			this.alphaInput.addEventListener('keypress', () => {
 				requestAnimationFrame(() => {
-					(<HTMLInputElement>this.alphaInput).value = (this.alphaInput as HTMLInputElement).value.replace(/[^0-9]/g, '') as string;
+					(this.alphaInput as HTMLInputElement).value = (this.alphaInput as HTMLInputElement).value.replace(/[^0-9]/g, '') as string;
 					this.OnChange(this.GetRGBAFromInputs());
 				});
 			});
@@ -354,7 +355,7 @@ export class ColourPicker {
 		intInputContainer.classList.add('colour-input');
 
 		const intInput = document.createElement('input'); 
-		intInput.classList.add('colour-input__int--' + inputType);
+		intInput.classList.add(`colour-input__int--${inputType}`);
 		intInputContainer.appendChild(intInput);
 
 		const intInputLbl = document.createElement('span'); 
@@ -540,7 +541,7 @@ export class ColourPicker {
 		this.colourFieldMarker.style.bottom = `calc(${(hsv.V * 100)}% - ${markerBoundingBox.height / 2}px)`;
 		this.colourFieldMarker.style.backgroundColor = cssString;
 		
-		this.hueSliderHandle.style.left = (hsv.H * 100) + '%';
+		this.hueSliderHandle.style.left = `${hsv.H * 100}%`;
 		const hueHex = new Colour({ H: hsv.H, S: 1, V: 1 }).GetHex();
 		this.colourField.style.background = `linear-gradient(to right, #FFF, ${hueHex})`;
 	}
@@ -602,7 +603,7 @@ export class Colour {
 		if (hex[0] === '#')
 			hex = hex.substring(1);
 
-		if(hex.length === 3)
+		if (hex.length === 3)
 			hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
 		
 		if (hex.length === 6 || hex.length === 8) {
@@ -642,14 +643,14 @@ export class Colour {
 		const v = Math.round(hsv.V * 255);
 		
 		switch (hueSector % 6) {
-			case 0: this.R = v, this.G = q, this.B = p; break;
-			case 1: this.R = q, this.G = v, this.B = p; break;
-			case 2: this.R = p, this.G = v, this.B = q; break;
-			case 3: this.R = p, this.G = q, this.B = v; break;
-			case 4: this.R = q, this.G = p, this.B = v; break;
-			case 5: this.R = v, this.G = p, this.B = q; break;
-			default: 
-				this.R = 0; this.G = 0; this.B = 0;
+		case 0: this.R = v, this.G = q, this.B = p; break;
+		case 1: this.R = q, this.G = v, this.B = p; break;
+		case 2: this.R = p, this.G = v, this.B = q; break;
+		case 3: this.R = p, this.G = q, this.B = v; break;
+		case 4: this.R = q, this.G = p, this.B = v; break;
+		case 5: this.R = v, this.G = p, this.B = q; break;
+		default: 
+			this.R = 0; this.G = 0; this.B = 0;
 		}
 	}
 
@@ -661,14 +662,14 @@ export class Colour {
 		const hueSector = Math.floor(huePrime);
 		let r, g, b;
 		switch (hueSector % 6) {
-			case 0: r = c, g = x, b = 0; break;
-			case 1: r = x, g = c, b = 0; break;
-			case 2: r = 0, g = c, b = x; break;
-			case 3: r = 0, g = x, b = c; break;
-			case 4: r = x, g = 0, b = c; break;
-			case 5: r = c, g = 0, b = x; break;
-			default: 
-				r = 0; g = 0; b = 0;
+		case 0: r = c, g = x, b = 0; break;
+		case 1: r = x, g = c, b = 0; break;
+		case 2: r = 0, g = c, b = x; break;
+		case 3: r = 0, g = x, b = c; break;
+		case 4: r = x, g = 0, b = c; break;
+		case 5: r = c, g = 0, b = x; break;
+		default: 
+			r = 0; g = 0; b = 0;
 		}
 
 		const m = hsl.L - c / 2;
@@ -678,10 +679,10 @@ export class Colour {
 	}
 
 	public ToCssString(includeAlpha = false): string {
-		let str = includeAlpha ? 'rgba(' : 'rgb(';
-		str += this.R + ', ' + this.G + ', ' + this.B;
-		str += includeAlpha ? ', ' + this.A + '%)' : ')';
-		return str;
+		if (includeAlpha)
+			return `rgba(${this.R}, ${this.G}, ${this.B}, ${this.A}%)`;
+
+		return `rgb(${this.R}, ${this.G}, ${this.B})`;
 	}
 
 	public GetRGBA(): cpRGBA {
@@ -689,7 +690,7 @@ export class Colour {
 	}
 	
 	public GetHex(includeAlpha = false): string {
-		let hex = '#' + this.DecimalToHex(this.R) + this.DecimalToHex(this.G) + this.DecimalToHex(this.B);
+		let hex = `#${this.DecimalToHex(this.R)}${this.DecimalToHex(this.G)}${this.DecimalToHex(this.B)}`;
 		hex += includeAlpha ? this.DecimalToHex(this.A * 2.55) : '';
 		return hex;
 	}

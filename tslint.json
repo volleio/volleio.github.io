@@ -15,7 +15,7 @@
         "align": false,
         "ter-indent": [true, "tab", 1],
         "brace-style": [
-            true,
+            false,
             "allman",
             {
               "allowSingleLine": true
@@ -27,7 +27,11 @@
         "object-literal-sort-keys": false,
         "arrow-parens": false,
         "no-bitwise": false,
-        "array-type": false
+		"array-type": false,
+		"ordered-imports": false,
+		"import-name": false,
+		"comment-format": false,
+		"one-variable-per-declaration": false
     },
     "rulesDirectory": []
 }

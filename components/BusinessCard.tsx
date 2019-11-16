@@ -1,5 +1,4 @@
-import React, { Component, MouseEvent, TransitionEvent, SyntheticEvent } from "react";
-import ReactDOM from "react-dom";
+import React, { Component, MouseEvent, SyntheticEvent, TransitionEvent } from 'react';
 
 class BusinessCard extends Component<IBusinessCardProps> {
 	private lastScrollPos: number;
@@ -20,7 +19,7 @@ class BusinessCard extends Component<IBusinessCardProps> {
 	}
 
 	public setupAutoScroll() {
-		window.addEventListener("scroll", () => {
+		window.addEventListener('scroll', () => {
 			const scrollTop =
 				document.documentElement.scrollTop || document.body.scrollTop;
 			if (scrollTop > this.lastScrollPos) {
@@ -42,111 +41,99 @@ class BusinessCard extends Component<IBusinessCardProps> {
 
 	public onBusinessCardTextClick(evt: MouseEvent) {
 		this.stopAutoScroll = false;
-		this.props.onMouseLeaveContainer({ currentTarget: (evt.target as HTMLElement).closest(".header-container") as HTMLElement });
+		this.props.onMouseLeaveContainer({ currentTarget: (evt.target as HTMLElement).closest('.header-container') as HTMLElement });
 		this.scrollToTop();
 	}
 
 	public onIconMouseOver(evt: MouseEvent) {
 		const icon = evt.target as HTMLElement;
-		const iconBracketGroup = icon.closest(".icon-bracket-group") as HTMLElement;
-		const iconLabel = icon.closest(".business-card__label") as HTMLElement;
-		iconBracketGroup.classList.add("hover");
-		iconLabel.classList.add("hover");
+		const iconBracketGroup = icon.closest('.icon-bracket-group') as HTMLElement;
+		const iconLabel = icon.closest('.business-card__label') as HTMLElement;
+		iconBracketGroup.classList.add('hover');
+		iconLabel.classList.add('hover');
 
-		const businessCardContainer = icon.closest(".business-card-container") as HTMLElement;
-		if (icon.classList.contains("icon--email")) {
+		const businessCardContainer = icon.closest('.business-card-container') as HTMLElement;
+		if (icon.classList.contains('icon--email')) {
 			const textAt = businessCardContainer.querySelector(
-				".business-card___text__at",
+				'.business-card___text__at',
 			) as HTMLElement;
-			textAt.classList.add("selected");
-		} else if (icon.classList.contains("icon--me")) {
-			const textVolle = businessCardContainer.querySelector(
-				".business-card___text__volle",
-			) as HTMLElement;
-			const textDot = businessCardContainer.querySelector(
-				".business-card___text__dot",
-			) as HTMLElement;
-			const textIo = businessCardContainer.querySelector(
-				".business-card___text__io",
-			) as HTMLElement;
-			textVolle.classList.remove("selected");
-			textDot.classList.remove("selected");
-			textIo.classList.remove("selected");
+			textAt.classList.add('selected');
+		} else if (icon.classList.contains('icon--me')) {
+			const textVolle = businessCardContainer.querySelector('.business-card___text__volle') as HTMLElement;
+			const textDot = businessCardContainer.querySelector('.business-card___text__dot') as HTMLElement;
+			const textIo = businessCardContainer.querySelector('.business-card___text__io') as HTMLElement;
+			textVolle.classList.remove('selected');
+			textDot.classList.remove('selected');
+			textIo.classList.remove('selected');
 		} else if (
-			icon.classList.contains("icon--insta") ||
-			icon.classList.contains("icon--twitter") ||
-			icon.classList.contains("icon--github") ||
-			icon.classList.contains("icon--linkedin")
+			icon.classList.contains('icon--insta') ||
+			icon.classList.contains('icon--twitter') ||
+			icon.classList.contains('icon--github') ||
+			icon.classList.contains('icon--linkedin')
 		) {
 			const textLucas = businessCardContainer.querySelector(
-				".business-card___text__lucas",
+				'.business-card___text__lucas',
 			) as HTMLElement;
-			textLucas.classList.remove("selected");
+			textLucas.classList.remove('selected');
 
-			if (!icon.classList.contains("icon--insta")) {
+			if (!icon.classList.contains('icon--insta')) {
 				const textDot = businessCardContainer.querySelector(
-					".business-card___text__dot",
+					'.business-card___text__dot',
 				) as HTMLElement;
-				textDot.classList.remove("selected");
+				textDot.classList.remove('selected');
 			}
 		}
 	}
 
 	public onIconMouseOut(evt: MouseEvent) {
 		const icon = evt.target as HTMLElement;
-		const iconBracketGroup = icon.closest(".icon-bracket-group") as HTMLElement;
-		const iconLabel = icon.closest(".business-card__label") as HTMLElement;
-		iconBracketGroup.classList.remove("hover");
-		iconLabel.classList.remove("hover");
+		const iconBracketGroup = icon.closest('.icon-bracket-group') as HTMLElement;
+		const iconLabel = icon.closest('.business-card__label') as HTMLElement;
+		iconBracketGroup.classList.remove('hover');
+		iconLabel.classList.remove('hover');
 
-		const businessCardContainer = icon.closest(".business-card-container") as HTMLElement;
-		if (icon.classList.contains("icon--email")) {
+		const businessCardContainer = icon.closest('.business-card-container') as HTMLElement;
+		if (icon.classList.contains('icon--email')) {
 			const textAt = businessCardContainer.querySelector(
-				".business-card___text__at",
+				'.business-card___text__at',
 			) as HTMLElement;
-			textAt.classList.remove("selected");
-		} else if (icon.classList.contains("icon--me")) {
-			const avatar = (icon.parentElement as HTMLElement).querySelector(".me-icon-avatar") as HTMLElement;
-			icon.classList.remove("flip");
-			avatar.classList.remove("flip");
+			textAt.classList.remove('selected');
+		} else if (icon.classList.contains('icon--me')) {
+			const avatar = (icon.parentElement as HTMLElement).querySelector('.me-icon-avatar') as HTMLElement;
+			icon.classList.remove('flip');
+			avatar.classList.remove('flip');
 
-			const textVolle = businessCardContainer.querySelector(
-				".business-card___text__volle",
-			) as HTMLElement;
-			const textDot = businessCardContainer.querySelector(
-				".business-card___text__dot",
-			) as HTMLElement;
-			const textIo = businessCardContainer.querySelector(
-				".business-card___text__io",
-			) as HTMLElement;
-			textVolle.classList.add("selected");
-			textDot.classList.add("selected");
-			textIo.classList.add("selected");
+			const textVolle = businessCardContainer.querySelector('.business-card___text__volle') as HTMLElement;
+			const textDot = businessCardContainer.querySelector('.business-card___text__dot') as HTMLElement;
+			const textIo = businessCardContainer.querySelector('.business-card___text__io') as HTMLElement;
+			textVolle.classList.add('selected');
+			textDot.classList.add('selected');
+			textIo.classList.add('selected');
 		} else if (
-			icon.classList.contains("icon--insta") ||
-			icon.classList.contains("icon--twitter") ||
-			icon.classList.contains("icon--github") ||
-			icon.classList.contains("icon--linkedin")
+			icon.classList.contains('icon--insta') ||
+			icon.classList.contains('icon--twitter') ||
+			icon.classList.contains('icon--github') ||
+			icon.classList.contains('icon--linkedin')
 		) {
 			const textLucas = businessCardContainer.querySelector(
-				".business-card___text__lucas",
+				'.business-card___text__lucas',
 			) as HTMLElement;
-			textLucas.classList.add("selected");
+			textLucas.classList.add('selected');
 
-			if (!icon.classList.contains("icon--insta")) {
+			if (!icon.classList.contains('icon--insta')) {
 				const textDot = businessCardContainer.querySelector(
-					".business-card___text__dot",
+					'.business-card___text__dot',
 				) as HTMLElement;
-				textDot.classList.add("selected");
+				textDot.classList.add('selected');
 			}
 		}
 	}
 
 	public onMeClick(evt: MouseEvent) {
 		const icon = evt.target as HTMLElement;
-		const avatar = (icon.parentElement as HTMLElement).querySelector(".me-icon-avatar") as HTMLElement;
-		icon.classList.add("flip");
-		avatar.classList.add("flip");
+		const avatar = (icon.parentElement as HTMLElement).querySelector('.me-icon-avatar') as HTMLElement;
+		icon.classList.add('flip');
+		avatar.classList.add('flip');
 	}
 
 	public render() {

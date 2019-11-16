@@ -1,5 +1,4 @@
-import React, { Component, MouseEvent } from "react";
-import ReactDOM from "react-dom";
+import React, { Component, MouseEvent } from 'react';
 
 class Popup extends Component<IPopupProps> {
 	constructor(props: IPopupProps) {
@@ -7,7 +6,7 @@ class Popup extends Component<IPopupProps> {
 	}
 
 	public render() {
-		const items = this.props.items.map((item) => (
+		const items = this.props.items.map(item => (
 			<div
 				className="popup__item"
 				onClick={item.onClick}

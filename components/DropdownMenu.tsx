@@ -1,5 +1,5 @@
-import React, { Component, ReactHTML, MouseEvent } from "react";
-import Popup, { IPopupItemOption } from "./Popup";
+import React, { Component, ReactHTML, MouseEvent } from 'react';
+import Popup, { IPopupItemOption } from './Popup';
 
 class DropdownMenu extends Component<IDropdownMenuProps>
 {
@@ -16,7 +16,7 @@ class DropdownMenu extends Component<IDropdownMenuProps>
 
 		return (
 			<div className="dropdown-menu">
-				<div className={"dropdown-menu-button" + (this.props.showMenu ? " open" : "")} onClick={this.onButtonClick}>
+				<div className={`dropdown-menu-button${this.props.showMenu ? ' open' : ''}`} onClick={this.onButtonClick}>
 					<div className="dropdown-menu-button__line dropdown-menu-button__line--1"></div>
 					<div className="dropdown-menu-button__line dropdown-menu-button__line--2"></div>
 					<div className="dropdown-menu-button__line dropdown-menu-button__line--3"></div>
