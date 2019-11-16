@@ -21,7 +21,7 @@
 	},
 	"extensions": {
 		"recommendations": [
-			"Microsoft.TSLint"
+			"ms-vscode.vscode-typescript-tslint-plugin"
 		]
 	}
 }

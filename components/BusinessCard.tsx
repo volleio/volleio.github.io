@@ -67,9 +67,9 @@ class BusinessCard extends Component<IBusinessCardProps> {
 			textIo.classList.remove('selected');
 		} else if (
 			icon.classList.contains('icon--insta') ||
-			icon.classList.contains('icon--twitter') ||
+			icon.classList.contains('icon--twittr') ||
 			icon.classList.contains('icon--github') ||
-			icon.classList.contains('icon--linkedin')
+			icon.classList.contains('icon--linkedn')
 		) {
 			const textLucas = businessCardContainer.querySelector(
 				'.business-card___text__lucas',
@@ -99,7 +99,7 @@ class BusinessCard extends Component<IBusinessCardProps> {
 			) as HTMLElement;
 			textAt.classList.remove('selected');
 		} else if (icon.classList.contains('icon--me')) {
-			const avatar = (icon.parentElement as HTMLElement).querySelector('.me-icon-avatar') as HTMLElement;
+			const avatar = (icon.parentElement as HTMLElement).querySelector('.icon-me-avatar') as HTMLElement;
 			icon.classList.remove('flip');
 			avatar.classList.remove('flip');
 
@@ -111,9 +111,9 @@ class BusinessCard extends Component<IBusinessCardProps> {
 			textIo.classList.add('selected');
 		} else if (
 			icon.classList.contains('icon--insta') ||
-			icon.classList.contains('icon--twitter') ||
+			icon.classList.contains('icon--twittr') ||
 			icon.classList.contains('icon--github') ||
-			icon.classList.contains('icon--linkedin')
+			icon.classList.contains('icon--linkedn')
 		) {
 			const textLucas = businessCardContainer.querySelector(
 				'.business-card___text__lucas',
@@ -131,7 +131,7 @@ class BusinessCard extends Component<IBusinessCardProps> {
 
 	public onMeClick(evt: MouseEvent) {
 		const icon = evt.target as HTMLElement;
-		const avatar = (icon.parentElement as HTMLElement).querySelector('.me-icon-avatar') as HTMLElement;
+		const avatar = (icon.parentElement as HTMLElement).querySelector('.icon-me-avatar') as HTMLElement;
 		icon.classList.add('flip');
 		avatar.classList.add('flip');
 	}
@@ -149,7 +149,7 @@ class BusinessCard extends Component<IBusinessCardProps> {
 								className="icon icon--email"
 								onMouseOver={this.onIconMouseOver}
 								onMouseOut={this.onIconMouseOut}
-							/>
+								/>
 						</a>
 						<div className="bracket bracket--vert1" />
 					</div>
@@ -192,7 +192,7 @@ class BusinessCard extends Component<IBusinessCardProps> {
 								onMouseOver={this.onIconMouseOver}
 								onMouseOut={this.onIconMouseOut}
 							/>
-							<div className="me-icon-avatar" />
+							<div className="icon-me-avatar" />
 						</div>
 					</div>
 					<div className="business-card__label business-card__label--bottom">
@@ -216,7 +216,7 @@ class BusinessCard extends Component<IBusinessCardProps> {
 								<div className="bracket bracket--vert1" />
 								<a href="https://www.twitter.com/volleio">
 									<div
-										className="icon icon--twitter"
+										className="icon icon--twittr"
 										onMouseOver={this.onIconMouseOver}
 										onMouseOut={this.onIconMouseOut}
 									/>
@@ -236,7 +236,7 @@ class BusinessCard extends Component<IBusinessCardProps> {
 								<div className="bracket bracket--vert1" />
 								<a href="https://www.linkedin.com/in/volleio/">
 									<div
-										className="icon icon--linkedin"
+										className="icon icon--linkedn"
 										onMouseOver={this.onIconMouseOver}
 										onMouseOut={this.onIconMouseOut}
 									/>
@@ -483,13 +483,13 @@ class BusinessCard extends Component<IBusinessCardProps> {
 							transform: rotateY(180deg) scale(3) translateY(6px);
 						}
 
-						.me-icon-avatar {
+						.icon-me-avatar {
 							position: absolute;
 							width: 24px;
 							height: 24px;
 							top: 16px;
 							border-radius: 50%;
-							background-image: url(/static/me-icon-avatar.png);
+							background-image: url(/static/icon-me-avatar.svg);
 							background-repeat: no-repeat;
 							background-position: center;
 							background-size: contain;
@@ -500,7 +500,7 @@ class BusinessCard extends Component<IBusinessCardProps> {
 							transition: all 0.3s ease-in-out;
 							pointer-events: none;
 						}
-						.icon-bracket-group.hover .me-icon-avatar.flip {
+						.icon-bracket-group.hover .icon-me-avatar.flip {
 							transform: rotateY(360deg) scale(3);
 						}
 
@@ -511,11 +511,11 @@ class BusinessCard extends Component<IBusinessCardProps> {
 							background-image: url("/static/icon-insta-selected.svg");
 						}
 
-						.icon--twitter {
-							background-image: url("/static/icon-twitter.svg");
+						.icon--twittr {
+							background-image: url("/static/icon-twittr.svg");
 						}
-						.icon-bracket-group.hover .icon--twitter {
-							background-image: url("/static/icon-twitter-selected.svg");
+						.icon-bracket-group.hover .icon--twittr {
+							background-image: url("/static/icon-twittr-selected.svg");
 						}
 
 						.icon--github {
@@ -525,11 +525,11 @@ class BusinessCard extends Component<IBusinessCardProps> {
 							background-image: url("/static/icon-github-selected.svg");
 						}
 
-						.icon--linkedin {
-							background-image: url("/static/icon-linkedin.svg");
+						.icon--linkedn {
+							background-image: url("/static/icon-linkedn.svg");
 						}
-						.icon-bracket-group.hover .icon--linkedin {
-							background-image: url("/static/icon-linkedin-selected.svg");
+						.icon-bracket-group.hover .icon--linkedn {
+							background-image: url("/static/icon-linkedn-selected.svg");
 						}
 
 						// preload hover state background images to prevent flashing
@@ -542,9 +542,9 @@ class BusinessCard extends Component<IBusinessCardProps> {
 							content: url("/static/icon-email-selected.svg")
 								url("/static/icon-me-selected.svg")
 								url("/static/icon-insta-selected.svg")
-								url("/static/icon-twitter-selected.svg")
+								url("/static/icon-twittr-selected.svg")
 								url("/static/icon-github-selected.svg")
-								url("/static/icon-linkedin-selected.svg");
+								url("/static/icon-linkedn-selected.svg");
 						}
 					`}
 				</style>
