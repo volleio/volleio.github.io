@@ -1,18 +1,14 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import ColourPicker from "./colourpicker";
-import "../static/colourpicker.css";
-import ColorPicker from "./ColorPicker";
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import '../static/colourpicker.css';
+import ColorPicker from './ColorPicker';
 
-class Footer extends Component 
-{
-	constructor(props) 
-	{
+class Footer extends Component {
+	constructor(props: IFooterProps) {
 		super(props);
 	}
 
-	render()
-	{
+	public render() {
 		return (
 			<div className="footer">
 				<div className="footer-item">
@@ -22,7 +18,7 @@ class Footer extends Component
 					<ColorPicker />
 				</div>
 				<style jsx>
-				{`
+					{`
 					.footer {
 						position: relative;
 						margin-top: 50vh;
@@ -45,7 +41,11 @@ class Footer extends Component
 				</style>
 			</div>
 		);
-  	}
+	}
+}
+
+interface IFooterProps {
+
 }
 
 export default Footer;

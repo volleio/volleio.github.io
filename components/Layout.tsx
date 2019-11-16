@@ -1,14 +1,14 @@
-import Header from './Header'
-import Footer from './Footer'
+import Header from './Header';
+import Footer from './Footer';
 
-export default function Layout(props) {
-    return (
-      <div className="layout">
-        <Header />
-		{props.children}
-		<Footer />
-        <style jsx>
-        {`
+export default function Layout(props: ILayoutProps) {
+	return (
+		<div className="layout">
+			<Header />
+			{props.children}
+			<Footer />
+			<style jsx>
+				{`
           @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400');
           .layout {
             font-family: 'Source Sans Pro', sans-serif;
@@ -16,9 +16,9 @@ export default function Layout(props) {
             min-height: 100vh;
           }
         `}
-        </style>
-        <style jsx global>
-        {`
+			</style>
+			<style jsx global>
+				{`
 			*,
 			*:before,
 			*:after {
@@ -67,7 +67,11 @@ export default function Layout(props) {
 				filter: invert(1);
 			}
         `}
-        </style>
-      </div>
-    )
-  }
+			</style>
+		</div>
+	);
+}
+
+interface ILayoutProps {
+	children: any;
+}
