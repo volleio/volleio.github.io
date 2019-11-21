@@ -12,7 +12,7 @@
     "start": "next start",
     "export": "next export",
     "deploy": "npm run cleanup && next build && next export && npm run export-copy && npm run export-delete",
-    "export-copy": "ncp out/index.html ./index.html && ncp out/404.html ./404.html && ncp out/_next/ ./_next/",
+    "export-copy": "ncp out/index.html ./index.html && ncp out/404.html ./404.html && ncp out/_next/ ./_next/ && ncp .next/service-worker.js ./service-worker.js",
     "export-delete": "rimraf out/",
     "cleanup": "rimraf .next/ _next/"
   },
@@ -22,6 +22,7 @@
     "basicscroll": "^3.0.2",
     "ncp": "^2.0.0",
     "next": "^9.1.4",
+    "next-offline": "^4.0.6",
     "node-sass": "^4.13.0",
     "react": "^16.12.0",
     "react-device-detect": "^1.9.10",
