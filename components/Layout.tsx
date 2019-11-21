@@ -1,13 +1,9 @@
-import Head from 'next/head';
 import Header from './Header';
 import Footer from './Footer';
 
 export default function Layout(props: ILayoutProps) {
 	return (
 		<div className="layout">
-			<Head>
-				<link rel="shortcut icon" href="/static/favicon.png" />
-			</Head>
 			<Header />
 			{props.children}
 			<Footer />

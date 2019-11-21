@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import '../static/colourpicker.css';
+import '../public/static/colourpicker.css';
 import ColorPicker from './ColorPicker';
 
 class Footer extends Component {
@@ -12,7 +12,7 @@ class Footer extends Component {
 		return (
 			<div className="footer">
 				<div className="footer-item">
-					<a href="https://github.com/volleio/volleio.github.io" title="Licensed under the MIT License">Open Source</a>
+					<a href="https://github.com/volleio/volleio.github.io" title="Licensed under the MIT License" aria-label="This site's source code">Open Source</a>
 				</div>
 				<div className="footer-item">
 					<ColorPicker />

@@ -145,7 +145,7 @@ class BusinessCard extends Component<IBusinessCardProps> {
 				<div className="business-card-mouseout-buffer" />
 				<div className="business-card__label business-card__label--top">
 					<div className="icon-bracket-group">
-						<a href="mailto:Lucas@Volle.io">
+						<a href="mailto:Lucas@Volle.io" aria-label="Email">
 							<div
 								className="icon icon--email"
 								onMouseOver={this.onIconMouseOver}
@@ -205,7 +205,7 @@ class BusinessCard extends Component<IBusinessCardProps> {
 						<div className="bracket-group bracket-group--even">
 							<div className="icon-bracket-group">
 								<div className="bracket bracket--vert1" />
-								<a href="https://www.instagram.com/volle.io/">
+								<a href="https://www.instagram.com/volle.io/" aria-label="Instagram">
 									<div
 										className="icon icon--insta"
 										onMouseOver={this.onIconMouseOver}
@@ -215,7 +215,7 @@ class BusinessCard extends Component<IBusinessCardProps> {
 							</div>
 							<div className="icon-bracket-group">
 								<div className="bracket bracket--vert1" />
-								<a href="https://www.twitter.com/volleio">
+								<a href="https://www.twitter.com/volleio" aria-label="Twitter">
 									<div
 										className="icon icon--twittr"
 										onMouseOver={this.onIconMouseOver}
@@ -225,7 +225,7 @@ class BusinessCard extends Component<IBusinessCardProps> {
 							</div>
 							<div className="icon-bracket-group">
 								<div className="bracket bracket--vert1" />
-								<a href="https://github.com/volleio">
+								<a href="https://github.com/volleio" aria-label="GitHub">
 									<div
 										className="icon icon--github"
 										onMouseOver={this.onIconMouseOver}
@@ -235,7 +235,7 @@ class BusinessCard extends Component<IBusinessCardProps> {
 							</div>
 							<div className="icon-bracket-group">
 								<div className="bracket bracket--vert1" />
-								<a href="https://www.linkedin.com/in/volleio/">
+								<a href="https://www.linkedin.com/in/volleio/" aria-label="LinkedIn">
 									<div
 										className="icon icon--linkedn"
 										onMouseOver={this.onIconMouseOver}

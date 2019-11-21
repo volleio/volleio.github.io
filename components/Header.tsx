@@ -201,7 +201,7 @@ class Header extends Component<IHeaderProps, IHeaderState>
 		const headerContainer = evt.currentTarget as HTMLElement;
 		if (isMobile)
 			return;
-			
+
 		const businessCardContainer = headerContainer.querySelector('.business-card-container') as HTMLElement;
 		const businessCardSizer = businessCardContainer.querySelector('.business-card-sizer') as HTMLElement;
 
