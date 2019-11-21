@@ -1,72 +1,126 @@
-import Layout from '../components/Layout'
-import Card from '../components/Card'
-import Frame from '../components/Frame'
+import Layout from '../components/Layout';
+import Card from '../components/Card';
+import Frame from '../components/Frame';
 
 export default function HomePage() {
-    return (
-	<Layout>
-		<div className="card-grid">
-		<Card title="Hi!">
-			<p>Since graduating from <a href="http://rpi.edu/">Rensselaer Polytechnic Institute</a> in 2017, I've been working as a full-stack developer at <a href="http://www.exagoinc.com/">Exago Inc.</a>, a business intelligence software company in Uptown Kingston. 
-			My professional focus has since moved towards front-end web development, spending my free time learning about UI &amp; UX design by collaborating on digital art projects, hacking together virtual reality experiences, and designing unique web applications.</p>
-			<p>On the weekends you can find me traveling around the northeast exploring new places with family and friends.</p>
-		</Card>
-		<Card title="Projects">
-			<p>
-				Mistah man up t' Moosetown bookin' it nummah way up north. Potatoes bang a left yahd leaf peepahs dingy, bub clam chowdah up t' geez bud huck. Hum-dingah chimbly can't get theyah from heeyah rhubaahb lobstah paut If you can't stand the wintah you don't deserve the summah Bean's wicked cunnin', way up north swampdonkey stove-up Have a good one. well theyah rig up crittah. 'Roostik crittah Bangoah chimbly sawr chimbly huck. Hawsun around p'dayduhs out in th' willie-wacks, unthaw pig fat door-yahd, Mahdin's scrod Katahdin, Saddee wee bit nippy nummah Outta Staydahs.
-			</p>
-		</Card>
-		<Card title="Freelancing">
-			<p>I'm actively working on a few production websites, mostly built with <a href="https://squarespace.com/">Squarespace</a> and with custom JS/CSS for additional features &amp; styling.</p>
-			<div>
-				<h2>Glo Spa Woodstock</h2>
-				<Frame image="">
-					
-				</Frame>
-			</div>
-			<div>
-				<h2>Food Diplomat</h2>
-				<Frame image="">
-					
-				</Frame>
-			</div>
-			<div>
-				<h2>Fire Island Pines</h2>
-				<Frame image="">
-					
-				</Frame>
-			</div>
-		</Card>
-		<Card title="Something Else">
-			<p>
-				Noseeum Mount Dessuht Hammah Gohd Dammah, feeder' the beans unthaw tube steak batrees Powrtland tube steak, smokie Laum Ipsum bub yow uns sawr Yessah mistah man Mount Dessuht Have a good one.. Rig up The 'Gash some eleghant Outta Staydahs Laum Ipsum wreckah Loyston-Ahban railed 'em, Ahcadiuh Katahdin ayuh. Some wicked Chundah. Gohd dammah. back woods Chundah. Gohd dammah. Moody's. Wicked pissah hum-dingah rig up mugup Mahdin's well theyah The County Powrtland Museum of Aht hahd tellin' not knowin', no-see-um hoppa Have a good one.. Aht back woods ayuh hahd tellin' not knowin' down east You is sum wicked suhmart aht down east Shit the bed. Feed 'uh the hot suppah., stove-up Hold'er Newt she's, heddin for da ruhbarb! nummah than a faht aht.
-			</p>
-		</Card>
-		</div>
-		<style jsx>{`
-		.card-grid {
-			display: grid;
-			grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-			grid-gap: 16px;
-			align-items: stretch;
-			margin: 16px;
-			justify-items: center;
-		}
+	return (
+		<Layout>
+			<div className="main-content-column">
+				<div className="welcome-card">
+					<Card title="👋">
+						<p>
+							I'm a full stack developer and Manager of Software Engineering at 
+							<a href="https://www.exagoinc.com/"> Exago Inc</a>, 
+							a business intelligence software company in Uptown Kingston, NY.
+						</p>
+					</Card>
+				</div>
+				<div className="card-grid-title">
+					<h2>Projects</h2>
+					<p>I 💖 FOSS, and I'm proud <a href="https://github.com/exagoinc/">Exago does, too</a>! These are some of the open source projects I'm working on.</p>
+				</div>
+				<div className="card-grid">
+					<Card title="Biometric Diary">
+						<Frame image="">
 
-		@media (min-width: 700px) {
-			.card-grid {
-			grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-			}
-		}
+						</Frame>
+					</Card>
+					<Card title="Mobile DevTools">
+						<Frame image="">
 
-		@media (min-width: 1200px) {
-			.card-grid {
-			margin: 0 200px;
-			grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-			grid-gap: 32px;
-			}
-		}
-		`}</style>
-	</Layout>
-    )
-  }
+						</Frame>
+					</Card>
+					<Card title="Colour Picker">
+						<Frame image="">
+
+						</Frame>
+					</Card>
+					<Card title="Hoyt L. Sherman's Flash Lab VR">
+						<Frame image="">
+
+						</Frame>
+					</Card>
+					<Card title="Hackathon Projects">
+						<Frame image="">
+
+						</Frame>
+						<Frame image="">
+
+						</Frame>
+					</Card>
+					<Card title="Volle.io!">
+						<Frame image="">
+
+						</Frame>
+					</Card>
+				</div>
+				<div className="card-grid-title">
+					<h2>Web Design</h2>
+					<p>I'm actively working on a few <a href="https://squarespace.com/">Squarespace</a> websites, heavily customized with JS &amp; CSS.</p>
+				</div>
+				<div className="card-grid">
+					<Card title="Food Diplomat">
+						<Frame image="">
+
+						</Frame>
+					</Card>
+					<Card title="Glo Spa Woodstock">
+						<Frame image="">
+
+						</Frame>
+					</Card>
+				</div>
+			</div>
+			<style jsx>{`
+				.main-content-column {
+					display: flex;
+					flex-direction: column;
+				}
+
+				.welcome-card {
+					display: flex;
+					justify-content: center;
+					margin: 0 16px;
+				}
+
+				.card-grid-title {
+					margin: 0 16px;
+					text-align: center;
+				}
+				.card-grid-title h2 {
+					margin: 2em 0 0;
+				}
+				.card-grid-title p {
+					text-indent: 0;
+				}
+
+				.card-grid {
+					display: grid;
+					grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+					grid-gap: 16px;
+					margin: 16px;
+				}
+
+				@media (min-width: 700px) {
+					.main-content-column {
+						
+					}
+
+					.card-grid {
+						grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+					}
+				}
+
+				@media (min-width: 1200px) {
+					.main-content-column {
+						margin: 0 200px;
+					}
+
+					.card-grid {
+						grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+					}
+				}
+			`}</style>
+		</Layout>
+	);
+}

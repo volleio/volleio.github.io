@@ -3,6 +3,7 @@ import React, { Component, MouseEvent, TransitionEvent } from 'react';
 import * as basicScroll from 'basicscroll';
 import BusinessCard from './BusinessCard';
 import DropdownMenu from './DropdownMenu';
+import { isMobile } from 'react-device-detect';
 import '../global.scss';
 
 class Header extends Component<IHeaderProps, IHeaderState>
@@ -102,7 +103,7 @@ class Header extends Component<IHeaderProps, IHeaderState>
 			<div className="header">
 				<div className="header-container" onMouseEnter={this.onMouseEnterContainer} onMouseLeave={this.onMouseLeaveContainer}>
 					<BusinessCard onTransitionEnd={this.onTransitionEnd} onMouseLeaveContainer={this.onMouseLeaveContainer} />
-					<div className="header-dropdown-menu">
+					{/* <div className="header-dropdown-menu">
 						<DropdownMenu showMenu={this.state.showMenu} toggleShowMenu={this.toggleShowMenu.bind(this)} items={
 							[
 								{
@@ -111,10 +112,10 @@ class Header extends Component<IHeaderProps, IHeaderState>
 								},
 							]
 						}></DropdownMenu>
-					</div>
+					</div> */}
 				</div>
 				<div className="header-scroll"></div>
-				{AR}
+				{/* {AR} */}
 				<style jsx>{`
 					.header-container {
 						position: fixed;
@@ -127,6 +128,12 @@ class Header extends Component<IHeaderProps, IHeaderState>
 
 						background-color: rgba(255, 255, 255, 0.98);
 						box-shadow: 0 0 10px rgba(0, 0, 0, calc((var(--header-height-in) - 0.9) * 2));
+					}
+					@supports (backdrop-filter: blur(15px) grayscale(50%)) {
+						.header-container {
+							backdrop-filter: blur(15px) grayscale(50%);
+							background-color: rgba(255, 255, 255, 0.88);
+						}
 					}
 
 					.header-scroll {
@@ -164,6 +171,9 @@ class Header extends Component<IHeaderProps, IHeaderState>
 	}
 
 	private onMouseEnterContainer(evt: MouseEvent) {
+		if (isMobile)
+			return;
+
 		if (parseFloat(document.documentElement.style.getPropertyValue('--header-height-out')) !== 0)
 			return;
 
@@ -189,6 +199,9 @@ class Header extends Component<IHeaderProps, IHeaderState>
 
 	private onMouseLeaveContainer(evt: MouseEvent | { currentTarget: HTMLElement }) {
 		const headerContainer = evt.currentTarget as HTMLElement;
+		if (isMobile)
+			return;
+			
 		const businessCardContainer = headerContainer.querySelector('.business-card-container') as HTMLElement;
 		const businessCardSizer = businessCardContainer.querySelector('.business-card-sizer') as HTMLElement;
 

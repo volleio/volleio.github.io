@@ -59,6 +59,8 @@ class ColorPicker extends Component {
 		const pickerElement = container.querySelector('.color-picker') as HTMLElement;
 		const indicator = container.querySelector('.color-picker-indicator') as HTMLElement;
 
+		const supportsBackdropBlur = CSS.supports('backdrop-filter', 'blur(10px) grayscale(50%)');
+
 		const colourPicker = new ColourPicker(pickerElement, (color) => {
 			const rgba = color.GetRGBA();
 			document.body.style.backgroundColor = `rgb(${rgba.R}, ${rgba.G}, ${rgba.B})`;
@@ -73,7 +75,7 @@ class ColorPicker extends Component {
 			whiteTintHsl.S = Math.min(whiteTintHsl.S, whiteTintHsl.L);
 			whiteTintHsl.L = 0.9 + whiteTintHsl.L / 10;
 			const whiteTintColor = new Colour(whiteTintHsl);
-			whiteTintColor.SetAlpha(98);
+			whiteTintColor.SetAlpha(supportsBackdropBlur ? 88 : 98);
 
 			(document.querySelector('.header-container') as HTMLElement).style.backgroundColor = whiteTintColor.ToCssString(true);
 		});

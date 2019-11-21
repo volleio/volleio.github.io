@@ -142,6 +142,7 @@ class BusinessCard extends Component<IBusinessCardProps> {
 				className="business-card-container"
 				onTransitionEnd={this.props.onTransitionEnd}
 			>
+				<div className="business-card-mouseout-buffer" />
 				<div className="business-card__label business-card__label--top">
 					<div className="icon-bracket-group">
 						<a href="mailto:Lucas@Volle.io">
@@ -545,6 +546,13 @@ class BusinessCard extends Component<IBusinessCardProps> {
 								url("/static/icon-twittr-selected.svg")
 								url("/static/icon-github-selected.svg")
 								url("/static/icon-linkedn-selected.svg");
+						}
+
+						// when scrolled, add some lower buffer to header around card to prevent accidental mouseouts
+						.business-card-mouseout-buffer {
+							width: 420px;
+							height: 320px;
+							position: absolute;
 						}
 					`}
 				</style>

@@ -24,7 +24,8 @@
 	},
 	"extensions": {
 		"recommendations": [
-			"ms-vscode.vscode-typescript-tslint-plugin"
+			"ms-vscode.vscode-typescript-tslint-plugin",
+			"blanu.vscode-styled-jsx"
 		]
 	}
 }
