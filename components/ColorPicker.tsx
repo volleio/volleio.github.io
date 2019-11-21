@@ -1,7 +1,7 @@
 import React, { Component, MouseEvent } from 'react';
 import ReactDOM from 'react-dom';
 import { ColourPicker, Colour } from './colourpicker';
-import '../public/static/colourpicker.css';
+import '../static/colourpicker.css';
 
 class ColorPicker extends Component {
 	constructor(props: IColorPickerProps) {

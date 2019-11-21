@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import '../public/static/colourpicker.css';
+import '../static/colourpicker.css';
 import ColorPicker from './ColorPicker';
 
 class Footer extends Component {
