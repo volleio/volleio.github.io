@@ -10,7 +10,9 @@ class Card extends Component<ICardProps>
 		return (
 			<div className="card-container">
 				<div className="card-header">
-					<h1>{this.props.title}</h1>
+					<h1>
+						<a href={this.props.url ? this.props.url : ''}>{this.props.title}</a>
+					</h1>
 				</div>
 				<div className="card-content">
 					{this.props.children}
@@ -30,7 +32,11 @@ class Card extends Component<ICardProps>
 					}
 			
 					.card-header {
-			
+						
+					}
+
+					.card-header a {
+						color: inherit;
 					}
 			
 					.card-content {
@@ -46,6 +52,7 @@ class Card extends Component<ICardProps>
 
 interface ICardProps {
 	title: string;
+	url?: string;
 }
 
 export default Card;

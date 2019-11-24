@@ -9,8 +9,8 @@ export default function HomePage() {
 				<div className="welcome-card">
 					<Card title="👋">
 						<p>
-							I'm a full stack developer and Manager of Software Engineering at 
-							<a href="https://www.exagoinc.com/"> Exago Inc</a>, 
+							I'm a full stack developer and Manager of Software Engineering 
+							at <a href="https://www.exagoinc.com/">Exago Inc</a>, 
 							a business intelligence software company in Uptown Kingston, NY.
 						</p>
 					</Card>
@@ -20,27 +20,27 @@ export default function HomePage() {
 					<p>I 💖 FOSS, and I'm proud <a href="https://github.com/exagoinc/" aria-label="Exago Inc's GitHub">Exago does, too</a>! These are some of the open source projects I'm working on.</p>
 				</div>
 				<div className="card-grid">
-					<Card title="Biometric Diary">
+					<Card title="Biometric Diary" url="https://github.com/volleio/Biometric-Diary">
 						<Frame image="">
 
 						</Frame>
 					</Card>
-					<Card title="Mobile DevTools">
+					<Card title="Mobile DevTools" url="https://github.com/volleio/mobile-devtools">
 						<Frame image="">
 
 						</Frame>
 					</Card>
-					<Card title="Colour Picker">
+					<Card title="Colour Picker" url="https://github.com/exagoinc/ColourPicker">
 						<Frame image="">
 
 						</Frame>
 					</Card>
-					<Card title="Hoyt L. Sherman's Flash Lab VR">
+					<Card title="Hoyt L. Sherman's Flash Lab VR" url="https://github.com/volleio/Flash-Lab">
 						<Frame image="">
 
 						</Frame>
 					</Card>
-					<Card title="Hackathon Projects">
+					<Card title="Hackathon Projects" url="https://github.com/volleio/">
 						<Frame image="">
 
 						</Frame>
@@ -48,7 +48,7 @@ export default function HomePage() {
 
 						</Frame>
 					</Card>
-					<Card title="Volle.io!">
+					<Card title="Volle.io!" url="https://github.com/volleio/volleio.github.io">
 						<Frame image="">
 
 						</Frame>
@@ -59,12 +59,12 @@ export default function HomePage() {
 					<p>I'm actively working on a few <a href="https://squarespace.com/">Squarespace</a> websites, heavily customized with JS &amp; CSS.</p>
 				</div>
 				<div className="card-grid">
-					<Card title="Food Diplomat">
+					<Card title="Food Diplomat" url="https://food-diplomat.com/">
 						<Frame image="">
 
 						</Frame>
 					</Card>
-					<Card title="Glo Spa Woodstock">
+					<Card title="Glo Spa Woodstock" url="https://www.glospawoodstock.com/">
 						<Frame image="">
 
 						</Frame>
@@ -75,6 +75,7 @@ export default function HomePage() {
 				.main-content-column {
 					display: flex;
 					flex-direction: column;
+					margin-top: 200px;
 				}
 
 				.welcome-card {
@@ -113,7 +114,8 @@ export default function HomePage() {
 
 				@media (min-width: 1200px) {
 					.main-content-column {
-						margin: 0 200px;
+						margin-left: 200px;
+						margin-right: 200px;
 					}
 
 					.card-grid {
