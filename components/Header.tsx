@@ -125,6 +125,8 @@ class Header extends Component<IHeaderProps, IHeaderState>
 						display: flex;
 						justify-content: center;
 						overflow: hidden;
+						transform: translateZ(1px);
+						z-index: 99;
 
 						background-color: rgba(255, 255, 255, 0.98);
 						box-shadow: 0 0 10px rgba(0, 0, 0, calc((var(--header-height-in) - 0.9) * 2));
@@ -138,7 +140,7 @@ class Header extends Component<IHeaderProps, IHeaderState>
 
 					.header-scroll {
 						width: 100%;
-						height: calc(var(--header-height-out) * 100vh + 400px);
+						height: 100vh;
 						min-height: 280px;
 					}
 

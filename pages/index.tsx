@@ -75,7 +75,7 @@ export default function HomePage() {
 				.main-content-column {
 					display: flex;
 					flex-direction: column;
-					margin-top: 200px;
+					transform: translateY(calc(var(--header-height-in) * var(--header-height-in) * -25vh));
 				}
 
 				.welcome-card {

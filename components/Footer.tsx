@@ -21,7 +21,6 @@ class Footer extends Component {
 					{`
 					.footer {
 						position: relative;
-						margin-top: 50vh;
 						margin-bottom: 8px;
 						display: flex;
 						align-items: center;
