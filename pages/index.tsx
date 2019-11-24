@@ -21,36 +21,34 @@ export default function HomePage() {
 				</div>
 				<div className="card-grid">
 					<Card title="Biometric Diary" url="https://github.com/volleio/Biometric-Diary">
-						<Frame image="">
-
+						<Frame image="/static/thumbnails/biometric-diary.png" sourceUrl="https://github.com/volleio/Biometric-Diary"
+							demoUrl="https://biometric-diary.herokuapp.com/">
 						</Frame>
 					</Card>
 					<Card title="Mobile DevTools" url="https://github.com/volleio/mobile-devtools">
-						<Frame image="">
-
+						<Frame image="/static/thumbnails/mobile-devtools.png" sourceUrl="https://github.com/volleio/mobile-devtools"
+							demoUrl="https://chrome.google.com/webstore/detail/mobile-devtools/okfdckomkajiaeejefanbonnhppmplpo">
 						</Frame>
 					</Card>
 					<Card title="Colour Picker" url="https://github.com/exagoinc/ColourPicker">
-						<Frame image="">
-
+						<Frame image="/static/thumbnails/colourpicker.png" sourceUrl="https://github.com/exagoinc/ColourPicker"
+							demoUrl="https://exagoinc.github.io/ColourPicker/examples.html">
 						</Frame>
 					</Card>
 					<Card title="Hoyt L. Sherman's Flash Lab VR" url="https://github.com/volleio/Flash-Lab">
-						<Frame image="">
-
+						<Frame image="/static/thumbnails/flash-lab.png"
+							demoUrl="https://flash-lab.glitch.me/"
+							presentationUrl="https://web-vr-hvwp.glitch.me">
 						</Frame>
 					</Card>
 					<Card title="Hackathon Projects" url="https://github.com/volleio/">
 						<Frame image="">
-
 						</Frame>
 						<Frame image="">
-
 						</Frame>
 					</Card>
 					<Card title="Volle.io!" url="https://github.com/volleio/volleio.github.io">
-						<Frame image="">
-
+						<Frame image="/static/thumbnails/volle.io.png" sourceUrl="https://github.com/volleio/volleio.github.io">
 						</Frame>
 					</Card>
 				</div>
@@ -60,13 +58,11 @@ export default function HomePage() {
 				</div>
 				<div className="card-grid">
 					<Card title="Food Diplomat" url="https://food-diplomat.com/">
-						<Frame image="">
-
+						<Frame image="/static/thumbnails/food-diplomat.png" demoUrl="https://food-diplomat.com/">
 						</Frame>
 					</Card>
 					<Card title="Glo Spa Woodstock" url="https://www.glospawoodstock.com/">
-						<Frame image="">
-
+						<Frame image="/static/thumbnails/glo-spa-woodstock.png" demoUrl="https://www.glospawoodstock.com/">
 						</Frame>
 					</Card>
 				</div>
@@ -79,9 +75,11 @@ export default function HomePage() {
 				}
 
 				.welcome-card {
+					width: 90%;
+					max-width: 600px;
 					display: flex;
 					justify-content: center;
-					margin: 0 16px;
+					margin: 0 auto;
 				}
 
 				.card-grid-title {

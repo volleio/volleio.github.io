@@ -128,13 +128,13 @@ class Header extends Component<IHeaderProps, IHeaderState>
 						transform: translateZ(1px);
 						z-index: 99;
 
-						background-color: rgba(255, 255, 255, 0.98);
+						background: rgba(255, 255, 255, 0.97);
 						box-shadow: 0 0 10px rgba(0, 0, 0, calc((var(--header-height-in) - 0.9) * 2));
 					}
 					@supports (backdrop-filter: blur(15px) grayscale(50%)) {
 						.header-container {
 							backdrop-filter: blur(15px) grayscale(50%);
-							background-color: rgba(255, 255, 255, 0.88);
+							background: linear-gradient(0deg, rgba(255,255,255,0.85), #FFF);
 						}
 					}
 

@@ -11,7 +11,9 @@ class Card extends Component<ICardProps>
 			<div className="card-container">
 				<div className="card-header">
 					<h1>
-						<a href={this.props.url ? this.props.url : ''}>{this.props.title}</a>
+						{this.props.url ? 
+						<a href={this.props.url}>{this.props.title}</a> :
+						this.props.title}
 					</h1>
 				</div>
 				<div className="card-content">
