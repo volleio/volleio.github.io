@@ -460,24 +460,24 @@ class BusinessCard extends Component<IBusinessCardProps> {
 						}
 
 						.icon--email {
-							background-image: url("/static/icons/email.svg");
+							background-image: url("/static/images/email.svg");
 						}
 						.icon-bracket-group.hover .icon--email {
-							background-image: url("/static/icons/email-selected.svg");
+							background-image: url("/static/images/email-selected.svg");
 							transform: scale(1);
 							background-size: 28px 28px;
 						}
 
 						.icon--me {
 							opacity: 1;
-							background-image: url("/static/icons/me.svg");
+							background-image: url("/static/images/me.svg");
 							transform: rotateY(0deg) scale(1) translateY(0);
 							transition: all 0.1s ease-in-out,
 								transform 0.3s ease-in-out,
 								opacity 0.3s ease-in-out;
 						}
 						.icon-bracket-group.hover .icon--me {
-							background-image: url("/static/icons/me-selected.svg");
+							background-image: url("/static/images/me-selected.svg");
 						}
 						.icon-bracket-group.hover .icon--me.flip {
 							opacity: 0;
@@ -490,7 +490,7 @@ class BusinessCard extends Component<IBusinessCardProps> {
 							height: 24px;
 							top: 16px;
 							border-radius: 50%;
-							background-image: url(/static/icons/me-avatar.svg);
+							background-image: url(/static/images/me-avatar.svg);
 							background-repeat: no-repeat;
 							background-position: center;
 							background-size: contain;
@@ -506,31 +506,31 @@ class BusinessCard extends Component<IBusinessCardProps> {
 						}
 
 						.icon--insta {
-							background-image: url("/static/icons/insta.svg");
+							background-image: url("/static/images/insta.svg");
 						}
 						.icon-bracket-group.hover .icon--insta {
-							background-image: url("/static/icons/insta-selected.svg");
+							background-image: url("/static/images/insta-selected.svg");
 						}
 
 						.icon--twittr {
-							background-image: url("/static/icons/twittr.svg");
+							background-image: url("/static/images/twittr.svg");
 						}
 						.icon-bracket-group.hover .icon--twittr {
-							background-image: url("/static/icons/twittr-selected.svg");
+							background-image: url("/static/images/twittr-selected.svg");
 						}
 
 						.icon--github {
-							background-image: url("/static/icons/github.svg");
+							background-image: url("/static/images/github.svg");
 						}
 						.icon-bracket-group.hover .icon--github {
-							background-image: url("/static/icons/github-selected.svg");
+							background-image: url("/static/images/github-selected.svg");
 						}
 
 						.icon--linkedn {
-							background-image: url("/static/icons/linkedn.svg");
+							background-image: url("/static/images/linkedn.svg");
 						}
 						.icon-bracket-group.hover .icon--linkedn {
-							background-image: url("/static/icons/linkedn-selected.svg");
+							background-image: url("/static/images/linkedn-selected.svg");
 						}
 
 						// preload hover state background images to prevent flashing
@@ -540,12 +540,12 @@ class BusinessCard extends Component<IBusinessCardProps> {
 							height: 0;
 							overflow: hidden;
 							z-index: -1;
-							content: url("/static/icons/email-selected.svg")
-								url("/static/icons/me-selected.svg")
-								url("/static/icons/insta-selected.svg")
-								url("/static/icons/twittr-selected.svg")
-								url("/static/icons/github-selected.svg")
-								url("/static/icons/linkedn-selected.svg");
+							content: url("/static/images/email-selected.svg")
+								url("/static/images/me-selected.svg")
+								url("/static/images/insta-selected.svg")
+								url("/static/images/twittr-selected.svg")
+								url("/static/images/github-selected.svg")
+								url("/static/images/linkedn-selected.svg");
 						}
 
 						// when scrolled, add some lower buffer to header around card to prevent accidental mouseouts
