@@ -5,6 +5,7 @@ import BusinessCard from './BusinessCard';
 import DropdownMenu from './DropdownMenu';
 import { isMobile } from 'react-device-detect';
 import '../global.scss';
+import { findDOMNode } from 'react-dom';
 
 class Header extends Component<IHeaderProps, IHeaderState>
 {
@@ -101,7 +102,7 @@ class Header extends Component<IHeaderProps, IHeaderState>
 
 		return (
 			<div className="header">
-				<div className="header-container" onMouseEnter={this.onMouseEnterContainer} onMouseLeave={this.onMouseLeaveContainer}>
+				<div id="header-container" className="header-container" onMouseEnter={this.onMouseEnterContainer} onMouseLeave={this.onMouseLeaveContainer}>
 					<BusinessCard onTransitionEnd={this.onTransitionEnd} onMouseLeaveContainer={this.onMouseLeaveContainer} />
 					{/* <div className="header-dropdown-menu">
 						<DropdownMenu showMenu={this.state.showMenu} toggleShowMenu={this.toggleShowMenu.bind(this)} items={
@@ -244,6 +245,8 @@ class Header extends Component<IHeaderProps, IHeaderState>
 		const headerHeight = basicScroll.create({
 			from: '0vh',
 			to: '200vh',
+			inside: () => (document.getElementById('header-container') as any).style.backdropFilter = 'none',
+			outside: () => (document.getElementById('header-container') as any).style.backdropFilter = '',
 			props: {
 				'--header-height-out': {
 					from: '1',
