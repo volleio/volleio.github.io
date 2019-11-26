@@ -4,6 +4,11 @@ import { ColourPicker, Colour } from './colourpicker';
 import '../static/colourpicker.css';
 
 class ColorPicker extends Component {
+	private colourPicker!: ColourPicker;
+
+	private indicator!: HTMLElement;
+	private supportsBackdropBlur = false;
+
 	constructor(props: IColorPickerProps) {
 		super(props);
 
@@ -57,28 +62,49 @@ class ColorPicker extends Component {
 	public componentDidMount() {
 		const container = ReactDOM.findDOMNode(this) as HTMLElement;
 		const pickerElement = container.querySelector('.color-picker') as HTMLElement;
-		const indicator = container.querySelector('.color-picker-indicator') as HTMLElement;
 
-		const supportsBackdropBlur = CSS.supports('backdrop-filter', 'blur(10px) grayscale(50%)');
+		this.indicator = container.querySelector('.color-picker-indicator') as HTMLElement;
+		this.supportsBackdropBlur = CSS.supports('backdrop-filter', 'blur(10px) grayscale(50%)');
+		this.colourPicker = new ColourPicker(pickerElement, color => this.UpdateThemeColor(color));
 
-		const colourPicker = new ColourPicker(pickerElement, (color) => {
-			const rgba = color.GetRGBA();
-			document.body.style.backgroundColor = `rgb(${rgba.R}, ${rgba.G}, ${rgba.B})`;
-			indicator.style.backgroundColor = `rgb(${rgba.R}, ${rgba.G}, ${rgba.B})`;
-
-			const whiteTintHsl = colourPicker.GetColour().GetHSL();
-			if (whiteTintHsl.L < 0.3)
-				document.documentElement.classList.add('dark-mode');
-			else
-				document.documentElement.classList.remove('dark-mode');
-
-			whiteTintHsl.S = Math.min(whiteTintHsl.S, whiteTintHsl.L);
-			whiteTintHsl.L = 0.9 + whiteTintHsl.L / 10;
-			const whiteTintColor = new Colour(whiteTintHsl);
-			whiteTintColor.SetAlpha(supportsBackdropBlur ? 88 : 98);
-
-			(document.querySelector('.header-container') as HTMLElement).style.backgroundColor = whiteTintColor.ToCssString(true);
+		// Set initial theme by checking local storage, or prefers-color-scheme. Add event listener on prefers-color-scheme.
+		matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (evt) => {
+			let newColorScheme = '#FFF';
+			if (evt.matches)
+				newColorScheme = '#000';
+				
+			this.UpdateThemeColor(new Colour(newColorScheme));
 		});
+
+		const savedTheme = localStorage.getItem('theme-color');
+		if (savedTheme) {
+			const themeColor = new Colour(savedTheme);
+			this.UpdateThemeColor(themeColor);
+			this.colourPicker.SetColour(themeColor);
+		}
+		// else if (matchMedia('(prefers-color-scheme: dark)').matches)
+		// 	this.UpdateThemeColor(new Colour('#000'));
+
+	}
+
+	private UpdateThemeColor(color: Colour) {
+		const rgba = color.GetRGBA();
+		document.body.style.backgroundColor = `rgb(${rgba.R}, ${rgba.G}, ${rgba.B})`;
+		this.indicator.style.backgroundColor = `rgb(${rgba.R}, ${rgba.G}, ${rgba.B})`;
+
+		const whiteTintHsl = color.GetHSL();
+		if (whiteTintHsl.L < 0.3)
+			document.documentElement.classList.add('dark-mode');
+		else
+			document.documentElement.classList.remove('dark-mode');
+
+		whiteTintHsl.S = Math.min(whiteTintHsl.S, whiteTintHsl.L);
+		whiteTintHsl.L = 0.9 + whiteTintHsl.L / 10;
+		const whiteTintColor = new Colour(whiteTintHsl);
+		whiteTintColor.SetAlpha(this.supportsBackdropBlur ? 88 : 98);
+
+		(document.querySelector('.header-container') as HTMLElement).style.backgroundColor = whiteTintColor.ToCssString(true);
+	
 	}
 
 	private onClick() {
@@ -88,6 +114,9 @@ class ColorPicker extends Component {
 		const onBodyClick = (evt: globalThis.MouseEvent) => {
 			if ((evt.target as HTMLElement).closest('.color-picker'))
 				return;
+
+			// Save theme
+			localStorage.setItem('theme-color', this.colourPicker.GetColour().GetHex());
 
 			document.body.removeEventListener('click', onBodyClick);
 			container.classList.remove('active');

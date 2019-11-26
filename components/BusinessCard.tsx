@@ -188,12 +188,12 @@ class BusinessCard extends Component<IBusinessCardProps> {
 						<div className="icon-bracket-group">
 							<div className="bracket bracket--vert1" />
 							<div
-								className="icon icon--me"
+								className="icon icon--me no-invert"
 								onClick={this.onMeClick}
 								onMouseOver={this.onIconMouseOver}
 								onMouseOut={this.onIconMouseOut}
 							/>
-							<div className="icon-me-avatar" />
+							<div className="icon-me-avatar no-invert" />
 						</div>
 					</div>
 					<div className="business-card__label business-card__label--bottom">

@@ -17,6 +17,13 @@ export default function Frame(props: IFrameProps) {
 					background-position: top;
 					background-size: cover;
 				}
+				.frame-container:after {
+					content: '';
+					position: absolute;
+					top: 0; left: 0; bottom: 0; right: 0;
+					background: radial-gradient(ellipse,transparent 50%,#0001 150%)
+					pointer-events: none;
+				}
 
 				.frame-link-container {
 					display: flex;

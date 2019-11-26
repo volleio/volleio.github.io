@@ -121,7 +121,7 @@ class Header extends Component<IHeaderProps, IHeaderState>
 					.header-container {
 						position: fixed;
 						width: 100%;
-						height: calc(var(--header-height-out) * 100vh);
+						height: calc(var(--header-height-out) * 100%);
 						min-height: 80px;
 						display: flex;
 						justify-content: center;
@@ -192,6 +192,7 @@ class Header extends Component<IHeaderProps, IHeaderState>
 		businessCardContainer.style.marginTop = '0px';
 		businessCardContainer.style.transition = 'transform 0.1s ease-in-out, margin-top 0.1s ease-in-out';
 		businessCardContainer.style.marginTop = '40px';
+		businessCardContainer.style.backgroundColor = '#FFF';
 
 		headerContainer.style.height = '0';
 		headerContainer.style.overflow = 'visible';
@@ -218,6 +219,7 @@ class Header extends Component<IHeaderProps, IHeaderState>
 			businessCardContainer.style.marginTop = '0px';
 		headerContainer.style.height = '';
 		headerContainer.style.overflow = '';
+		businessCardContainer.style.backgroundColor = '';
 
 		businessCardContainer.style.width = '';
 		businessCardSizer.style.width = '';

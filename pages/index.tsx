@@ -17,7 +17,7 @@ export default function HomePage() {
 				</div>
 				<div className="card-grid-title">
 					<h2>Projects</h2>
-					<p>I 💖 FOSS, and I'm proud <a href="https://github.com/exagoinc/" aria-label="Exago Inc's GitHub">Exago does, too</a>! These are some of the open source projects I'm working on.</p>
+					<p>I <span className="no-invert">💖</span> FOSS, and I'm proud <a href="https://github.com/exagoinc/" aria-label="Exago Inc's GitHub">Exago does, too</a>! These are some of the open source projects I'm working on.</p>
 				</div>
 				<div className="card-grid">
 					<Card title="Biometric Diary" url="https://github.com/volleio/Biometric-Diary">
