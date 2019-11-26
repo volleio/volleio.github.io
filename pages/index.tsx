@@ -21,22 +21,22 @@ export default function HomePage() {
 				</div>
 				<div className="card-grid">
 					<Card title="Biometric Diary" url="https://github.com/volleio/Biometric-Diary">
-						<Frame image="/static/images/biometric-diary.png?webp" sourceUrl="https://github.com/volleio/Biometric-Diary"
+						<Frame image="/static/images/biometric-diary.png?trace" sourceUrl="https://github.com/volleio/Biometric-Diary"
 							demoUrl="https://biometric-diary.herokuapp.com/">
 						</Frame>
 					</Card>
 					<Card title="Mobile DevTools" url="https://github.com/volleio/mobile-devtools">
-						<Frame image="/static/images/mobile-devtools.png?webp" sourceUrl="https://github.com/volleio/mobile-devtools"
+						<Frame image="/static/images/mobile-devtools.png?trace" sourceUrl="https://github.com/volleio/mobile-devtools"
 							demoUrl="https://chrome.google.com/webstore/detail/mobile-devtools/okfdckomkajiaeejefanbonnhppmplpo">
 						</Frame>
 					</Card>
 					<Card title="Colour Picker" url="https://github.com/exagoinc/ColourPicker">
-						<Frame image="/static/images/colourpicker.png?webp" sourceUrl="https://github.com/exagoinc/ColourPicker"
+						<Frame image="/static/images/colourpicker.png?trace" sourceUrl="https://github.com/exagoinc/ColourPicker"
 							demoUrl="https://exagoinc.github.io/ColourPicker/examples.html">
 						</Frame>
 					</Card>
 					<Card title="Hoyt L. Sherman's Flash Lab VR" url="https://github.com/volleio/Flash-Lab">
-						<Frame image="/static/images/flash-lab.png?webp"
+						<Frame image="/static/images/flash-lab.png?trace"
 							demoUrl="https://flash-lab.glitch.me/"
 							presentationUrl="https://web-vr-hvwp.glitch.me">
 						</Frame>
@@ -48,7 +48,7 @@ export default function HomePage() {
 						</Frame>
 					</Card>
 					<Card title="Volle.io!" url="https://github.com/volleio/volleio.github.io">
-						<Frame image="/static/images/volle.io.png?webp" sourceUrl="https://github.com/volleio/volleio.github.io">
+						<Frame image="/static/images/volle.io.png?trace" sourceUrl="https://github.com/volleio/volleio.github.io">
 						</Frame>
 					</Card>
 				</div>
@@ -58,11 +58,11 @@ export default function HomePage() {
 				</div>
 				<div className="card-grid">
 					<Card title="Food Diplomat" url="https://food-diplomat.com/">
-						<Frame image="/static/images/food-diplomat.png?webp" demoUrl="https://food-diplomat.com/">
+						<Frame image="/static/images/food-diplomat.png?trace" demoUrl="https://food-diplomat.com/">
 						</Frame>
 					</Card>
 					<Card title="Glo Spa Woodstock" url="https://www.glospawoodstock.com/">
-						<Frame image="/static/images/glo-spa-woodstock.png?webp" demoUrl="https://www.glospawoodstock.com/">
+						<Frame image="/static/images/glo-spa-woodstock.png?trace" demoUrl="https://www.glospawoodstock.com/">
 						</Frame>
 					</Card>
 				</div>

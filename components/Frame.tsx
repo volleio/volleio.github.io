@@ -48,10 +48,10 @@ export default function Frame(props: IFrameProps) {
 				}
 				
 				.source-link {
-					background-image: url("/static/images/github-link.svg");
+					background-image: url("/static/images/github-link.svg?sprite");
 				}
 				.demo-link {
-					background-image: url("/static/images/webpage-link.svg");
+					background-image: url("/static/images/webpage-link.svg?sprite");
 				}
 			`}
 			</style>

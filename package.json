@@ -35,7 +35,8 @@
     "rimraf": "^3.0.0",
     "svg-sprite-loader": "^4.1.6",
     "tslint-config-airbnb": "^5.11.2",
-    "webp-loader": "^0.5.0"
+    "webp-loader": "^0.5.0",
+    "webpack-cli": "^3.3.10"
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.6.0",
