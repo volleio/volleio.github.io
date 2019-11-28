@@ -33,6 +33,7 @@ export default function Frame(props: IFrameProps) {
 					bottom: 0;
 					opacity: 0;
 					transition: opacity 0.2s ease;
+					z-index: 1;
 				}
 
 				.frame-link {

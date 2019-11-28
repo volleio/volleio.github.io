@@ -68,7 +68,10 @@ class ColorPicker extends Component {
 		this.colourPicker = new ColourPicker(pickerElement, color => this.UpdateThemeColor(color));
 
 		// Set initial theme by checking local storage, or prefers-color-scheme. Add event listener on prefers-color-scheme.
-		matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (evt) => {
+		// addEventListener on matchMedia " is only partial in Safari (Desktop and iOS) including Safari 13 (Technology Preview), 
+		// because the MediaQueryList object that is returned only supports the legacy .addListener() method, but not .addEventListener()."
+		(matchMedia('(prefers-color-scheme: dark)').addEventListener || 
+		matchMedia('(prefers-color-scheme: dark)').addListener)('change', (evt) => {
 			let newColorScheme = '#FFF';
 			if (evt.matches)
 				newColorScheme = '#000';

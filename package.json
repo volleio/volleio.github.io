@@ -16,8 +16,8 @@
     "export-copy": "ncp out/index.html ./index.html && ncp out/404.html ./404.html && ncp out/_next/ ./_next/ && ncp .next/service-worker.js ./service-worker.js",
     "export-delete": "rimraf out/",
     "deploy-io": "npm run cleanup-io && npm run copy-io",
-    "cleanup-io": "rimraf ../volleioserver/index.html && rimraf ../volleioserver/404.html && rimraf ../volleioserver/static/ && rimraf ../volleioserver/_next/",
-    "copy-io": "ncp ./index.html ../volleioserver/index.html && ncp ./404.html ../volleioserver/404.html && ncp ./static/ ../volleioserver/static/ && ncp ./_next/ ../volleioserver/_next/"
+    "cleanup-io": "rimraf ../volleioserver/index.html && rimraf ../volleioserver/404.html && rimraf ../volleioserver/service-worker.js && rimraf ../volleioserver/static/ && rimraf ../volleioserver/_next/",
+    "copy-io": "ncp ./index.html ../volleioserver/index.html && ncp ./404.html ../volleioserver/404.html && ncp ./service-worker.js ../volleioserver/service-worker.js && ncp ./static/ ../volleioserver/static/ && ncp ./_next/ ../volleioserver/_next/"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
