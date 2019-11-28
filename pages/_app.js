@@ -16,8 +16,8 @@ export default class Volleio extends App {
 			<meta name="author" content="Lucas Volle" />
 			<link rel="shortcut icon" href="/static/favicon.png" />
 
-			<script type="application/ld+json">{`
-				{
+			<script type="application/ld+json" dangerouslySetInnerHTML={ { __html: 
+				`{
 					"@context": "https://schema.org",
 					"@type": "Person",
 					"name": "Lucas Volle",
@@ -28,8 +28,8 @@ export default class Volleio extends App {
 						"https://www.linkedin.com/in/volleio",
 						"http://twitter.com/volleio"
 					]
-				}
-			`}</script>
+				}`
+			}} />
         </Head>
         <Component {...pageProps} />
       </>
