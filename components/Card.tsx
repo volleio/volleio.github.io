@@ -13,7 +13,7 @@ class Card extends Component<ICardProps>
 					<h1>
 						{this.props.url ? 
 						<a href={this.props.url}>{this.props.title}</a> :
-						this.props.title}
+						<span className={this.props.invertTitle ? '' : 'no-invert'}>{this.props.title}</span>}
 					</h1>
 				</div>
 				<div className="card-content">
@@ -59,6 +59,7 @@ class Card extends Component<ICardProps>
 
 interface ICardProps {
 	title: string;
+	invertTitle?: boolean;
 	url?: string;
 }
 

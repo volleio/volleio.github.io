@@ -7,7 +7,7 @@ export default function HomePage() {
 		<Layout>
 			<div className="main-content-column">
 				<div className="welcome-card">
-					<Card title="👋">
+					<Card title="👋" invertTitle={true}>
 						<p>
 							I'm a full stack developer and Manager of Software Engineering 
 							at <a href="https://www.exagoinc.com/">Exago Inc</a>, 
@@ -49,14 +49,14 @@ export default function HomePage() {
 						</Frame>
 					</Card>
 					<Card title="Hackathon Projects" url="">
-						<h2><a href="https://github.com/cowang4/HackTechValleyStefani">Sanitation Vehicle Tracker</a></h2>
+						<h2 className="no-invert"><a href="https://github.com/cowang4/HackTechValleyStefani">Sanitation Vehicle Tracker</a></h2>
 						<Frame image="/static/images/sanitation-vehicle-tracker.png?trace" sourceUrl="https://github.com/cowang4/HackTechValleyStefani"
 							demoUrl="https://gregcowan.me/HackTechValleyStefani/map.html">
 							A web application for tracking fleets of public vehicles.
 							🏆 Won Innovative Use of Data at <a href="https://www.timesunion.com/business/article/Auto-Mate-coders-win-Hack-Tech-Valley-at-SCCC-12609545.php">Hack Tech Valley</a>.
 						</Frame>
 						<br/>
-						<h2><a href="https://github.com/garretpremo/summarytospeech">Summary to Speech</a></h2>
+						<h2 className="no-invert"><a href="https://github.com/garretpremo/summarytospeech">Summary to Speech</a></h2>
 						<Frame image="/static/images/summary-to-speech.png?trace" sourceUrl="https://github.com/garretpremo/summarytospeech">
 							A chrome extension that summarizes and vocalizes text.
 							🏆 Won the Euphony Text-to-Speech API Prize at <a href="https://medium.com/@hackupstate/hack-upstate-viii-the-results-are-in-4c4f4fb1abf">Hack Upstate VIII</a>.
