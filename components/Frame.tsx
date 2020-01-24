@@ -177,7 +177,7 @@ class Frame extends Component<IFrameProps> {
 
 		const scale = windowWidth / frameBounds.width;
 		const transformFromLeft = frameBounds.left + (frameBounds.width / 2) - (windowWidth / 2);
-		const transformFromTop = window.scrollY - frame.offsetTop - (frameBounds.height / 2);
+		const transformFromTop =  (windowHeight / scale) * (frameBounds.top / windowHeight) + (frameBounds.height / 2);
 		document.body.style.transform = `scale(${scale}) translate(${-1 * transformFromLeft}px, ${-1 * transformFromTop}px)`;
 
 		document.body.addEventListener('transitionend', (evt) => {
