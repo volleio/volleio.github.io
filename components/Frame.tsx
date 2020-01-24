@@ -137,18 +137,28 @@ class Frame extends Component<IFrameProps> {
 
 	public componentDidMount() {
 		if (this.props.portalUrl && 'HTMLPortalElement' in window) {
-			const frame = ReactDOM.findDOMNode(this) as HTMLElement;
-			const portal = document.createElement('portal') as HTMLIFrameElement;
-			frame.appendChild(portal);
-			portal.src = this.props.portalUrl;
-			portal.addEventListener('click', () => this.onPortalClick());
-
-			const windowHeight = window.innerHeight;
-			const windowWidth = window.innerWidth;
-			const portalWidth = frame.clientWidth;
-
-			portal.style.height = `${portalWidth * (windowHeight / windowWidth)}px`;
+			if ((window as any).portalHost) {
+				window.addEventListener('portalactivate', () => this.setupPortal());
+			} else {
+				this.setupPortal();
+			}
 		}
+	}
+
+	private setupPortal() {
+		const frame = ReactDOM.findDOMNode(this) as HTMLElement;
+		const portal = document.createElement('portal') as HTMLIFrameElement;
+		frame.appendChild(portal);
+		if (this.props.portalUrl)
+			portal.src = this.props.portalUrl;
+			
+		portal.addEventListener('click', () => this.onPortalClick());
+
+		const windowHeight = window.innerHeight;
+		const windowWidth = window.innerWidth;
+		const portalWidth = frame.clientWidth;
+
+		portal.style.height = `${portalWidth * (windowHeight / windowWidth)}px`;
 	}
 
 	private onPortalClick() {
