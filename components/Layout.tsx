@@ -50,6 +50,12 @@ class Layout extends Component {
 						margin-block-end: 0.33em;
 					}
 
+					h2 {
+						margin-top: 0.2em;
+						margin-bottom: 0.2em;
+						text-align: center;
+					}
+
 					p {
 						text-indent: 2em;
 						margin-block-start: 0.33em;

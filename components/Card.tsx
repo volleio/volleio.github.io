@@ -37,6 +37,10 @@ class Card extends Component<ICardProps>
 						
 					}
 
+					.card-header h1 {
+						margin-bottom: 0;
+					}
+
 					.card-header a {
 						color: inherit;
 					}
@@ -44,6 +48,7 @@ class Card extends Component<ICardProps>
 					.card-content {
 						font-size: 1em;
 						overflow: auto;
+						padding: 16px;
 					}
 					`}
 				</style>

@@ -11,40 +11,55 @@ export default function HomePage() {
 						<p>
 							I'm a full stack developer and Manager of Software Engineering 
 							at <a href="https://www.exagoinc.com/">Exago Inc</a>, 
-							a business intelligence software company in Uptown Kingston, NY.
+							a business intelligence software company in <a href="https://www.google.com/maps/place/Kingston,+NY+12401/">Uptown Kingston, NY</a>.
 						</p>
 					</Card>
 				</div>
 				<div className="card-grid-title">
 					<h2>Projects</h2>
-					<p>I <span className="no-invert">💖</span> FOSS, and I'm proud <a href="https://github.com/exagoinc/" aria-label="Exago Inc's GitHub">Exago does, too</a>! These are some of the open source projects I'm working on.</p>
+					<p>
+						I <span className="no-invert">💖</span> FOSS, and I'm proud <a href="https://github.com/exagoinc/" aria-label="Exago Inc's GitHub">Exago does, too</a>! 
+						These are some of the open source projects I'm working on.
+					</p>
 				</div>
 				<div className="card-grid">
 					<Card title="Biometric Diary" url="https://github.com/volleio/Biometric-Diary">
 						<Frame image="/static/images/biometric-diary.png?trace" sourceUrl="https://github.com/volleio/Biometric-Diary"
 							demoUrl="https://biometric-diary.herokuapp.com/">
+							A note taking web app that uses a <a href="https://www.typingdna.com/">keystroke pattern authentication API</a>.
 						</Frame>
 					</Card>
 					<Card title="Mobile DevTools" url="https://github.com/volleio/mobile-devtools">
 						<Frame image="/static/images/mobile-devtools.png?trace" sourceUrl="https://github.com/volleio/mobile-devtools"
 							demoUrl="https://chrome.google.com/webstore/detail/mobile-devtools/okfdckomkajiaeejefanbonnhppmplpo">
+							A mobile browser extension for debugging web sites.
 						</Frame>
 					</Card>
 					<Card title="Colour Picker" url="https://github.com/exagoinc/ColourPicker">
 						<Frame image="/static/images/colourpicker.png?trace" sourceUrl="https://github.com/exagoinc/ColourPicker"
 							demoUrl="https://exagoinc.github.io/ColourPicker/examples.html">
+							A pure TypeScript + LESS color picker module.
 						</Frame>
 					</Card>
 					<Card title="Hoyt L. Sherman's Flash Lab VR" url="https://github.com/volleio/Flash-Lab">
 						<Frame image="/static/images/flash-lab.png?trace"
 							demoUrl="https://flash-lab.glitch.me/"
 							presentationUrl="https://web-vr-hvwp.glitch.me">
+							A virtual reality recreation of a technique for teaching drawing.
 						</Frame>
 					</Card>
-					<Card title="Hackathon Projects" url="https://github.com/volleio/">
-						<Frame image="">
+					<Card title="Hackathon Projects" url="">
+						<h2><a href="https://github.com/cowang4/HackTechValleyStefani">Sanitation Vehicle Tracker</a></h2>
+						<Frame image="/static/images/sanitation-vehicle-tracker.png?trace" sourceUrl="https://github.com/cowang4/HackTechValleyStefani"
+							demoUrl="https://gregcowan.me/HackTechValleyStefani/map.html">
+							A web application for tracking fleets of public vehicles.
+							🏆 Won Innovative Use of Data at <a href="https://www.timesunion.com/business/article/Auto-Mate-coders-win-Hack-Tech-Valley-at-SCCC-12609545.php">Hack Tech Valley</a>.
 						</Frame>
-						<Frame image="">
+						<br/>
+						<h2><a href="https://github.com/garretpremo/summarytospeech">Summary to Speech</a></h2>
+						<Frame image="/static/images/summary-to-speech.png?trace" sourceUrl="https://github.com/garretpremo/summarytospeech">
+							A chrome extension that summarizes and vocalizes text.
+							🏆 Won the Euphony Text-to-Speech API Prize at <a href="https://medium.com/@hackupstate/hack-upstate-viii-the-results-are-in-4c4f4fb1abf">Hack Upstate VIII</a>.
 						</Frame>
 					</Card>
 					<Card title="Volle.io!" url="https://github.com/volleio/volleio.github.io">
