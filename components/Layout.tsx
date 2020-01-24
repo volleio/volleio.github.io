@@ -108,6 +108,9 @@ class Layout extends Component {
 	public componentDidMount() {
 		if (isMobile)
 			(ReactDOM.findDOMNode(this) as HTMLElement).classList.add('is-mobile');
+
+		if ((window as any).portalHost)
+			document.body.style.overflow = 'hidden';
 	}
 }
 

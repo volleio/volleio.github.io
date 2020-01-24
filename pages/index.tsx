@@ -63,7 +63,8 @@ export default function HomePage() {
 						</Frame>
 					</Card>
 					<Card title="Volle.io!" url="https://github.com/volleio/volleio.github.io">
-						<Frame image="/static/images/volle.io.png?trace" sourceUrl="https://github.com/volleio/volleio.github.io">
+						<Frame image="/static/images/volle.io.png?trace" sourceUrl="https://github.com/volleio/volleio.github.io"
+							portalUrl="https://volle.io">
 						</Frame>
 					</Card>
 				</div>
