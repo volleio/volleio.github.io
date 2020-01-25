@@ -3,16 +3,16 @@ import ReactDOM from 'react-dom';
 import { ColourPicker, Colour } from './colourpicker';
 import '../static/colourpicker.css';
 
-class ColorPicker extends Component {
+class ColorPicker extends Component<IColorPickerProps> {
 	private colourPicker!: ColourPicker;
 
 	private indicator!: HTMLElement;
-	private supportsBackdropBlur = false;
 
 	constructor(props: IColorPickerProps) {
 		super(props);
 
 		this.onClick = this.onClick.bind(this);
+		this.UpdateThemeColor = this.UpdateThemeColor.bind(this);
 	}
 
 	public render() {
@@ -64,7 +64,6 @@ class ColorPicker extends Component {
 		const pickerElement = container.querySelector('.color-picker') as HTMLElement;
 
 		this.indicator = container.querySelector('.color-picker-indicator') as HTMLElement;
-		this.supportsBackdropBlur = CSS.supports('backdrop-filter', 'blur(10px) grayscale(50%)');
 		this.colourPicker = new ColourPicker(pickerElement, color => this.UpdateThemeColor(color));
 
 		// Set initial theme by checking local storage, or prefers-color-scheme. Add event listener on prefers-color-scheme.
@@ -92,27 +91,13 @@ class ColorPicker extends Component {
 		}
 		// else if (matchMedia('(prefers-color-scheme: dark)').matches)
 		// 	this.UpdateThemeColor(new Colour('#000'));
-
 	}
 
 	private UpdateThemeColor(color: Colour) {
 		const rgba = color.GetRGBA();
-		document.body.style.backgroundColor = `rgb(${rgba.R}, ${rgba.G}, ${rgba.B})`;
 		this.indicator.style.backgroundColor = `rgb(${rgba.R}, ${rgba.G}, ${rgba.B})`;
 
-		const whiteTintHsl = color.GetHSL();
-		if (whiteTintHsl.L < 0.3)
-			document.documentElement.classList.add('dark-mode');
-		else
-			document.documentElement.classList.remove('dark-mode');
-
-		whiteTintHsl.S = Math.min(whiteTintHsl.S, whiteTintHsl.L);
-		whiteTintHsl.L = 0.9 + whiteTintHsl.L / 10;
-		const whiteTintColor = new Colour(whiteTintHsl);
-		whiteTintColor.SetAlpha(this.supportsBackdropBlur ? 88 : 98);
-
-		(document.querySelector('.header-container') as HTMLElement).style.backgroundColor = whiteTintColor.ToCssString(true);
-	
+		this.props.updateLayoutTheme(color);
 	}
 
 	private onClick() {
@@ -137,7 +122,7 @@ class ColorPicker extends Component {
 }
 
 interface IColorPickerProps {
-
+	updateLayoutTheme: (color: Colour) => void;
 }
 
 export default ColorPicker;

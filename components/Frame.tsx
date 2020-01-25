@@ -201,8 +201,9 @@ interface IFrameProps {
 // for experimental portal element
 declare global { 
 		namespace JSX { 
+		// tslint:disable-next-line: interface-name
 		interface IntrinsicElements {
-			portal: any
+			portal: any;
 		}
 	}
 }

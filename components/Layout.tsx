@@ -3,8 +3,11 @@ import ReactDOM from 'react-dom';
 import Header from './Header';
 import Footer from './Footer';
 import { isMobile } from 'react-device-detect';
+import { Colour } from './colourpicker';
 
 class Layout extends Component {
+	private supportsBackdropBlur = false;
+
 	constructor(props: ILayoutProps) {
 		super(props);
 	}
@@ -14,7 +17,7 @@ class Layout extends Component {
 			<div className="layout">
 				<Header />
 				{this.props.children}
-				<Footer />
+				<Footer updateLayoutTheme={this.UpdateThemeColor} />
 				<style jsx>
 				{`
 					@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400');
@@ -115,7 +118,33 @@ class Layout extends Component {
 			window.addEventListener('portalactivate', (evt) => {
 				document.body.style.overflow = '';
 			});
+
+			(window as any).portalHost.addEventListener('message', (evt: MessageEvent) => {
+				const data = evt.data;
+				if (evt.data.themeColor)
+					this.UpdateThemeColor(new Colour(evt.data.themeColor));
+			});
 		}
+
+		this.supportsBackdropBlur = CSS.supports('backdrop-filter', 'blur(10px) grayscale(50%)');
+	}
+
+	private UpdateThemeColor(color: Colour) {
+		const rgba = color.GetRGBA();
+		document.body.style.backgroundColor = `rgb(${rgba.R}, ${rgba.G}, ${rgba.B})`;
+
+		const whiteTintHsl = color.GetHSL();
+		if (whiteTintHsl.L < 0.3)
+			document.documentElement.classList.add('dark-mode');
+		else
+			document.documentElement.classList.remove('dark-mode');
+
+		whiteTintHsl.S = Math.min(whiteTintHsl.S, whiteTintHsl.L);
+		whiteTintHsl.L = 0.9 + whiteTintHsl.L / 10;
+		const whiteTintColor = new Colour(whiteTintHsl);
+		whiteTintColor.SetAlpha(this.supportsBackdropBlur ? 88 : 98);
+
+		(document.querySelector('.header-container') as HTMLElement).style.backgroundColor = whiteTintColor.ToCssString(true);
 	}
 }
 

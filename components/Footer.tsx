@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import '../static/colourpicker.css';
 import ColorPicker from './ColorPicker';
+import { Colour } from './colourpicker';
 
-class Footer extends Component {
+class Footer extends Component<IFooterProps> {
 	constructor(props: IFooterProps) {
 		super(props);
 	}
@@ -14,7 +15,7 @@ class Footer extends Component {
 					<a href="https://github.com/volleio/volleio.github.io" title="Licensed under the MIT License" aria-label="This site's source code">Open Source</a>
 				</div>
 				<div className="footer-item">
-					<ColorPicker />
+					<ColorPicker updateLayoutTheme={this.props.updateLayoutTheme} />
 				</div>
 				<style jsx>
 					{`
@@ -43,7 +44,7 @@ class Footer extends Component {
 }
 
 interface IFooterProps {
-
+	updateLayoutTheme: (color: Colour) => void;
 }
 
 export default Footer;
