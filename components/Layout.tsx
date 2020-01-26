@@ -105,6 +105,9 @@ class Layout extends Component<ILayoutProps, ILayoutState> {
 						background-color: rgba(150, 150, 150, calc(var(--header-fade-out) / 2 - 0.3));
 						box-shadow: 0 0 0 2px rgba(50, 50, 50, calc(var(--header-fade-out) / 2 - 0.3));
 					}
+					html.dark-mode .business-card__text {
+						color: #969696;
+					}
 					html.dark-mode .welcome-card p {
 						filter: invert(1);
 					}
