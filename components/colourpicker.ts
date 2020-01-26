@@ -678,8 +678,8 @@ export class Colour {
 
 	public ToCssString(includeAlpha = false): string {
 		let str = includeAlpha ? 'rgba(' : 'rgb(';
-		str += this.R + ', ' + this.G + ', ' + this.B;
-		str += includeAlpha ? ', ' + this.A + '%)' : ')';
+		str += Math.round(this.R) + ', ' + Math.round(this.G) + ', ' + Math.round(this.B);
+		str += includeAlpha ? ', ' + Math.round(this.A) + '%)' : ')';
 		return str;
 	}
 

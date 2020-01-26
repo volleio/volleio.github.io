@@ -2,10 +2,9 @@ import React, { Component, MouseEvent, TransitionEvent } from 'react';
 //@ts-ignore
 import * as basicScroll from 'basicscroll';
 import BusinessCard from './BusinessCard';
-import DropdownMenu from './DropdownMenu';
+import Toggle from './Toggle';
 import { isMobile } from 'react-device-detect';
 import '../global.scss';
-import { findDOMNode } from 'react-dom';
 
 class Header extends Component<IHeaderProps, IHeaderState>
 {
@@ -114,6 +113,10 @@ class Header extends Component<IHeaderProps, IHeaderState>
 							]
 						}></DropdownMenu>
 					</div> */}
+					<div className="dark-mode-toggle">
+						<Toggle on={!this.props.darkMode} onToggle={this.props.onDarkModeToggle} 
+							onButtonImage="/static/images/sun.svg?sprite" offButtonImage="/static/images/moon.svg?sprite" />
+					</div>
 				</div>
 				<div className="header-scroll"></div>
 				{/* {AR} */}
@@ -129,13 +132,11 @@ class Header extends Component<IHeaderProps, IHeaderState>
 						transform: translateZ(1px);
 						z-index: 99;
 
-						background: rgba(255, 255, 255, 0.97);
 						box-shadow: 0 0 10px rgba(0, 0, 0, calc((var(--header-height-in) - 0.9) * 2));
 					}
 					@supports (backdrop-filter: blur(15px) grayscale(50%)) {
 						.header-container {
 							backdrop-filter: blur(15px) grayscale(50%);
-							background: linear-gradient(0deg, rgba(255,255,255,0.85), #FFF);
 						}
 					}
 
@@ -150,6 +151,13 @@ class Header extends Component<IHeaderProps, IHeaderState>
 						top: 0;
 						right: 0;
 						margin: 20px;
+					}
+
+					.dark-mode-toggle {
+						position: fixed;
+						top: 0;
+						right: 0;
+						margin: 28px 20px;
 					}
 				`}</style>
 				<style jsx global>{`
@@ -282,7 +290,8 @@ class Header extends Component<IHeaderProps, IHeaderState>
 }
 
 interface IHeaderProps {
-
+	onDarkModeToggle: (on: boolean) => void;
+	darkMode: boolean;
 }
 
 interface IHeaderState {

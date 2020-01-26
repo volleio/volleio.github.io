@@ -23,7 +23,11 @@ class ColorPicker extends Component<IColorPickerProps> {
 				</div>
 				<div className="color-picker"></div>
 				<style jsx>
-					{`
+				{`
+					.color-picker-container {
+						position: relative;
+					}
+
 					.color-picker-border {
 						border: 1px solid #AAA;
 						border-radius: 4px;
@@ -65,32 +69,6 @@ class ColorPicker extends Component<IColorPickerProps> {
 
 		this.indicator = container.querySelector('.color-picker-indicator') as HTMLElement;
 		this.colourPicker = new ColourPicker(pickerElement, color => this.UpdateThemeColor(color));
-
-		// Set initial theme by checking local storage, or prefers-color-scheme. Add event listener on prefers-color-scheme.
-		// addEventListener on matchMedia " is only partial in Safari (Desktop and iOS) including Safari 13 (Technology Preview), 
-		// because the MediaQueryList object that is returned only supports the legacy .addListener() method, but not .addEventListener()."
-		const prefersDark = matchMedia('(prefers-color-scheme: dark)');
-		const onColorSchemeChange = (evt: MediaQueryListEvent) => {
-			let newColorScheme = '#FFF';
-			if (evt.matches)
-				newColorScheme = '#000';
-				
-			this.UpdateThemeColor(new Colour(newColorScheme));
-		};
-
-		if (prefersDark && prefersDark.addEventListener)
-			prefersDark.addEventListener('change', onColorSchemeChange);
-		else if (prefersDark && prefersDark.addListener)
-			prefersDark.addListener(onColorSchemeChange);
-
-		const savedTheme = localStorage.getItem('theme-color');
-		if (savedTheme) {
-			const themeColor = new Colour(savedTheme);
-			this.UpdateThemeColor(themeColor);
-			this.colourPicker.SetColour(themeColor);
-		}
-		// else if (matchMedia('(prefers-color-scheme: dark)').matches)
-		// 	this.UpdateThemeColor(new Colour('#000'));
 	}
 
 	private UpdateThemeColor(color: Colour) {
@@ -107,9 +85,6 @@ class ColorPicker extends Component<IColorPickerProps> {
 		const onBodyClick = (evt: globalThis.MouseEvent) => {
 			if ((evt.target as HTMLElement).closest('.color-picker'))
 				return;
-
-			// Save theme
-			localStorage.setItem('theme-color', this.colourPicker.GetColour().GetHex());
 
 			document.body.removeEventListener('click', onBodyClick);
 			container.classList.remove('active');

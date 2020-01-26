@@ -5,17 +5,22 @@ import Footer from './Footer';
 import { isMobile } from 'react-device-detect';
 import { Colour } from './colourpicker';
 
-class Layout extends Component {
-	private supportsBackdropBlur = false;
-
+class Layout extends Component<ILayoutProps, ILayoutState> {
 	constructor(props: ILayoutProps) {
 		super(props);
+
+		this.state = {
+			themeColor: new Colour('#FFF'),
+			darkMode: false,
+		};
+
+		this.UpdateThemeColor = this.UpdateThemeColor.bind(this);
 	}
 
 	public render() {
 		return (
 			<div className="layout">
-				<Header />
+				<Header onDarkModeToggle={on => this.UpdateThemeColor(new Colour(on ? '#FFF' : '#000'))} darkMode={this.state.darkMode} />
 				{this.props.children}
 				<Footer updateLayoutTheme={this.UpdateThemeColor} />
 				<style jsx>
@@ -40,7 +45,13 @@ class Layout extends Component {
 					html {
 						font-size: 100%;
 					}
-					html.dark-mode {
+					html.dark-mode .header-container {
+						filter: invert(1);
+					}
+					html.dark-mode .main-content-column {
+						filter: invert(1);
+					}
+					html.dark-mode .footer {
 						filter: invert(1);
 					}
 
@@ -120,36 +131,79 @@ class Layout extends Component {
 			});
 
 			(window as any).portalHost.addEventListener('message', (evt: MessageEvent) => {
-				const data = evt.data;
 				if (evt.data.themeColor)
 					this.UpdateThemeColor(new Colour(evt.data.themeColor));
 			});
 		}
 
-		this.supportsBackdropBlur = CSS.supports('backdrop-filter', 'blur(10px) grayscale(50%)');
+		// Set initial theme by checking local storage, or prefers-color-scheme. Add event listener on prefers-color-scheme.
+		// addEventListener on matchMedia " is only partial in Safari (Desktop and iOS) including Safari 13 (Technology Preview), 
+		// because the MediaQueryList object that is returned only supports the legacy .addListener() method, but not .addEventListener()."
+		const prefersDark = matchMedia('(prefers-color-scheme: dark)');
+		const onColorSchemeChange = (evt: MediaQueryListEvent) => {
+			let newColorScheme = '#FFF';
+			if (evt.matches)
+				newColorScheme = '#000';
+				
+			this.UpdateThemeColor(new Colour(newColorScheme));
+		};
+
+		if (prefersDark && prefersDark.addEventListener)
+			prefersDark.addEventListener('change', onColorSchemeChange);
+		else if (prefersDark && prefersDark.addListener)
+			prefersDark.addListener(onColorSchemeChange);
+
+		const savedTheme = localStorage.getItem('theme-color');
+		if (savedTheme)
+			this.UpdateThemeColor(new Colour(savedTheme));
+		// else if (matchMedia('(prefers-color-scheme: dark)').matches)
+		// 	this.UpdateThemeColor(new Colour('#000'));
 	}
 
 	private UpdateThemeColor(color: Colour) {
+		this.setState(() => ({ themeColor: color }));
+
 		const rgba = color.GetRGBA();
 		document.body.style.backgroundColor = `rgb(${rgba.R}, ${rgba.G}, ${rgba.B})`;
 
 		const whiteTintHsl = color.GetHSL();
-		if (whiteTintHsl.L < 0.3)
+		if (whiteTintHsl.L < 0.3) {
 			document.documentElement.classList.add('dark-mode');
-		else
+			this.setState(() => ({ darkMode: true }));
+		}
+		else {
 			document.documentElement.classList.remove('dark-mode');
+			this.setState(() => ({ darkMode: false }));
+		}
 
 		whiteTintHsl.S = Math.min(whiteTintHsl.S, whiteTintHsl.L);
-		whiteTintHsl.L = 0.9 + whiteTintHsl.L / 10;
+		whiteTintHsl.L = 0.9 + whiteTintHsl.L / 5;
 		const whiteTintColor = new Colour(whiteTintHsl);
-		whiteTintColor.SetAlpha(this.supportsBackdropBlur ? 88 : 98);
+		const supportsBackdropBlur = CSS.supports('backdrop-filter', 'blur(10px) grayscale(50%)');
+		whiteTintColor.SetAlpha(supportsBackdropBlur ? 86 : 96);
 
 		(document.querySelector('.header-container') as HTMLElement).style.backgroundColor = whiteTintColor.ToCssString(true);
+
+		// Save theme
+		localStorage.setItem('theme-color', color.GetHex());
+
+		if ('HTMLPortalElement' in window && !(window as any).portalHost) {
+			// Update theme of any portals :)
+			const portals = document.getElementsByTagName('portal');
+			for (const portal of portals) {
+				(portal as any).postMessage({ themeColor: color.GetHex() });
+			}
+		}
 	}
 }
 
 interface ILayoutProps {
 	children: any;
+}
+
+interface ILayoutState {
+	themeColor: Colour;
+	darkMode: boolean;
 }
 
 export default Layout;

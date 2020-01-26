@@ -127,6 +127,11 @@ class Frame extends Component<IFrameProps> {
 					portal {
 						width: 100%;
 						height: 100%;
+					}
+					.portal-cover {
+						position: absolute;
+						width: 100%;
+						height: 100%;
 						cursor: pointer;
 					}
 				`}
@@ -147,18 +152,23 @@ class Frame extends Component<IFrameProps> {
 
 	private setupPortal() {
 		const frame = ReactDOM.findDOMNode(this) as HTMLElement;
+
 		const portal = document.createElement('portal') as HTMLIFrameElement;
 		frame.appendChild(portal);
 		if (this.props.portalUrl)
-			portal.src = this.props.portalUrl;
-			
-		portal.addEventListener('click', () => this.onPortalClick());
+		portal.src = this.props.portalUrl;
+		
+		const portalCover = document.createElement('div') as HTMLElement;
+		frame.insertAdjacentElement('afterbegin', portalCover);
+		portalCover.classList.add('portal-cover');
+		portalCover.addEventListener('click', () => this.onPortalClick());
 
 		const windowHeight = window.innerHeight;
 		const windowWidth = window.innerWidth;
 		const portalWidth = frame.clientWidth;
 
 		portal.style.height = `${portalWidth * (windowHeight / windowWidth)}px`;
+		frame.style.backgroundImage = 'none';
 	}
 
 	private onPortalClick() {
@@ -177,7 +187,8 @@ class Frame extends Component<IFrameProps> {
 
 		const scale = windowWidth / frameBounds.width;
 		const transformFromLeft = frameBounds.left + (frameBounds.width / 2) - (windowWidth / 2);
-		const transformFromTop =  (windowHeight / scale) * (frameBounds.top / windowHeight) + (frameBounds.height / 2);
+		const transformFromTop =  (windowHeight / scale) * (frameBounds.top / windowHeight) + (frameBounds.height / 2) +
+			(windowHeight / windowWidth) * 50;
 		document.body.style.transform = `scale(${scale}) translate(${-1 * transformFromLeft}px, ${-1 * transformFromTop}px)`;
 
 		document.body.addEventListener('transitionend', (evt) => {
