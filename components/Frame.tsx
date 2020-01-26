@@ -156,7 +156,7 @@ class Frame extends Component<IFrameProps> {
 		const portal = document.createElement('portal') as HTMLIFrameElement;
 		frame.appendChild(portal);
 		if (this.props.portalUrl)
-		portal.src = this.props.portalUrl;
+			portal.src = this.props.portalUrl;
 		
 		const portalCover = document.createElement('div') as HTMLElement;
 		frame.insertAdjacentElement('afterbegin', portalCover);
